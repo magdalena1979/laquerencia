@@ -1,51 +1,112 @@
-import { Box, Container, HStack, Spacer, Link as CLink, IconButton, useDisclosure, Collapse, Stack, Image } from "@chakra-ui/react";
-import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
-import { Link as RouterLink } from "react-router";
+import {
+  Box,
+  Container,
+  Flex,
+  HStack,
+  IconButton,
+  Stack,
+  useDisclosure,
+  useColorModeValue,
+  Image,
+  Link as CLink,
+} from '@chakra-ui/react'
+import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
+import { Link as RouterLink } from 'react-router'
+import React from 'react'
 
 const navItems = [
-  { href: "/", label: "Inicio" },
-  { href: "/centro", label: "Centro" },
-  { href: "/servicios", label: "Servicios" },
-  { href: "/equipo", label: "Equipo" },
-  { href: "/contacto", label: "Contacto" },
-];
+  { href: '/', label: 'Inicio' },
+  { href: '/centro', label: 'Centro' },
+  { href: '/servicios', label: 'Servicios' },
+  { href: '/equipo', label: 'Equipo' },
+  { href: '/contacto', label: 'Contacto' },
+]
 
-export function Navbar() {
-  const { isOpen, onToggle } = useDisclosure();
+function NavLink({ to, children }: { to: string; children: React.ReactNode }) {
   return (
-    <Box as="header" borderBottom="1px" borderColor="blackAlpha.100" bg="white" position="sticky" top={0} zIndex={20}>
-      <Container maxW="6xl" py={3}>
-        <HStack>
-          <RouterLink to="/">
-            <Image src="/logo.png" alt="La Querencia" h="140px" objectFit="contain" />
-          </RouterLink>
-          <Spacer />
+    <CLink
+      as={RouterLink}
+      to={to}
+      fontSize="sm"
+      textTransform="uppercase"
+      letterSpacing="0.08em"
+      _hover={{ color: 'brand.500' }}
+    >
+      {children}
+    </CLink>
+  )
+}
 
-          {/* Desktop */}
-          <HStack display={{ base: "none", md: "flex" }} spacing={6}>
-            {navItems.map((i) => (
-              <CLink key={i.href} href={i.href} fontSize="sm" textTransform="uppercase" letterSpacing="0.08em" _hover={{ color: "brand.500" }}>
-                {i.label}
-              </CLink>
-            ))}
-          </HStack>
+export default function Navbar() {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const dropdownBg = useColorModeValue('white', 'gray.900')
 
-          {/* Mobile */}
-          <IconButton aria-label="Abrir menú" icon={isOpen ? <CloseIcon /> : <HamburgerIcon />} variant="ghost" display={{ base: "inline-flex", md: "none" }} onClick={onToggle} />
-        </HStack>
-      </Container>
+  // altura visual del header (h=16 => 64px). Ajustá si cambiás paddings/alturas
+  const HEADER_H = 16
 
-      <Collapse in={isOpen} animateOpacity>
-        <Container maxW="6xl" pb={4} display={{ md: "none" }}>
-          <Stack spacing={3}>
-            {navItems.map((i) => (
-              <CLink key={i.href} href={i.href} fontSize="sm" textTransform="uppercase" letterSpacing="0.08em" _hover={{ color: "brand.500" }}>
-                {i.label}
-              </CLink>
-            ))}
-          </Stack>
+  return (
+    <>
+      <Box
+  as="header"
+  position="fixed"
+  top={0}
+  insetX={0}
+  zIndex={20}
+  bg="rgba(255,255,255,0.1)"   // fondo casi transparente
+  backdropFilter="blur(12px)"
+  sx={{ backgroundColor: 'transparent !important' }}
+  border="0"
+  boxShadow="none"
+>
+        <Container maxW="6xl" py={3}>
+          <Flex h={HEADER_H} align="center" justify="space-between">
+            {/* Logo */}
+            <CLink as={RouterLink} to="/">
+              <Image
+                src="/logo2.png"
+                alt="La Querencia"
+                h={{ base: '56px', md: '72px' }}
+                objectFit="contain"
+              />
+            </CLink>
+
+            {/* Links desktop */}
+            <HStack as="nav" spacing={6} display={{ base: 'none', md: 'flex' }}>
+              {navItems.map((i) => (
+                <NavLink key={i.href} to={i.href}>
+                  {i.label}
+                </NavLink>
+              ))}
+            </HStack>
+
+            {/* Botón mobile */}
+            <IconButton
+              aria-label="Abrir menú"
+              icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+              variant="ghost"
+              display={{ base: 'inline-flex', md: 'none' }}
+              onClick={isOpen ? onClose : onOpen}
+            />
+          </Flex>
         </Container>
-      </Collapse>
-    </Box>
-  );
+
+        {/* Menú mobile */}
+        {isOpen && (
+          <Box bg={dropdownBg} display={{ md: 'none' }} pb={4}>
+            <Container maxW="6xl">
+              <Stack as="nav" spacing={3}>
+                {navItems.map((i) => (
+                  <NavLink key={i.href} to={i.href}>
+                    {i.label}
+                  </NavLink>
+                ))}
+              </Stack>
+            </Container>
+          </Box>
+        )}
+      </Box>
+
+     
+    </>
+  )
 }
