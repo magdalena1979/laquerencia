@@ -1,46 +1,76 @@
-import { Stack, Flex, Button, Text, VStack, useBreakpointValue } from '@chakra-ui/react'
+import { Box, Container, Heading, Text, Stack, Button, useColorModeValue } from "@chakra-ui/react";
+import { Link as RouterLink } from "react-router";
 
-export default function HeroQuerencia() {
+export default function HeroSticky() {
   return (
-    <Flex
-      w={'full'}
-      h={'100vh'}
-      backgroundImage="url('/hero1.jpg')"
-      backgroundSize={'cover'}
-      backgroundPosition={'center center'}>
-      <VStack
-        w={'full'}
-        justify={'center'}
-        px={useBreakpointValue({ base: 4, md: 8 })}
-        bgGradient={'linear(to-r, blackAlpha.600, transparent)'}>
-        <Stack maxW={'2xl'} align={'flex-start'} spacing={6}>
-          <Text
-            color={'white'}
-            fontWeight={700}
-            lineHeight={1.2}
-            fontSize={useBreakpointValue({ base: '3xl', md: '4xl' })}>
+    <Box as="section" position="relative" h={{ base: "140vh", md: "180vh" }}>
+      {/* Fondo: imagen o video que scrollea */}
+      <Box position="absolute" inset={0} overflow="hidden">
+        {/* USA UNA DE LAS DOS OPCIONES */}
+
+     
+     <Box
+          as="img"
+          src="/hero1.jpg"
+          alt="La Querencia"
+          w="100%"
+          h="100%"
+          objectFit="cover"
+        /> 
+
+     
+       
+
+        {/* Capa para contraste del texto */}
+        <Box position="absolute" inset={0} bgGradient="linear(to-b, blackAlpha.600, blackAlpha.300)" />
+      </Box>
+
+      {/* Overlay STICKY con el copy y CTAs (queda fijo) */}
+      <Container
+        position="sticky"
+        top={0}
+        h="100vh"
+        display="grid"
+        placeItems="center"
+        zIndex={1}
+      >
+        <Stack spacing={6} textAlign="left" maxW="3xl">
+          <Heading
+            color="white"
+            fontWeight={800}
+            lineHeight={1.1}
+            fontSize={{ base: "3xl", md: "5xl" }}
+          >
             Reproducción equina de excelencia en Uruguay.
-Cuidamos tu yegua, potenciamos tu genética</Text>
-          <Stack direction={'row'}>
+          </Heading>
+
+          <Text color="whiteAlpha.900" fontSize={{ base: "md", md: "lg" }}>
+            Cuidamos tu yegua, potenciamos tu genética.
+          </Text>
+
+          <Stack direction="row" spacing={4}>
             <Button
-              bg={'blue.400'}
-              rounded={'full'}
-              color={'white'}
-              _hover={{ bg: 'blue.500' }}>
-              Show me more
+              as={RouterLink}
+              to="/contacto"
+              bg="#C18A4D"
+              color="white"
+              _hover={{ bg: "#A8743F" }}
+            >
+              Contáctanos
             </Button>
             <Button
-              bg={'whiteAlpha.300'}
-              rounded={'full'}
-              color={'white'}
-              _hover={{ bg: 'whiteAlpha.500' }}>
-              Show me more
+              as={RouterLink}
+              to="/servicios"
+              variant="outline"
+              color="white"
+              borderColor="whiteAlpha.700"
+              _hover={{ bg: "whiteAlpha.200" }}
+            >
+              Ver servicios
             </Button>
           </Stack>
         </Stack>
-      </VStack>
-   
-    </Flex>
-    
-  )
+      </Container>
+    </Box>
+  );
 }
