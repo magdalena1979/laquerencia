@@ -16,10 +16,10 @@ import React from 'react'
 
 const navItems = [
   { href: '/', label: 'Inicio' },
-  { href: '/centro', label: 'Centro' },
+  { href: '/centro', label: 'Padrillos' },
   { href: '/servicios', label: 'Servicios' },
-  { href: '/equipo', label: 'Equipo' },
-  { href: '/contacto', label: 'Contacto' },
+  { href: '/equipo', label: 'Quienes somos' },
+  { href: '/contacto', label: 'Donde estamos' },
 ]
 
 function NavLink({ to, children }: { to: string; children: React.ReactNode }) {
