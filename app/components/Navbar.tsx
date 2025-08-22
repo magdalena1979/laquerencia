@@ -9,18 +9,18 @@ import {
   useColorModeValue,
   Image,
   Link as CLink,
-} from '@chakra-ui/react'
-import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
-import { Link as RouterLink } from 'react-router'
-import React from 'react'
+} from "@chakra-ui/react";
+import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
+import { Link as RouterLink } from "react-router";
+import React from "react";
 
 const navItems = [
-  { href: '/', label: 'Inicio' },
-  { href: '/centro', label: 'Padrillos' },
-  { href: '/servicios', label: 'Servicios' },
-  { href: '/equipo', label: 'Quienes somos' },
-  { href: '/contacto', label: 'Donde estamos' },
-]
+  { href: "/", label: "Inicio" },
+  { href: "/centro", label: "Padrillos" },
+  { href: "/servicios", label: "Servicios" },
+  { href: "/equipo", label: "Quienes somos" },
+  { href: "/contacto", label: "Donde estamos" },
+];
 
 function NavLink({ to, children }: { to: string; children: React.ReactNode }) {
   return (
@@ -28,9 +28,11 @@ function NavLink({ to, children }: { to: string; children: React.ReactNode }) {
       as={RouterLink}
       to={to}
       fontSize="sm"
+      fontWeight="600" // semibold
       textTransform="uppercase"
       letterSpacing="0.08em"
-      _hover={{ color: 'brand.500' }}
+      color="#A8743F"
+      _hover={{ color: '#15322D' }}
     >
       {children}
     </CLink>
@@ -40,30 +42,28 @@ function NavLink({ to, children }: { to: string; children: React.ReactNode }) {
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const dropdownBg = useColorModeValue('white', 'gray.900')
-
-  // altura visual del header (h=16 => 64px). Ajustá si cambiás paddings/alturas
   const HEADER_H = 16
 
   return (
     <>
       <Box
-  as="header"
-  position="fixed"
-  top={0}
-  insetX={0}
-  zIndex={20}
-  bg="rgba(255,255,255,0.1)"   // fondo casi transparente
-  backdropFilter="blur(12px)"
-  sx={{ backgroundColor: 'transparent !important' }}
-  border="0"
-  boxShadow="none"
->
+        as="header"
+        position="fixed"
+        top={0}
+        insetX={0}
+        zIndex={20}
+        bg="rgba(255,255,255,0.1)"
+        backdropFilter="blur(12px)"
+        sx={{ backgroundColor: 'transparent !important' }}
+        border="0"
+        boxShadow="none"
+      >
         <Container maxW="6xl" py={3}>
           <Flex h={HEADER_H} align="center" justify="space-between">
             {/* Logo */}
             <CLink as={RouterLink} to="/">
               <Image
-                src="/logo2.png"
+                src="/logo1.png"
                 alt="La Querencia"
                 h={{ base: '56px', md: '72px' }}
                 objectFit="contain"
@@ -84,8 +84,11 @@ export default function Navbar() {
               aria-label="Abrir menú"
               icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
               variant="ghost"
+              fontSize="1.8rem"
+              color="#A8743F"
               display={{ base: 'inline-flex', md: 'none' }}
               onClick={isOpen ? onClose : onOpen}
+              _hover={{ bg: "transparent", color: "#15322D" }}
             />
           </Flex>
         </Container>
@@ -105,8 +108,7 @@ export default function Navbar() {
           </Box>
         )}
       </Box>
-
-     
     </>
   )
 }
+
