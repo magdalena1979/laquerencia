@@ -106,31 +106,26 @@ export default function Hero2() {
         </Stack>
 
         <Flex
-          flex={{ base: "1 1 100%", md: "0 0 auto" }} // 👈 auto, no 42%
+          flex={{ base: "1 1 100%", md: "0 0 auto" }} 
           maxW="none"
           justify="center"
           align="center"
         >
           <Box
-            display="inline-block" // 👈 el box se ajusta al contenido
+            display="inline-block" 
             rounded="2xl"
             boxShadow="2xl"
             overflow="hidden"
           >
             <AspectRatio
-              ratio={9 / 16}
+              ratio={16 / 16}
               w={{ base: "280px", md: "300px", lg: "380px" }} // 👈 elegí el ancho; la altura sale sola
             >
-              <video
-                src="/hero4.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                style={{
-                  objectFit: "cover",
-                  objectPosition: "center",
-                }}
+              <Image
+                src="/card1.jpg"
+                alt="Caballo en reproducción"
+                objectFit="cover"
+                borderRadius="2xl"
               />
             </AspectRatio>
           </Box>
