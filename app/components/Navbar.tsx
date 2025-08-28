@@ -40,7 +40,7 @@ const navItems = [
       { href: "/servicios#opu", label: "OPU" },
     ],
   },
-  { href: "/equipo", label: "Quienes somos" },
+ { href: "/quienes_somos", label: "Quiénes somos" },
   { href: "/donde_estamos", label: "Donde estamos" },
   { href: "/contacto", label: "Contacto" },
 ];
