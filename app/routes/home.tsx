@@ -30,14 +30,15 @@ export default function Home() {
       <HeroQuerencia />
       <Hero2 />
       <AboutPreview />
-      <Box mx="calc(50% - 50vw)" w="100vw"> {/* opcional full-bleed */}
-      <ImageStrip
-        images={stripImages}
-        ratio={8/6}                        
-        itemWidth={{ base: "80%", sm: "55%", md: "40%", lg: "30%" }} 
-        // ↑ ajustá cuántas se ven a la vez: 1–2 en móvil, 3–4 en desktop
-      />
-    </Box>
+      <Box mx="calc(50% - 50vw)" w="100vw">
+        {" "}
+        {/* opcional full-bleed */}
+        <ImageStrip
+          images={stripImages}
+          ratio={4 / 3} // más alto; bajá hasta 1.2 si querés aún más altura
+          itemWidth={{ base: "75%", sm: "55%", md: "38%", lg: "28%" }}
+        />
+      </Box>
     </>
   );
 }

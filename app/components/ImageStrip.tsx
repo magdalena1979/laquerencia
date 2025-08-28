@@ -1,23 +1,23 @@
 import * as React from "react";
-import { Box, IconButton, Image, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Image, useBreakpointValue, Icon } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 
 type Props = {
   images: string[];
   alts?: string[];
-  /** Ancho de cada ítem (cuántas se ven por vista). */
-  itemWidth?: any; // ej: { base: "85%", sm: "60%", md: "45%", lg: "33.333%" }
-  /** Relación de aspecto (todas horizontales). */
-  ratio?: number;  // 16/9 por defecto
+  itemWidth?: any;              // p.ej. { base: "75%", sm: "55%", md: "40%", lg: "30%" }
+  ratio?: number;               // más chico = más alto (ej. 3/2, 4/3, 1.2)
   showArrows?: boolean;
+  hover?: boolean;
 };
 
 export default function ImageStrip({
   images,
   alts,
-  itemWidth = { base: "85%", sm: "60%", md: "45%", lg: "33.333%" },
-  ratio = 16 / 9,
+  ratio = 3 / 2,                // más alto que 16/9
+  itemWidth = { base: "75%", sm: "55%", md: "40%", lg: "30%" },
   showArrows = true,
+  hover = true,
 }: Props) {
   const trackRef = React.useRef<HTMLDivElement>(null);
   const top = useBreakpointValue({ base: "50%", md: "50%" });
@@ -30,14 +30,17 @@ export default function ImageStrip({
   };
 
   return (
-    <Box position="relative" w="full">
-      {/* Tira horizontal sin separación */}
+    // 👇 Padre con "group" (no _group)
+    <Box position="relative" w="full" role="group">
+      {/* Pista */}
       <Box
         ref={trackRef}
+        role="region"
+        aria-label="Tira de imágenes"
         display="grid"
         gridAutoFlow="column"
         gridAutoColumns={itemWidth}
-        gap={0}                        // 👈 SIN espacio entre imágenes
+        gap={0}
         overflowX="auto"
         overflowY="hidden"
         scrollSnapType="x mandatory"
@@ -49,8 +52,7 @@ export default function ImageStrip({
         }}
       >
         {images.map((src, i) => (
-          <Box key={i} position="relative" scrollSnapAlign="start">
-            {/* Contenedor con ratio fijo para que todas queden iguales */}
+          <Box key={i} position="relative" scrollSnapAlign="start" overflow="hidden">
             <Box position="relative" w="100%" pt={`${(1 / ratio) * 100}%`}>
               <Image
                 src={src}
@@ -62,46 +64,68 @@ export default function ImageStrip({
                 objectFit="cover"
                 draggable={false}
                 loading="lazy"
-                display="block"        // 👈 evita “hairlines” por inline-gap
-                borderRadius="0"       // 👈 sin redondeos
-                boxShadow="none"       // 👈 sin sombras
-                bg="transparent"
+                display="block"
+                transition="transform .35s ease, filter .35s ease"
+                transformOrigin="center"
+                _hover={hover ? { transform: "scale(1.035)", filter: "brightness(1.03)" } : {}}
               />
             </Box>
           </Box>
         ))}
       </Box>
 
+      {/* Flechas overlay semitransparentes */}
       {showArrows && images.length > 1 && (
         <>
-          <IconButton
+          <Box
+            as="button"
             aria-label="Anterior"
-            icon={<ChevronLeftIcon boxSize={6} />}
+            onClick={() => scrollBy(-1)}
             position="absolute"
             left={2}
             top={top}
             transform="translateY(-50%)"
+            zIndex={2}
+            w="42px"
+            h="42px"
+            display="grid"
+            placeItems="center"
             rounded="full"
-            bg="white"
-            border="1px solid"
-            borderColor="blackAlpha.300"
-            _hover={{ bg: "gray.50" }}
-            onClick={() => scrollBy(-1)}
-          />
-          <IconButton
+            bg="blackAlpha.400"
+            color="whiteAlpha.900"
+            opacity={{ base: 0.85, md: 0 }}      // ocultas en desktop hasta hover
+            _groupHover={{ opacity: 0.95 }}      // 👈 ahora sí funciona
+            _hover={{ bg: "blackAlpha.500" }}
+            _active={{ bg: "blackAlpha.600" }}
+            style={{ backdropFilter: "blur(2px)" }}
+          >
+            <Icon as={ChevronLeftIcon} boxSize={6} />
+          </Box>
+
+          <Box
+            as="button"
             aria-label="Siguiente"
-            icon={<ChevronRightIcon boxSize={6} />}
+            onClick={() => scrollBy(1)}
             position="absolute"
             right={2}
             top={top}
             transform="translateY(-50%)"
+            zIndex={2}
+            w="42px"
+            h="42px"
+            display="grid"
+            placeItems="center"
             rounded="full"
-            bg="white"
-            border="1px solid"
-            borderColor="blackAlpha.300"
-            _hover={{ bg: "gray.50" }}
-            onClick={() => scrollBy(1)}
-          />
+            bg="blackAlpha.400"
+            color="whiteAlpha.900"
+            opacity={{ base: 0.85, md: 0 }}
+            _groupHover={{ opacity: 0.95 }}
+            _hover={{ bg: "blackAlpha.500" }}
+            _active={{ bg: "blackAlpha.600" }}
+            style={{ backdropFilter: "blur(2px)" }}
+          >
+            <Icon as={ChevronRightIcon} boxSize={6} />
+          </Box>
         </>
       )}
     </Box>
