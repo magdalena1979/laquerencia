@@ -9,16 +9,19 @@ import {
   useColorModeValue,
   Image,
   Link as CLink,
+  // (dejé estos imports aunque ya no usamos <Menu>; no afectan)
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverBody,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { Link as RouterLink, useLocation } from "react-router";
 import React, { useEffect, useState } from "react";
-import { Popover, PopoverTrigger, PopoverContent, PopoverBody } from "@chakra-ui/react";
-
 
 const navItems = [
   { href: "/", label: "Inicio" },
@@ -66,7 +69,6 @@ function NavLink({ to, children }: { to: string; children: React.ReactNode }) {
 
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const svc = useDisclosure();
   const location = useLocation();
 
   const [scrolled, setScrolled] = useState(false);
@@ -111,14 +113,16 @@ export default function Navbar() {
           <HStack as="nav" spacing={6} display={{ base: "none", md: "flex" }}>
             {navItems.map((i) =>
               i.dropdown ? (
-                <Box
+                <Popover
                   key={i.href}
-                  onMouseEnter={svc.onOpen}
-                  onMouseLeave={svc.onClose}
+                  trigger="hover"
+                  placement="bottom-start"
+                  openDelay={80}
+                  closeDelay={100}
                 >
-                  <Menu isOpen={svc.isOpen} isLazy>
-                    {/* 👉 ahora navega a /servicios al hacer click */}
-                    <MenuButton
+                  <PopoverTrigger>
+                    {/* Link con MISMO estilo que el resto y navega a /servicios al click */}
+                    <CLink
                       as={RouterLink}
                       to={i.href}
                       fontSize="sm"
@@ -136,59 +140,64 @@ export default function Navbar() {
                       transition="all 0.2s ease"
                     >
                       {i.label}
-                    </MenuButton>
+                    </CLink>
+                  </PopoverTrigger>
 
-                    <MenuList
-                      bg="rgba(255,255,255,0.70)"
-                      border="1px solid"
-                      borderColor="rgba(168,116,63,0.3)"
-                      boxShadow="xl"
-                      rounded="lg"
-                      py={2}
-                      mt={3}
-                      minW="280px"
-                    >
-                      {i.dropdown.map((sub) => (
-                        <MenuItem
-                          key={sub.href}
-                          as={RouterLink}
-                          to={sub.href}
-                          fontSize="sm"
-                          fontWeight="600"
-                          letterSpacing="0.02em"
-                          textTransform="none"
-                          color="#A8743F"
-                          lineHeight="1.4"
-                          px={4}
-                          py={3}
-                          bg="transparent"
-                          position="relative"
-                          transition="all 0.2s ease"
-                          _hover={{ bg: "rgba(168,116,63,0.08)", color: "#15322D" }}
-                          _focus={{ bg: "rgba(168,116,63,0.12)", color: "#15322D" }}
-                          _before={{
-                            content: '""',
-                            position: "absolute",
-                            left: 0,
-                            top: "15%",
-                            bottom: "15%",
-                            width: "3px",
-                            borderRadius: "full",
-                            backgroundColor: "transparent",
-                            transition: "background-color 0.2s ease",
-                          }}
-                          sx={{
-                            "&:hover::before,&:focus::before": {
-                              backgroundColor: "#A8743F",
-                            },
-                          }}
-                        >
-                          {sub.label}
-                        </MenuItem>
-                      ))}
-                    </MenuList>
-                  </Menu>
-                </Box>
+                  <PopoverContent
+                    bg="rgba(255,255,255,0.70)"
+                    border="1px solid"
+                    borderColor="rgba(168,116,63,0.3)"
+                    boxShadow="xl"
+                    rounded="lg"
+                    mt={3}
+                    minW="280px"
+                    w="auto"
+                  >
+                    <PopoverBody p={2}>
+                      <Stack>
+                        {i.dropdown.map((sub) => (
+                          <CLink
+                            key={sub.href}
+                            as={RouterLink}
+                            to={sub.href}
+                            fontSize="sm"
+                            fontWeight="600"
+                            letterSpacing="0.02em"
+                            textTransform="none"
+                            color="#A8743F"
+                            lineHeight="1.4"
+                            px={4}
+                            py={3}
+                            position="relative"
+                            rounded="md"
+                            transition="all 0.2s ease"
+                            _hover={{ bg: "rgba(168,116,63,0.08)", color: "#15322D" }}
+                            _focus={{ bg: "rgba(168,116,63,0.12)", color: "#15322D" }}
+                            display="block"
+                            _before={{
+                              content: '""',
+                              position: "absolute",
+                              left: 0,
+                              top: "15%",
+                              bottom: "15%",
+                              width: "3px",
+                              borderRadius: "9999px",
+                              backgroundColor: "transparent",
+                              transition: "background-color 0.2s ease",
+                            }}
+                            sx={{
+                              "&:hover::before,&:focus::before": {
+                                backgroundColor: "#A8743F",
+                              },
+                            }}
+                          >
+                            {sub.label}
+                          </CLink>
+                        ))}
+                      </Stack>
+                    </PopoverBody>
+                  </PopoverContent>
+                </Popover>
               ) : (
                 <NavLink key={i.href} to={i.href}>
                   {i.label}
