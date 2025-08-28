@@ -44,3 +44,4 @@ export const theme = extendTheme({
     Heading: { baseStyle: { letterSpacing: "-0.02em" } },
   },
 });
+export default theme;
