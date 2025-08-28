@@ -9,6 +9,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 
+
 interface Person {
   name: string;
   role: string;
@@ -24,14 +25,14 @@ const people: Person[] = [
       "Médico Veterinario – Universidad de la República (Uruguay). " +
       "Programa de Dirección de Agronegocios – Universidad Austral (Buenos Aires). " +
       "Especializada en reproducción equina y gestión de programas de cría.",
-    photo: "/images/team/veronica-cavestany.jpg",
+    photo: "/vero.jpeg",
   },
   {
     name: "José Koci",
     role: "Médico Veterinario",
     bio:
       "Próximamente ampliaremos su perfil profesional. Integra el equipo clínico y reproductivo de La Querencia.",
-    photo: "/images/team/jose-koci.jpg",
+    photo: "/pepe.jpg",
   },
   {
     name: "Walter",

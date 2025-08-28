@@ -17,6 +17,8 @@ import {
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { Link as RouterLink, useLocation } from "react-router";
 import React, { useEffect, useState } from "react";
+import { Popover, PopoverTrigger, PopoverContent, PopoverBody } from "@chakra-ui/react";
+
 
 const navItems = [
   { href: "/", label: "Inicio" },
@@ -24,23 +26,14 @@ const navItems = [
     href: "/servicios",
     label: "Servicios",
     dropdown: [
-      {
-        href: "/servicios#seguimiento-folicular",
-        label: "Seguimiento folicular",
-      },
+      { href: "/servicios#seguimiento-folicular", label: "Seguimiento folicular" },
       { href: "/servicios#colecta-semen", label: "Colecta de semen" },
-      {
-        href: "/servicios#inseminacion-artificial",
-        label: "Inseminación artificial",
-      },
-      {
-        href: "/servicios#transferencia-embriones",
-        label: "Transferencia de embriones",
-      },
+      { href: "/servicios#inseminacion-artificial", label: "Inseminación artificial" },
+      { href: "/servicios#transferencia-embriones", label: "Transferencia de embriones" },
       { href: "/servicios#opu", label: "OPU" },
     ],
   },
- { href: "/quienes_somos", label: "Quiénes somos" },
+  { href: "/quienes_somos", label: "Quiénes somos" },
   { href: "/donde_estamos", label: "Donde estamos" },
   { href: "/contacto", label: "Contacto" },
 ];
@@ -124,8 +117,10 @@ export default function Navbar() {
                   onMouseLeave={svc.onClose}
                 >
                   <Menu isOpen={svc.isOpen} isLazy>
+                    {/* 👉 ahora navega a /servicios al hacer click */}
                     <MenuButton
-                      as={CLink}
+                      as={RouterLink}
+                      to={i.href}
                       fontSize="sm"
                       fontWeight="600"
                       textTransform="uppercase"
@@ -161,22 +156,16 @@ export default function Navbar() {
                           fontSize="sm"
                           fontWeight="600"
                           letterSpacing="0.02em"
-                          textTransform="none" // 👈 sin mayúsculas
-                          color="#A8743F" // 👈 dorado por defecto
+                          textTransform="none"
+                          color="#A8743F"
                           lineHeight="1.4"
                           px={4}
                           py={3}
                           bg="transparent"
                           position="relative"
                           transition="all 0.2s ease"
-                          _hover={{
-                            bg: "rgba(168,116,63,0.08)",
-                            color: "#15322D", // 👈 verde al hover
-                          }}
-                          _focus={{
-                            bg: "rgba(168,116,63,0.12)",
-                            color: "#15322D", // 👈 verde también al focus
-                          }}
+                          _hover={{ bg: "rgba(168,116,63,0.08)", color: "#15322D" }}
+                          _focus={{ bg: "rgba(168,116,63,0.12)", color: "#15322D" }}
                           _before={{
                             content: '""',
                             position: "absolute",
@@ -188,8 +177,6 @@ export default function Navbar() {
                             backgroundColor: "transparent",
                             transition: "background-color 0.2s ease",
                           }}
-                          _hoverBefore={{ backgroundColor: "#A8743F" }}
-                          _focusBefore={{ backgroundColor: "#A8743F" }}
                           sx={{
                             "&:hover::before,&:focus::before": {
                               backgroundColor: "#A8743F",
