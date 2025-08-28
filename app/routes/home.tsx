@@ -22,6 +22,9 @@ const stripImages = [
   "/slicer4.jpg",
   "/slicer5.jpg",
   "/slicer6.png",
+  "/slicer7.jpg",
+  "/slicer8.jpg",
+  "/slicer9.jpg", 
 ];
 
 export default function Home() {
