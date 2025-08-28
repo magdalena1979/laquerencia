@@ -9,16 +9,17 @@ import {
   useColorModeValue,
   Image,
   Link as CLink,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { Link as RouterLink, useLocation } from "react-router";
-import React from "react";
-import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
-import { ChevronDownIcon } from "@chakra-ui/icons";
+import React, { useEffect, useState } from "react";
 
 const navItems = [
   { href: "/", label: "Inicio" },
-  //  { href: '/centro', label: 'Padrillos' },
   {
     href: "/servicios",
     label: "Servicios",
@@ -48,6 +49,9 @@ function NavLink({ to, children }: { to: string; children: React.ReactNode }) {
   const location = useLocation();
   const isActive = location.pathname === to;
 
+  const gold = "#A8743F";
+  const green = "#15322D";
+
   return (
     <CLink
       as={RouterLink}
@@ -56,9 +60,9 @@ function NavLink({ to, children }: { to: string; children: React.ReactNode }) {
       fontWeight="600"
       textTransform="uppercase"
       letterSpacing="0.08em"
-      color="#A8743F"
-      _hover={{ color: "#15322D" }}
-      borderBottom={isActive ? "2px solid #A8743F" : "2px solid transparent"} // 👈 subrayado activo
+      color={gold}
+      _hover={{ color: green }}
+      borderBottom={isActive ? `2px solid ${gold}` : "2px solid transparent"}
       pb="2px"
       transition="all 0.2s ease"
     >
@@ -69,141 +73,187 @@ function NavLink({ to, children }: { to: string; children: React.ReactNode }) {
 
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const dropdownBg = useColorModeValue("white", "gray.900");
-  const HEADER_H = 16;
-  const location = useLocation();
   const svc = useDisclosure();
-  return (
-    <>
-      <Box
-        as="header"
-        position="fixed"
-        top={0}
-        insetX={0}
-        zIndex={20}
-        bg="rgba(255,255,255,0.1)"
-        backdropFilter="blur(12px)"
-        sx={{ backgroundColor: "transparent !important" }}
-        border="0"
-        boxShadow="none"
-      >
-        <Container maxW="6xl" py={3}>
-          <Flex h={HEADER_H} align="center" justify="space-between">
-            {/* Logo */}
-            <CLink as={RouterLink} to="/">
-              <Image
-                src="/logo1.png"
-                alt="La Querencia"
-                h={{ base: "56px", md: "72px" }}
-                objectFit="contain"
-              />
-            </CLink>
+  const location = useLocation();
 
-            {/* Menú desktop */}
-            <HStack as="nav" spacing={6} display={{ base: "none", md: "flex" }}>
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const dropdownBg = useColorModeValue("white", "gray.900");
+  const gold = "#A8743F";
+  const green = "#15322D";
+  const HEADER_H = 16;
+
+  return (
+    <Box
+      as="header"
+      position="fixed"
+      top={0}
+      insetX={0}
+      zIndex={50}
+      bg={scrolled ? "rgba(255,255,255,0.6)" : "rgba(255,255,255,0.95)"}
+      backdropFilter="saturate(160%) blur(12px)"
+      borderBottom="1px solid"
+      borderColor={scrolled ? "rgba(168,116,63,0.25)" : "transparent"}
+      boxShadow={scrolled ? "sm" : "none"}
+    >
+      <Container maxW="6xl" py={3}>
+        <Flex h={HEADER_H} align="center" justify="space-between">
+          {/* Logo */}
+          <CLink as={RouterLink} to="/">
+            <Image
+              src="/logo1.png"
+              alt="La Querencia"
+              h={{ base: "56px", md: "72px" }}
+              objectFit="contain"
+            />
+          </CLink>
+
+          {/* Menú desktop */}
+          <HStack as="nav" spacing={6} display={{ base: "none", md: "flex" }}>
+            {navItems.map((i) =>
+              i.dropdown ? (
+                <Box
+                  key={i.href}
+                  onMouseEnter={svc.onOpen}
+                  onMouseLeave={svc.onClose}
+                >
+                  <Menu isOpen={svc.isOpen} isLazy>
+                    <MenuButton
+                      as={CLink}
+                      fontSize="sm"
+                      fontWeight="600"
+                      textTransform="uppercase"
+                      letterSpacing="0.08em"
+                      color={gold}
+                      _hover={{ color: green }}
+                      borderBottom={
+                        location.pathname.startsWith(i.href)
+                          ? `2px solid ${gold}`
+                          : "2px solid transparent"
+                      }
+                      pb="2px"
+                      transition="all 0.2s ease"
+                    >
+                      {i.label}
+                    </MenuButton>
+
+                    <MenuList
+                      bg="rgba(255,255,255,0.70)"
+                      border="1px solid"
+                      borderColor="rgba(168,116,63,0.3)"
+                      boxShadow="xl"
+                      rounded="lg"
+                      py={2}
+                      mt={3}
+                      minW="280px"
+                    >
+                      {i.dropdown.map((sub) => (
+                        <MenuItem
+                          key={sub.href}
+                          as={RouterLink}
+                          to={sub.href}
+                          fontSize="sm"
+                          fontWeight="600"
+                          letterSpacing="0.02em"
+                          textTransform="none" // 👈 sin mayúsculas
+                          color="#A8743F" // 👈 dorado por defecto
+                          lineHeight="1.4"
+                          px={4}
+                          py={3}
+                          bg="transparent"
+                          position="relative"
+                          transition="all 0.2s ease"
+                          _hover={{
+                            bg: "rgba(168,116,63,0.08)",
+                            color: "#15322D", // 👈 verde al hover
+                          }}
+                          _focus={{
+                            bg: "rgba(168,116,63,0.12)",
+                            color: "#15322D", // 👈 verde también al focus
+                          }}
+                          _before={{
+                            content: '""',
+                            position: "absolute",
+                            left: 0,
+                            top: "15%",
+                            bottom: "15%",
+                            width: "3px",
+                            borderRadius: "full",
+                            backgroundColor: "transparent",
+                            transition: "background-color 0.2s ease",
+                          }}
+                          _hoverBefore={{ backgroundColor: "#A8743F" }}
+                          _focusBefore={{ backgroundColor: "#A8743F" }}
+                          sx={{
+                            "&:hover::before,&:focus::before": {
+                              backgroundColor: "#A8743F",
+                            },
+                          }}
+                        >
+                          {sub.label}
+                        </MenuItem>
+                      ))}
+                    </MenuList>
+                  </Menu>
+                </Box>
+              ) : (
+                <NavLink key={i.href} to={i.href}>
+                  {i.label}
+                </NavLink>
+              )
+            )}
+          </HStack>
+
+          {/* Botón mobile */}
+          <IconButton
+            aria-label="Abrir menú"
+            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+            variant="ghost"
+            color={gold}
+            fontSize="1.8rem"
+            display={{ base: "inline-flex", md: "none" }}
+            onClick={isOpen ? onClose : onOpen}
+            _hover={{ bg: "transparent", color: green }}
+          />
+        </Flex>
+      </Container>
+
+      {/* Menú mobile */}
+      {isOpen && (
+        <Box
+          bg={dropdownBg}
+          display={{ md: "none" }}
+          pb={4}
+          borderTop="1px solid rgba(168,116,63,0.25)"
+        >
+          <Container maxW="6xl">
+            <Stack as="nav" spacing={3}>
               {navItems.map((i) =>
                 i.dropdown ? (
-                  <Box
-                    key={i.href}
-                    onMouseEnter={svc.onOpen}
-                    onMouseLeave={svc.onClose}
-                  >
-                    <Menu isOpen={svc.isOpen} isLazy>
-                      <MenuButton
-                        as={CLink}
-                        fontSize="sm"
-                        fontWeight="600"
-                        textTransform="uppercase"
-                        letterSpacing="0.08em"
-                        color="#A8743F"
-                        _hover={{ color: "#15322D" }}
-                        borderBottom={
-                          location.pathname.startsWith(i.href)
-                            ? "2px solid #A8743F"
-                            : "2px solid transparent"
-                        }
-                        pb="2px"
-                        transition="all 0.2s ease"
-                      >
-                        {i.label}
-                      </MenuButton>
-
-                      <MenuList
-                        bg="transparent"
-                        border="0"
-                        boxShadow="none"
-                        p={0}
-                        mt={2}
-                      >
-                        {i.dropdown.map((sub) => (
-                          <MenuItem
-                            key={sub.href}
-                            as={RouterLink}
-                            to={sub.href}
-                            fontSize="sm"
-                            fontWeight="600"
-                            letterSpacing="0.02em"
-                            textTransform="uppercase"
-                            color="#A8743F"
-                            bg="transparent"
-                            _hover={{ color: "#15322D", bg: "transparent" }}
-                            px={3}
-                            py={2}
-                          >
-                            {sub.label}
-                          </MenuItem>
-                        ))}
-                      </MenuList>
-                    </Menu>
-                  </Box>
+                  <Stack key={i.href} spacing={2} pl={3}>
+                    <NavLink to={i.href}>{i.label}</NavLink>
+                    {i.dropdown.map((sub) => (
+                      <NavLink key={sub.href} to={sub.href}>
+                        {sub.label}
+                      </NavLink>
+                    ))}
+                  </Stack>
                 ) : (
                   <NavLink key={i.href} to={i.href}>
                     {i.label}
                   </NavLink>
                 )
               )}
-            </HStack>
-
-            {/* Botón mobile */}
-            <IconButton
-              aria-label="Abrir menú"
-              icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-              variant="ghost"
-              color="#A8743F"
-              fontSize="1.8rem"
-              display={{ base: "inline-flex", md: "none" }}
-              onClick={isOpen ? onClose : onOpen}
-              _hover={{ bg: "transparent", color: "#15322D" }}
-            />
-          </Flex>
-        </Container>
-
-        {/* Menú mobile */}
-        {isOpen && (
-          <Box bg={dropdownBg} display={{ md: "none" }} pb={4}>
-            <Container maxW="6xl">
-              <Stack as="nav" spacing={3}>
-                {navItems.map((i) =>
-                  i.dropdown ? (
-                    <Stack key={i.href} spacing={2} pl={3}>
-                      <NavLink to={i.href}>{i.label}</NavLink>
-                      {i.dropdown.map((sub) => (
-                        <NavLink key={sub.href} to={sub.href}>
-                          {sub.label}
-                        </NavLink>
-                      ))}
-                    </Stack>
-                  ) : (
-                    <NavLink key={i.href} to={i.href}>
-                      {i.label}
-                    </NavLink>
-                  )
-                )}
-              </Stack>
-            </Container>
-          </Box>
-        )}
-      </Box>
-    </>
+            </Stack>
+          </Container>
+        </Box>
+      )}
+    </Box>
   );
 }
