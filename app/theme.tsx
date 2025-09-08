@@ -3,8 +3,8 @@ import { extendTheme } from "@chakra-ui/react";
 
 export const theme = extendTheme({
   fonts: {
-    heading: `"Inter", system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans"`,
-    body: `"Inter", system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans"`,
+    heading: `"Roboto", system-ui, -apple-system, Segoe UI, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans"`,
+    body: `"Roboto", system-ui, -apple-system, Segoe UI, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans"`,
   },
   colors: {
     querencia: {
