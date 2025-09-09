@@ -10,16 +10,6 @@ html, body {
   background-color: #ffffff;
 }
 
-/* Ocultar brevemente para evitar FOUC */
-body {
-  opacity: 0;
-  transition: opacity 0.1s ease-in;
-}
-
-body.styles-loaded {
-  opacity: 1;
-}
-
 #root {
   min-height: 100vh;
 }
