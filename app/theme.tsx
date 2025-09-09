@@ -1,7 +1,7 @@
 // app/theme.ts
 import { extendTheme } from "@chakra-ui/react";
 
-export const theme = extendTheme({
+const theme = extendTheme({
   fonts: {
     heading: `"Roboto", system-ui, -apple-system, Segoe UI, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans"`,
     body: `"Roboto", system-ui, -apple-system, Segoe UI, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans"`,
@@ -56,4 +56,6 @@ export const theme = extendTheme({
     Heading: { baseStyle: { letterSpacing: "-0.02em" } },
   },
 });
+
 export default theme;
+export { theme };
