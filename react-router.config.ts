@@ -3,6 +3,6 @@ import type { Config } from "@react-router/dev/config";
 import { vercelPreset } from "@vercel/react-router/vite";
 
 export default {
-  ssr: true,         // Habilitar SSR para hidratación correcta
+  ssr: false,        // Volver a SPA pero con solución robusta
   presets: [vercelPreset()],
 } satisfies Config;
