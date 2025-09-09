@@ -50,11 +50,27 @@ export default function Root() {
         <ScrollRestoration />
         <Scripts />
 
-        {/* Script básico */}
+        {/* Script para evitar FOUC */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              // Solo manejar bfcache
+              // Función para mostrar la página cuando los estilos estén listos
+              function showPage() {
+                document.body.classList.add('styles-loaded');
+              }
+              
+              // Mostrar inmediatamente si ya está cargado
+              if (document.readyState === 'complete') {
+                showPage();
+              } else {
+                // Mostrar cuando esté listo
+                window.addEventListener('load', showPage);
+                
+                // Fallback rápido para mobile
+                setTimeout(showPage, 100);
+              }
+              
+              // Manejar bfcache
               window.addEventListener('pageshow', function (e) {
                 if (e.persisted) {
                   location.reload();
