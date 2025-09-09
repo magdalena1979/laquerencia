@@ -6,7 +6,6 @@ import {
   SimpleGrid,
   Stack,
   Text,
-  useColorModeValue,
 } from "@chakra-ui/react";
 
 
@@ -44,17 +43,14 @@ const people: Person[] = [
 ];
 
 function PersonCard({ p }: { p: Person }) {
-  const cardBg = useColorModeValue("white", "gray.800");
-  const border = useColorModeValue("rgba(168,116,63,0.3)", "rgba(168,116,63,0.5)");
-
   return (
     <Stack
       borderWidth="1px"
-      borderColor={border}
+      borderColor="rgba(193,138,77,0.3)"
       rounded="2xl"
       overflow="hidden"
       spacing={0}
-      bg={cardBg}
+      bg="rgba(255,255,255,0.1)"
       boxShadow="lg"
     >
       {/* Foto */}
@@ -71,7 +67,7 @@ function PersonCard({ p }: { p: Person }) {
             h="100%"
             align="center"
             justify="center"
-            bg={useColorModeValue("gray.50", "gray.700")}
+            bg="gray.700"
           >
             <Avatar name={p.name} size="xl" />
           </Stack>
@@ -80,13 +76,13 @@ function PersonCard({ p }: { p: Person }) {
 
       {/* Texto */}
       <Stack p={{ base: 4, md: 6 }} spacing={2}>
-        <Heading size="md" color="#A8743F">
+        <Heading size="md" color="#C18A4D">
           {p.name}
         </Heading>
-        <Text fontWeight="semibold" color={useColorModeValue("gray.700", "gray.300")}>
+        <Text fontWeight="semibold" color="white">
           {p.role}
         </Text>
-        <Text color={useColorModeValue("gray.700", "gray.300")} lineHeight={1.8}>
+        <Text color="gray.300" lineHeight={1.8}>
           {p.bio}
         </Text>
       </Stack>
@@ -96,8 +92,8 @@ function PersonCard({ p }: { p: Person }) {
 
 export default function QuienesSomosPage() {
   return (
-    <Box as="main" pt={{ base: 8, md: 12 }} pb={{ base: 16, md: 24 }}>
-      <Container maxW="7xl">
+    <Box bg="#15322e" minH="100vh">
+      <Container maxW="7xl" pt={{ base: 24, md: 28 }} pb={{ base: 10, md: 16 }}>
         <Stack spacing={{ base: 8, md: 12 }}>
           {/* Encabezado */}
           <Stack spacing={3} textAlign="center">
@@ -105,11 +101,11 @@ export default function QuienesSomosPage() {
               size={{ base: "lg", md: "xl" }}
               textTransform="uppercase"
               letterSpacing="wide"
-              color="#A8743F"
+              color="white"
             >
               Quiénes somos
             </Heading>
-            <Text fontSize={{ base: "md", md: "lg" }} color={useColorModeValue("gray.700", "gray.200")}>
+            <Text fontSize={{ base: "md", md: "lg" }} color="gray.300">
               Conocé al equipo detrás de La Querencia. Profesionales con foco en reproducción equina en Uruguay.
             </Text>
           </Stack>
@@ -123,8 +119,8 @@ export default function QuienesSomosPage() {
 
           {/* Cómo trabajamos (texto placeholder; después sumamos carrusel) */}
           <Stack spacing={4} pt={{ base: 4, md: 8 }}>
-            <Heading size="md">Cómo trabajamos</Heading>
-            <Text color={useColorModeValue("gray.700", "gray.300")}>
+            <Heading size="md" color="white">Cómo trabajamos</Heading>
+            <Text color="gray.300">
               Protocolos claros, seguimiento por ultrasonografía, coordinación con studs/haras y comunicación directa con
               propietarios. Sumaremos un carrusel de fotos y videos de procedimientos y manejo en campo.
             </Text>
