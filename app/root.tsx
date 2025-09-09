@@ -16,24 +16,9 @@ export const meta: MetaFunction = () => ([
   { name: "viewport", content: "width=device-width, initial-scale=1" },
 ]);
 
-// Configuración de Emotion cache para SSR
+// Configuración simple de Emotion cache
 function getEmotionCache() {
-  const isServer = typeof window === "undefined";
-  
-  if (isServer) {
-    // Server-side: crear cache limpio
-    return createCache({ key: "chakra", prepend: true });
-  } else {
-    // Client-side: reutilizar cache existente o crear nuevo
-    const existingCache = (window as any).__EMOTION_CACHE__;
-    if (existingCache) {
-      return existingCache;
-    }
-    
-    const cache = createCache({ key: "chakra", prepend: true });
-    (window as any).__EMOTION_CACHE__ = cache;
-    return cache;
-  }
+  return createCache({ key: "chakra" });
 }
 
 export default function Root() {
@@ -50,27 +35,6 @@ export default function Root() {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet" />
         
-        {/* Estilos críticos inline para mobile */}
-        <style dangerouslySetInnerHTML={{
-          __html: `
-            html, body {
-              margin: 0 !important;
-              padding: 0 !important;
-              font-family: "Roboto", system-ui, sans-serif !important;
-              background-color: #ffffff !important;
-              color: #1a202c !important;
-              visibility: visible !important;
-            }
-            #root {
-              min-height: 100vh !important;
-              background-color: #ffffff !important;
-            }
-            * { box-sizing: border-box !important; }
-            @media (max-width: 768px) {
-              body { font-size: 16px !important; }
-            }
-          `
-        }} />
         
         <Links />
       </head>
