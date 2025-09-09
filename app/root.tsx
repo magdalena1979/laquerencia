@@ -2,7 +2,7 @@ import * as React from "react";
 import type { MetaFunction } from "react-router";
 import { Meta, Links, Scripts, ScrollRestoration, Outlet } from "react-router";
 import "./app.css";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 
@@ -16,9 +16,15 @@ export const meta: MetaFunction = () => ([
   { name: "viewport", content: "width=device-width, initial-scale=1" },
 ]);
 
-// Configuración simple de Emotion cache
+// 👉 Usa de verdad el insertionPoint cuando hay 'document'
 function getEmotionCache() {
-  return createCache({ key: "chakra" });
+  let insertionPoint: HTMLElement | undefined;
+  if (typeof document !== "undefined") {
+    insertionPoint = document.querySelector<HTMLMetaElement>(
+      'meta[name="emotion-insertion-point"]'
+    ) ?? undefined;
+  }
+  return createCache({ key: "chakra", insertionPoint });
 }
 
 export default function Root() {
@@ -28,19 +34,20 @@ export default function Root() {
     <html lang="es">
       <head>
         <Meta />
-        {/* 👇 insertion point para Emotion/Chakra */}
+        {/* insertion point para Emotion */}
         <meta name="emotion-insertion-point" content="emotion-insertion-point" />
-        {/* Google Fonts - Roboto */}
+        {/* Roboto */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet" />
-        
-        
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
         <Links />
       </head>
       <body>
+        {/* ✅ Evita el flash de tema/colores */}
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+
         <CacheProvider value={emotionCache}>
-          <ChakraProvider theme={theme} resetCSS={true}>
+          <ChakraProvider theme={theme} resetCSS>
             <Navbar />
             <Outlet />
             <Footer />
@@ -50,19 +57,18 @@ export default function Root() {
         <ScrollRestoration />
         <Scripts />
 
-        {/* Script básico */}
+        {/* (Opcional) este reload en pageshow puede generar saltos; probá quitarlo */}
+        {/* 
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              // Solo manejar bfcache
               window.addEventListener('pageshow', function (e) {
-                if (e.persisted) {
-                  location.reload();
-                }
+                if (e.persisted) location.reload();
               });
             `,
           }}
         />
+        */}
       </body>
     </html>
   );
