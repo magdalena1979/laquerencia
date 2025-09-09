@@ -11,12 +11,7 @@ body {
   background-color: #ffffff;
 }
 
-/* Mostrar contenido siempre - sin ocultar */
-body {
-  visibility: visible;
-}
-
-/* Asegurar que los estilos base estén siempre presentes */
+/* Estilos base que siempre se cargan */
 body {
   font-family: "Roboto", system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -24,6 +19,25 @@ body {
   line-height: 1.5;
   color: #1a202c;
   background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+
+/* Asegurar que los estilos de Chakra UI se carguen */
+#root {
+  min-height: 100vh;
+}
+
+/* Estilos críticos para mobile */
+@media (max-width: 768px) {
+  body {
+    font-size: 16px; /* Prevenir zoom en iOS */
+  }
+  
+  /* Forzar carga de estilos críticos */
+  * {
+    box-sizing: border-box;
+  }
 }
 
 /* Asegurar que los estilos de Chakra UI tengan prioridad */

@@ -34,6 +34,27 @@ export default function Root() {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet" />
+        
+        {/* Estilos críticos para mobile */}
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            body { 
+              font-family: "Roboto", system-ui, sans-serif !important;
+              margin: 0 !important;
+              padding: 0 !important;
+              background-color: #ffffff !important;
+              color: #1a202c !important;
+              -webkit-font-smoothing: antialiased;
+              -moz-osx-font-smoothing: grayscale;
+            }
+            #root { min-height: 100vh !important; }
+            * { box-sizing: border-box !important; }
+            @media (max-width: 768px) {
+              body { font-size: 16px !important; }
+            }
+          `
+        }} />
+        
         <Links />
       </head>
       <body>
@@ -48,11 +69,56 @@ export default function Root() {
         <ScrollRestoration />
         <Scripts />
 
-        {/* Script mínimo para manejar navegación */}
+        {/* Script robusto para mobile */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              // Solo manejar refresh de página si es necesario
+              // Detectar mobile
+              const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+              
+              // Función para forzar estilos
+              function forceStyles() {
+                // Agregar estilos críticos directamente
+                const style = document.createElement('style');
+                style.textContent = \`
+                  body { 
+                    font-family: "Roboto", system-ui, sans-serif !important;
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    background-color: #ffffff !important;
+                    color: #1a202c !important;
+                  }
+                  #root { min-height: 100vh !important; }
+                  * { box-sizing: border-box !important; }
+                \`;
+                document.head.appendChild(style);
+                
+                // Forzar re-render de Chakra UI
+                const root = document.getElementById('root');
+                if (root) {
+                  root.style.display = 'none';
+                  root.offsetHeight; // Trigger reflow
+                  root.style.display = '';
+                }
+              }
+              
+              // Aplicar inmediatamente
+              forceStyles();
+              
+              // Aplicar en DOMContentLoaded
+              document.addEventListener('DOMContentLoaded', forceStyles);
+              
+              // Aplicar en load
+              window.addEventListener('load', forceStyles);
+              
+              // Fallback para mobile
+              if (isMobile) {
+                setTimeout(forceStyles, 100);
+                setTimeout(forceStyles, 500);
+                setTimeout(forceStyles, 1000);
+              }
+              
+              // Manejar refresh
               window.addEventListener('pageshow', function (e) {
                 if (e.persisted) {
                   location.reload();
