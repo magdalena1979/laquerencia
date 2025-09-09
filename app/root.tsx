@@ -83,17 +83,41 @@ export default function Root() {
                 if (e.persisted) location.reload();
               });
               
+              // Manejar navegación en SPA
+              window.addEventListener('popstate', function() {
+                setTimeout(function() {
+                  document.body.classList.add('chakra-ui-light');
+                  document.body.style.visibility = 'visible';
+                }, 50);
+              });
+              
               // Asegurar que los estilos se carguen correctamente
               document.addEventListener('DOMContentLoaded', function() {
                 // Agregar clase de Chakra UI para mostrar contenido
                 document.body.classList.add('chakra-ui-light');
                 
-                // Fallback para Vercel
+                // Fallback para Vercel - manejar rutas específicas
                 if (typeof window !== 'undefined' && window.location.hostname.includes('vercel')) {
-                  setTimeout(function() {
+                  // Función para forzar rehidratación de estilos
+                  function forceStyleRehydration() {
                     document.body.style.visibility = 'visible';
                     document.body.classList.add('chakra-ui-light');
-                  }, 150);
+                    
+                    // Forzar re-render de componentes Chakra si es necesario
+                    const chakraElements = document.querySelectorAll('[data-chakra-component]');
+                    chakraElements.forEach(el => {
+                      el.style.display = 'none';
+                      el.offsetHeight; // Trigger reflow
+                      el.style.display = '';
+                    });
+                  }
+                  
+                  // Aplicar inmediatamente
+                  forceStyleRehydration();
+                  
+                  // Fallback con delay para rutas específicas
+                  setTimeout(forceStyleRehydration, 100);
+                  setTimeout(forceStyleRehydration, 300);
                 }
               });
             `,
