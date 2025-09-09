@@ -5,11 +5,15 @@
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+/* Reset básico para evitar conflictos con Chakra UI */
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", system-ui, -apple-system, sans-serif;
+}
 
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
-  }
+/* Asegurar que los estilos de Chakra UI tengan prioridad */
+#root {
+  min-height: 100vh;
 }

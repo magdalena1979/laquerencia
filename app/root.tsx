@@ -20,8 +20,11 @@ export const meta: MetaFunction = () => ([
 function useEmotionCache() {
   return React.useMemo(() => {
     if (typeof document === "undefined") {
-      // SSR
-      return createCache({ key: "chakra" });
+      // SSR - usar el mismo key y configuración que en el cliente
+      return createCache({ 
+        key: "chakra",
+        prepend: true,
+      });
     }
     const insertionPoint = document.querySelector<HTMLMetaElement>(
       'meta[name="emotion-insertion-point"]'
@@ -52,8 +55,8 @@ export default function Root() {
       </head>
       <body>
         <CacheProvider value={emotionCache}>
-          {/* resetCSS opcional para asegurar base consistente */}
-          <ChakraProvider theme={theme} resetCSS>
+          {/* resetCSS para asegurar base consistente y evitar FOUC */}
+          <ChakraProvider theme={theme} resetCSS={true}>
             <Navbar />
             <Outlet />
             <Footer />
