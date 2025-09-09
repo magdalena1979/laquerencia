@@ -16,30 +16,36 @@ export const meta: MetaFunction = () => ([
   { name: "viewport", content: "width=device-width, initial-scale=1" },
 ]);
 
-// crea un cache que usa el insertion point cuando estamos en el cliente
-function useEmotionCache() {
-  return React.useMemo(() => {
-    if (typeof document === "undefined") {
-      // SSR - usar el mismo key y configuración que en el cliente
-      return createCache({ 
-        key: "chakra",
-        prepend: true,
-      });
-    }
+// Cache global para Emotion - solución más robusta para Vercel
+let emotionCache: any = null;
+
+function getEmotionCache() {
+  if (emotionCache) return emotionCache;
+  
+  if (typeof document === "undefined") {
+    // SSR
+    emotionCache = createCache({ 
+      key: "chakra",
+      prepend: true,
+    });
+  } else {
+    // Cliente
     const insertionPoint = document.querySelector<HTMLMetaElement>(
       'meta[name="emotion-insertion-point"]'
     ) || undefined;
 
-    return createCache({
+    emotionCache = createCache({
       key: "chakra",
       prepend: true,
       insertionPoint,
     });
-  }, []);
+  }
+  
+  return emotionCache;
 }
 
 export default function Root() {
-  const emotionCache = useEmotionCache();
+  const emotionCache = getEmotionCache();
 
   return (
     <html lang="es">
@@ -57,21 +63,38 @@ export default function Root() {
         <CacheProvider value={emotionCache}>
           {/* resetCSS para asegurar base consistente y evitar FOUC */}
           <ChakraProvider theme={theme} resetCSS={true}>
-            <Navbar />
-            <Outlet />
-            <Footer />
+            <div suppressHydrationWarning>
+              <Navbar />
+              <Outlet />
+              <Footer />
+            </div>
           </ChakraProvider>
         </CacheProvider>
 
         <ScrollRestoration />
         <Scripts />
 
-        {/* Parche opcional por si el navegador usa bfcache y no rehidrata (puede omitirse si ya te funciona) */}
+        {/* Scripts para manejar hidratación en Vercel */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
+              // Forzar rehidratación si hay problemas
               window.addEventListener('pageshow', function (e) {
                 if (e.persisted) location.reload();
+              });
+              
+              // Asegurar que los estilos se carguen correctamente
+              document.addEventListener('DOMContentLoaded', function() {
+                // Agregar clase de Chakra UI para mostrar contenido
+                document.body.classList.add('chakra-ui-light');
+                
+                // Fallback para Vercel
+                if (typeof window !== 'undefined' && window.location.hostname.includes('vercel')) {
+                  setTimeout(function() {
+                    document.body.style.visibility = 'visible';
+                    document.body.classList.add('chakra-ui-light');
+                  }, 150);
+                }
               });
             `,
           }}

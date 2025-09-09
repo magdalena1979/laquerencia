@@ -11,6 +11,15 @@ body {
   background-color: #ffffff;
 }
 
+/* Ocultar contenido hasta que se hidrate correctamente */
+body {
+  visibility: hidden;
+}
+
+body.chakra-ui-light {
+  visibility: visible;
+}
+
 /* Asegurar que los estilos de Chakra UI tengan prioridad */
 #root {
   min-height: 100vh;
