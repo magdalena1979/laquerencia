@@ -20,6 +20,28 @@ body.chakra-ui-light {
   visibility: visible;
 }
 
+/* Fallback específico para mobile */
+@media (max-width: 768px) {
+  body {
+    visibility: hidden;
+  }
+  
+  body.chakra-ui-light {
+    visibility: visible;
+  }
+  
+  /* Fallback adicional para mobile si Chakra UI no se carga */
+  body:not(.chakra-ui-light) {
+    animation: fadeInMobile 0.5s ease-in-out 1s forwards;
+  }
+}
+
+@keyframes fadeInMobile {
+  to {
+    visibility: visible;
+  }
+}
+
 /* Asegurar que los estilos de Chakra UI tengan prioridad */
 #root {
   min-height: 100vh;

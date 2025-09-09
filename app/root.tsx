@@ -54,16 +54,30 @@ export default function Root() {
         <ScrollRestoration />
         <Scripts />
 
-        {/* Script simple para manejar hidratación */}
+        {/* Script mejorado para manejar hidratación en mobile */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              // Script simple para asegurar que los estilos se carguen
-              document.addEventListener('DOMContentLoaded', function() {
-                // Mostrar contenido inmediatamente
+              // Detectar si es mobile
+              const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+              
+              // Función para mostrar contenido
+              function showContent() {
                 document.body.style.visibility = 'visible';
                 document.body.classList.add('chakra-ui-light');
-              });
+              }
+              
+              // Mostrar contenido inmediatamente en desktop
+              if (!isMobile) {
+                document.addEventListener('DOMContentLoaded', showContent);
+              } else {
+                // En mobile, esperar un poco más para asegurar que Chakra UI se hidrate
+                document.addEventListener('DOMContentLoaded', function() {
+                  setTimeout(showContent, 100);
+                  // Fallback adicional para mobile
+                  setTimeout(showContent, 300);
+                });
+              }
               
               // Manejar refresh de página
               window.addEventListener('pageshow', function (e) {
@@ -71,6 +85,13 @@ export default function Root() {
                   location.reload();
                 }
               });
+              
+              // Fallback específico para mobile
+              if (isMobile) {
+                window.addEventListener('load', function() {
+                  setTimeout(showContent, 200);
+                });
+              }
             `,
           }}
         />
