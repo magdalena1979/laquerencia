@@ -16,32 +16,15 @@ export const meta: MetaFunction = () => ([
   { name: "viewport", content: "width=device-width, initial-scale=1" },
 ]);
 
-// Cache global para Emotion - solución más robusta para Vercel
-let emotionCache: any = null;
-
+// Configuración simplificada de Emotion cache
 function getEmotionCache() {
-  if (emotionCache) return emotionCache;
-  
   if (typeof document === "undefined") {
-    // SSR
-    emotionCache = createCache({ 
-      key: "chakra",
-      prepend: true,
-    });
+    // SSR - configuración simple
+    return createCache({ key: "chakra" });
   } else {
-    // Cliente
-    const insertionPoint = document.querySelector<HTMLMetaElement>(
-      'meta[name="emotion-insertion-point"]'
-    ) || undefined;
-
-    emotionCache = createCache({
-      key: "chakra",
-      prepend: true,
-      insertionPoint,
-    });
+    // Cliente - configuración simple
+    return createCache({ key: "chakra" });
   }
-  
-  return emotionCache;
 }
 
 export default function Root() {
@@ -61,63 +44,31 @@ export default function Root() {
       </head>
       <body>
         <CacheProvider value={emotionCache}>
-          {/* resetCSS para asegurar base consistente y evitar FOUC */}
           <ChakraProvider theme={theme} resetCSS={true}>
-            <div suppressHydrationWarning>
-              <Navbar />
-              <Outlet />
-              <Footer />
-            </div>
+            <Navbar />
+            <Outlet />
+            <Footer />
           </ChakraProvider>
         </CacheProvider>
 
         <ScrollRestoration />
         <Scripts />
 
-        {/* Scripts para manejar hidratación en Vercel */}
+        {/* Script simple para manejar hidratación */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              // Forzar rehidratación si hay problemas
-              window.addEventListener('pageshow', function (e) {
-                if (e.persisted) location.reload();
-              });
-              
-              // Manejar navegación en SPA
-              window.addEventListener('popstate', function() {
-                setTimeout(function() {
-                  document.body.classList.add('chakra-ui-light');
-                  document.body.style.visibility = 'visible';
-                }, 50);
-              });
-              
-              // Asegurar que los estilos se carguen correctamente
+              // Script simple para asegurar que los estilos se carguen
               document.addEventListener('DOMContentLoaded', function() {
-                // Agregar clase de Chakra UI para mostrar contenido
+                // Mostrar contenido inmediatamente
+                document.body.style.visibility = 'visible';
                 document.body.classList.add('chakra-ui-light');
-                
-                // Fallback para Vercel - manejar rutas específicas
-                if (typeof window !== 'undefined' && window.location.hostname.includes('vercel')) {
-                  // Función para forzar rehidratación de estilos
-                  function forceStyleRehydration() {
-                    document.body.style.visibility = 'visible';
-                    document.body.classList.add('chakra-ui-light');
-                    
-                    // Forzar re-render de componentes Chakra si es necesario
-                    const chakraElements = document.querySelectorAll('[data-chakra-component]');
-                    chakraElements.forEach(el => {
-                      el.style.display = 'none';
-                      el.offsetHeight; // Trigger reflow
-                      el.style.display = '';
-                    });
-                  }
-                  
-                  // Aplicar inmediatamente
-                  forceStyleRehydration();
-                  
-                  // Fallback con delay para rutas específicas
-                  setTimeout(forceStyleRehydration, 100);
-                  setTimeout(forceStyleRehydration, 300);
+              });
+              
+              // Manejar refresh de página
+              window.addEventListener('pageshow', function (e) {
+                if (e.persisted) {
+                  location.reload();
                 }
               });
             `,
