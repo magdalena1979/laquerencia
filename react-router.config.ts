@@ -3,6 +3,6 @@ import type { Config } from "@react-router/dev/config";
 import { vercelPreset } from "@vercel/react-router/vite";
 
 export default {
-  ssr: false,        // Deshabilitar SSR temporalmente para debug
+  ssr: true,         // Habilitar SSR para hidratación correcta
   presets: [vercelPreset()],
 } satisfies Config;
