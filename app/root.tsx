@@ -16,15 +16,9 @@ export const meta: MetaFunction = () => ([
   { name: "viewport", content: "width=device-width, initial-scale=1" },
 ]);
 
-// Configuración simplificada de Emotion cache
+// Configuración ultra simplificada de Emotion cache
 function getEmotionCache() {
-  if (typeof document === "undefined") {
-    // SSR - configuración simple
-    return createCache({ key: "chakra" });
-  } else {
-    // Cliente - configuración simple
-    return createCache({ key: "chakra" });
-  }
+  return createCache({ key: "chakra" });
 }
 
 export default function Root() {
@@ -54,44 +48,16 @@ export default function Root() {
         <ScrollRestoration />
         <Scripts />
 
-        {/* Script mejorado para manejar hidratación en mobile */}
+        {/* Script mínimo para manejar navegación */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              // Detectar si es mobile
-              const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-              
-              // Función para mostrar contenido
-              function showContent() {
-                document.body.style.visibility = 'visible';
-                document.body.classList.add('chakra-ui-light');
-              }
-              
-              // Mostrar contenido inmediatamente en desktop
-              if (!isMobile) {
-                document.addEventListener('DOMContentLoaded', showContent);
-              } else {
-                // En mobile, esperar un poco más para asegurar que Chakra UI se hidrate
-                document.addEventListener('DOMContentLoaded', function() {
-                  setTimeout(showContent, 100);
-                  // Fallback adicional para mobile
-                  setTimeout(showContent, 300);
-                });
-              }
-              
-              // Manejar refresh de página
+              // Solo manejar refresh de página si es necesario
               window.addEventListener('pageshow', function (e) {
                 if (e.persisted) {
                   location.reload();
                 }
               });
-              
-              // Fallback específico para mobile
-              if (isMobile) {
-                window.addEventListener('load', function() {
-                  setTimeout(showContent, 200);
-                });
-              }
             `,
           }}
         />
