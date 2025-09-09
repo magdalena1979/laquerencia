@@ -50,29 +50,11 @@ export default function Root() {
         <ScrollRestoration />
         <Scripts />
 
-        {/* Script para cargar completa */}
+        {/* Script básico */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              // Función para mostrar la página cuando esté lista
-              function showPage() {
-                document.body.classList.add('loaded');
-              }
-              
-              // Mostrar cuando el DOM esté listo
-              if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', showPage);
-              } else {
-                showPage();
-              }
-              
-              // Fallback: mostrar después de un tiempo máximo
-              setTimeout(showPage, 2000);
-              
-              // Mostrar cuando la ventana esté completamente cargada
-              window.addEventListener('load', showPage);
-              
-              // Manejar bfcache
+              // Solo manejar bfcache
               window.addEventListener('pageshow', function (e) {
                 if (e.persisted) {
                   location.reload();
