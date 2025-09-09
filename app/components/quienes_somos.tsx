@@ -12,14 +12,13 @@ import { Link as RouterLink } from "react-router";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 
 export default function AboutPreview() {
-  const bg = useColorModeValue("white", "gray.800");
   const border = useColorModeValue(
     "rgba(168,116,63,0.3)",
     "rgba(168,116,63,0.5)"
   );
 
   return (
-    <Box as="section" id="quienes-somos-preview" py={{ base: 12, md: 20 }} bg={bg}>
+    <Box as="section" id="quienes-somos-preview" py={{ base: 12, md: 20 }} bg="#15322e">
       <Container maxW="7xl">
         <Stack
           direction={{ base: "column", md: "row" }}
@@ -29,6 +28,7 @@ export default function AboutPreview() {
           borderColor={border}
           rounded="2xl"
           p={{ base: 5, md: 8 }}
+          bg="transparent"
           boxShadow="xl"
         >
           {/* Foto del equipo a la izquierda */}
@@ -55,7 +55,7 @@ export default function AboutPreview() {
             </Heading>
             <Text
               fontSize={{ base: "md", md: "lg" }}
-              color={useColorModeValue("gray.700", "gray.200")}
+              color="white"
               lineHeight={1.7}
             >
               Somos un centro uruguayo especializado en reproducción equina con foco en inseminación,

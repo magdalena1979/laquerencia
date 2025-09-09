@@ -6,7 +6,6 @@ import {
   IconButton,
   Stack,
   useDisclosure,
-  useColorModeValue,
   Image,
   Link as CLink,
 } from "@chakra-ui/react";
@@ -18,16 +17,16 @@ const navItems = [
   { href: "/", label: "Inicio" },
   { href: "/servicios", label: "Servicios" },
   { href: "/quienes_somos", label: "Quiénes somos" },
-  { href: "/donde_estamos", label: "Donde estamos" },
   { href: "/contacto", label: "Contacto" },
 ];
 
 function NavLink({ to, children }: { to: string; children: React.ReactNode }) {
   const location = useLocation();
   const isActive = location.pathname === to;
+  const isHomePage = location.pathname === "/";
 
   const gold = "#A8743F";
-  const green = "#15322D";
+  const white = "white";
 
   return (
     <CLink
@@ -37,8 +36,8 @@ function NavLink({ to, children }: { to: string; children: React.ReactNode }) {
       fontWeight="600"
       textTransform="uppercase"
       letterSpacing="0.08em"
-      color={gold}
-      _hover={{ color: green }}
+      color={isHomePage ? gold : white}
+      _hover={{ color: isHomePage ? "#15322D" : gold }}
       borderBottom={isActive ? `2px solid ${gold}` : "2px solid transparent"}
       pb="2px"
       transition="all 0.2s ease"
@@ -51,19 +50,21 @@ function NavLink({ to, children }: { to: string; children: React.ReactNode }) {
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const location = useLocation();
+  
+  const isHomePage = location.pathname === "/";
+  const gold = "#A8743F";
+  const HEADER_H = 20;
 
+  // Solo en la página de inicio usamos el estado de scroll
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
+    if (!isHomePage) return; // Solo aplicar scroll en inicio
+    
     const onScroll = () => setScrolled(window.scrollY > 12);
     onScroll();
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const dropdownBg = useColorModeValue("white", "gray.900");
-  const gold = "#A8743F";
-  const green = "#15322D";
-  const HEADER_H = 16;
+  }, [isHomePage]);
 
   return (
     <Box
@@ -72,11 +73,10 @@ export default function Navbar() {
       top={0}
       insetX={0}
       zIndex={50}
-      bg={scrolled ? "rgba(255,255,255,0.6)" : "rgba(255,255,255,0.95)"}
-      backdropFilter="saturate(160%) blur(12px)"
-      borderBottom="1px solid"
-      borderColor={scrolled ? "rgba(168,116,63,0.25)" : "transparent"}
-      boxShadow={scrolled ? "sm" : "none"}
+      bg={isHomePage ? (scrolled ? "rgba(255,255,255,0.05)" : "transparent") : "transparent"}
+      backdropFilter={isHomePage ? (scrolled ? "saturate(120%) blur(8px)" : "none") : "none"}
+      borderBottom="1px solid transparent"
+      boxShadow={isHomePage ? (scrolled ? "sm" : "none") : "none"}
     >
       <Container maxW="6xl" py={3}>
         <Flex h={HEADER_H} align="center" justify="space-between">
@@ -85,7 +85,7 @@ export default function Navbar() {
             <Image
               src="/logo1.png"
               alt="La Querencia"
-              h={{ base: "56px", md: "72px" }}
+              h={{ base: "72px", md: "96px" }}
               objectFit="contain"
             />
           </CLink>
@@ -104,11 +104,11 @@ export default function Navbar() {
             aria-label="Abrir menú"
             icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
             variant="ghost"
-            color={gold}
+            color={isHomePage ? gold : "white"}
             fontSize="1.8rem"
             display={{ base: "inline-flex", md: "none" }}
             onClick={isOpen ? onClose : onOpen}
-            _hover={{ bg: "transparent", color: green }}
+            _hover={{ bg: "transparent", color: isHomePage ? "#15322D" : gold }}
           />
         </Flex>
       </Container>
@@ -116,7 +116,7 @@ export default function Navbar() {
       {/* Menú mobile */}
       {isOpen && (
         <Box
-          bg={dropdownBg}
+          bg="transparent"
           display={{ md: "none" }}
           pb={4}
           borderTop="1px solid rgba(168,116,63,0.25)"

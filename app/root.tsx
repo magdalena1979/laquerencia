@@ -1,7 +1,7 @@
 import * as React from "react";
 import type { MetaFunction } from "react-router";
 import { Meta, Links, Scripts, ScrollRestoration, Outlet } from "react-router";
-
+import "./app.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";

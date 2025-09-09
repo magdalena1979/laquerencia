@@ -19,7 +19,8 @@ import { Link as RouterLink } from "react-router";
 
 export default function Hero2() {
   return (
-    <Container maxW="7xl">
+    <Box bg="#15322e">
+      <Container maxW="7xl">
       <Stack
         align="center"
         spacing={{ base: 8, md: 10 }}
@@ -40,6 +41,7 @@ export default function Hero2() {
             <Text
               as="span"
               position="relative"
+              color="white"
               _after={{
                 content: "''",
                 width: "full",
@@ -58,24 +60,16 @@ export default function Hero2() {
               alto nivel
             </Text>
           </Heading>
-          <Text fontSize="lg" color="gray.700">
-            En{" "}
-            <Image
-              src="/laquerencia1.png"
-              alt="La Querencia"
-              display="inline"
-              verticalAlign="middle"
-              height="50px"
-              mx={1}
-            />
+          <Text fontSize="lg" color="white">
+            En LA QUERENCIA
             trabajamos con pasión por la reproducción equina, combinando
             experiencia veterinaria y tecnología de última generación.
           </Text>
-          <Text fontSize="lg" color="gray.700">
+          <Text fontSize="lg" color="white">
             Ofrecemos servicios especializados en transferencia embrionaria,
             inseminación artificial y manejo reproductivo integral.
           </Text>
-          <Text fontSize="lg" color="gray.700">
+          <Text fontSize="lg" color="white">
             Nuestro objetivo es ayudar a criadores y propietarios a alcanzar el
             máximo potencial genético de sus caballos, garantizando siempre el
             bienestar de cada ejemplar.
@@ -131,6 +125,7 @@ export default function Hero2() {
           </Box>
         </Flex>
       </Stack>
-    </Container>
+      </Container>
+    </Box>
   );
 }
