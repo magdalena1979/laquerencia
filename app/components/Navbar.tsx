@@ -9,7 +9,7 @@ import {
   Image,
   Link as CLink,
 } from "@chakra-ui/react";
-import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
+import { HamburgerIcon } from "@chakra-ui/icons";
 import { Link as RouterLink, useLocation } from "react-router";
 import React, { useEffect, useState } from "react";
 

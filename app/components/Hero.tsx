@@ -1,4 +1,4 @@
-import { Box, Container, Heading, Text, Stack, Button, useColorModeValue } from "@chakra-ui/react";
+import { Box, Container, Heading, Text, Stack, Button } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router";
 
 export default function HeroSticky() {

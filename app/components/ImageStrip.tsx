@@ -1,6 +1,6 @@
-import * as React from "react";
 import { Box, Image, useBreakpointValue, Icon } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
+import { useRef } from "react";
 
 type Props = {
   images: string[];
@@ -19,7 +19,7 @@ export default function ImageStrip({
   showArrows = true,
   hover = true,
 }: Props) {
-  const trackRef = React.useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const top = useBreakpointValue({ base: "50%", md: "50%" });
 
   const scrollBy = (dir: 1 | -1) => {

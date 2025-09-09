@@ -27,10 +27,12 @@ function useScrollToHashWithOffset() {
     if (!id) return;
     // esperar al paint para que exista el nodo
     const t = setTimeout(() => {
-      const el = document.getElementById(id);
-      if (el) {
-        const y = el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET_PX;
-        window.scrollTo({ top: y, behavior: "smooth" });
+      if (typeof document !== "undefined" && typeof window !== "undefined") {
+        const el = document.getElementById(id);
+        if (el) {
+          const y = el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET_PX;
+          window.scrollTo({ top: y, behavior: "smooth" });
+        }
       }
     }, 0);
     return () => clearTimeout(t);

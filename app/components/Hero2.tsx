@@ -7,14 +7,9 @@ import {
   Text,
   Button,
   Image,
-  Icon,
-  IconButton,
-  createIcon,
-  useColorModeValue,
   AspectRatio,
 } from "@chakra-ui/react";
 
-import type { IconProps } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router";
 
 export default function Hero2() {

@@ -12,7 +12,6 @@ import {
   CardBody,
 } from "@chakra-ui/react";
 import AboutPreview from "../components/quienes_somos";
-import SnapCarousel from "../components/ImageStrip";
 import ImageStrip from "../components/ImageStrip";
 
 const stripImages = [

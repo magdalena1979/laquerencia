@@ -16,7 +16,7 @@ export const meta: MetaFunction = () => ([
   { name: "viewport", content: "width=device-width, initial-scale=1" },
 ]);
 
-// 👉 Usa de verdad el insertionPoint cuando hay 'document'
+// 👉 Cache de Emotion optimizado para SSR
 function getEmotionCache() {
   let insertionPoint: HTMLElement | undefined;
   if (typeof document !== "undefined") {
@@ -24,7 +24,11 @@ function getEmotionCache() {
       'meta[name="emotion-insertion-point"]'
     ) ?? undefined;
   }
-  return createCache({ key: "chakra", insertionPoint });
+  return createCache({ 
+    key: "chakra", 
+    insertionPoint,
+    prepend: true // Asegura que los estilos de Chakra se carguen primero
+  });
 }
 
 export default function Root() {
