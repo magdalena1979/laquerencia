@@ -3,7 +3,7 @@ import type { MetaFunction } from "react-router";
 import { Meta, Links, Scripts, ScrollRestoration, Outlet } from "react-router";
 // import "./styles.css"; // Comentado temporalmente
 import Navbar from "./components/Navbar";
-import { Footer } from "./components/Footer";
+import Footer from "./components/Footer";
 import "./styles/global.css"; // <- añadido
 
 export const meta: MetaFunction = () => ([

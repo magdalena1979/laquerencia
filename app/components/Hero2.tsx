@@ -124,8 +124,8 @@ export default function Hero2() {
                 lineHeight: 1.5,
               }}
             >
-              En LA QUERENCIA trabajamos con pasión por la reproducción equina, combinando
-              experiencia veterinaria y tecnología de última generación.
+              En La Querencia trabajamos en equipo con pasión por la reproducción equina, combinando experiencia veterinaria y tecnología.
+              El compromiso, el profesionalismo y la confianza son pilares fundamentales de nuestro trabajo diario.
             </p>
             <p
               style={{
@@ -135,21 +135,23 @@ export default function Hero2() {
                 lineHeight: 1.5,
               }}
             >
-              Ofrecemos servicios especializados en transferencia embrionaria,
-              inseminación artificial y manejo reproductivo integral.
+
+              Nuestro objetivo es acompañar a criadores y propietarios en el camino hacia el máximo potencial genético de sus animales.
+              Por eso, buscamos de forma constante la superación y la actualización.
             </p>
-            <p
+    
+            <h3
               style={{
-                fontSize: "18px",
-                color: COLORS.white,
-                margin: 0,
+                fontSize: "20px",
+                color: COLORS.gold,
+                margin: "0",
                 lineHeight: 1.5,
               }}
             >
-              Nuestro objetivo es ayudar a criadores y propietarios a alcanzar el máximo
-              potencial genético de sus caballos, garantizando siempre el bienestar de
-              cada ejemplar.
-            </p>
+
+
+              ¡Queremos ser la cuna de ganadores!
+            </h3>
 
             {/* CTAs: column -> row */}
             <div
@@ -160,6 +162,27 @@ export default function Hero2() {
                 marginTop: 4,
               }}
             >
+              
+
+              <RouterLink
+                to="/contacto"
+                onMouseEnter={() => setHover2(true)}
+                onMouseLeave={() => setHover2(false)}
+                style={{
+                  backgroundColor: hover2 ? COLORS.btn2Hover : COLORS.btn2,
+                  color: COLORS.white,
+                  padding: `${S.btnPy}px ${S.btnPx}px`,
+                  borderRadius: 6,
+                  border: "none",
+                  textDecoration: "none",
+                  fontWeight: 600,
+                  textAlign: "center",
+                  transition: "background-color 0.3s ease",
+                  minWidth: 180,
+                }}
+              >
+                Solicitar consulta
+              </RouterLink>
               <RouterLink
                 to="/servicios"
                 onMouseEnter={() => setHover1(true)}
@@ -178,26 +201,6 @@ export default function Hero2() {
                 }}
               >
                 Conocer servicios
-              </RouterLink>
-
-              <RouterLink
-                to="/contacto"
-                onMouseEnter={() => setHover2(true)}
-                onMouseLeave={() => setHover2(false)}
-                style={{
-                  backgroundColor: hover2 ? COLORS.btn2Hover : COLORS.btn2,
-                  color: COLORS.white,
-                  padding: `${S.btnPy}px ${S.btnPx}px`,
-                  borderRadius: 6,
-                  border: "none",
-                  textDecoration: "none",
-                  fontWeight: 600,
-                  textAlign: "center",
-                  transition: "background-color 0.2s ease",
-                  minWidth: 180,
-                }}
-              >
-                Solicitar consulta
               </RouterLink>
             </div>
           </div>

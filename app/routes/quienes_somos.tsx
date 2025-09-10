@@ -21,7 +21,8 @@ const people: Person[] = [
     name: "José Koci",
     role: "Médico Veterinario",
     bio:
-      "Próximamente ampliaremos su perfil profesional. Integra el equipo clínico y reproductivo de La Querencia.",
+      "Médico Veterinario – Universidad de la República (Uruguay).  Especializado en Reproducción, Neonatologia y Clínica Equina. " +
+      "Dirección técnica en Haras.",
     photo: "/pepe.jpg",
   },
   {
@@ -148,14 +149,14 @@ export default function QuienesSomosPage() {
           {/* Encabezado */}
           <div style={{ textAlign: "center", display: "flex", flexDirection: "column", gap: 8 }}>
             <PageTitle>Quiénes somos</PageTitle>
+           
             <p
               style={{
                 margin: 0,
                 color: COLORS.textDim,
                 fontSize: "clamp(16px, 2.4vw, 18px)",
               }}
-            >
-              Conocé al equipo detrás de La Querencia. Profesionales con foco en reproducción equina en Uruguay.
+            >Nuestro centro de reproducción equina surge de la vocación veterinaria y de la necesidad de aportar eficiencia y soluciones simples al manejo reproductivo de nuestros clientes.
             </p>
           </div>
 
