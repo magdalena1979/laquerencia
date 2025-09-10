@@ -1,4 +1,3 @@
-import { AspectRatio } from "@chakra-ui/react";
 import { useEffect, useRef } from "react";
 
 type Props = {
@@ -11,7 +10,7 @@ type Props = {
 export default function VideoLugar({
   src,
   ratio = 9 / 16,
-  maxW = { base: "260px", sm: "320px", md: "360px" },
+  maxW = "260px sm:320px md:360px",
   poster,
 }: Props) {
   const ref = useRef<HTMLVideoElement>(null);
@@ -36,7 +35,13 @@ export default function VideoLugar({
   }, []);
 
   return (
-    <AspectRatio maxW={maxW} ratio={ratio} rounded="xl" overflow="hidden" boxShadow="lg">
+    <div 
+      className="rounded-xl overflow-hidden shadow-lg"
+      style={{ 
+        maxWidth: maxW,
+        aspectRatio: ratio.toString()
+      }}
+    >
       <video
         ref={ref}
         src={src}
@@ -50,8 +55,8 @@ export default function VideoLugar({
         controlsList="nodownload noplaybackrate noremoteplayback nofullscreen"
         disablePictureInPicture
         onContextMenu={(e) => e.preventDefault()}
-        style={{ width: "100%", height: "100%", objectFit: "cover", pointerEvents: "none" }}
+        className="w-full h-full object-cover pointer-events-none"
       />
-    </AspectRatio>
+    </div>
   );
 }

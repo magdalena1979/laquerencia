@@ -1,0 +1,2 @@
+/* Forzar generación de style.css cuando cssCodeSplit=false */
+:root { /* noop */ }

@@ -1,13 +1,4 @@
-import {
-  Avatar,
-  Box,
-  Container,
-  Heading,
-  SimpleGrid,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
-
+import { useMemo } from "react";
 
 interface Person {
   name: string;
@@ -42,91 +33,150 @@ const people: Person[] = [
   },
 ];
 
+const COLORS = {
+  bg: "#15322e",
+  gold: "#C18A4D",
+  white: "#FFFFFF",
+  whiteDim: "rgba(255,255,255,0.85)",
+  textDim: "rgba(255,255,255,0.75)",
+  cardBg: "rgba(255,255,255,0.10)",
+  shadow: "0 20px 25px -5px rgba(0,0,0,0.25), 0 10px 10px -5px rgba(0,0,0,0.15)",
+};
+
+function initialsFromName(name: string) {
+  const parts = name.trim().split(/\s+/);
+  const first = parts[0]?.[0] ?? "";
+  const last = parts.length > 1 ? parts[parts.length - 1][0] : "";
+  return (first + last).toUpperCase();
+}
+
 function PersonCard({ p }: { p: Person }) {
   return (
-    <Stack
-      borderWidth="1px"
-      borderColor="rgba(193,138,77,0.3)"
-      rounded="2xl"
-      overflow="hidden"
-      spacing={0}
-      bg="rgba(255,255,255,0.1)"
-      boxShadow="lg"
+    <div
+      style={{
+        borderRadius: 16,
+        overflow: "hidden",
+        backgroundColor: COLORS.cardBg,
+        boxShadow: COLORS.shadow,
+        display: "flex",
+        flexDirection: "column",
+      }}
     >
       {/* Foto */}
-      <Box position="relative" h={{ base: "260px", md: "320px" }}>
+      <div style={{ position: "relative", height: 320, background: "#1f2d2b" }}>
         {p.photo ? (
-          <Box
-            as="img"
+          <img
             src={p.photo}
             alt={p.name}
-            style={{ objectFit: "cover", width: "100%", height: "100%" }}
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
           />
         ) : (
-          <Stack
-            h="100%"
-            align="center"
-            justify="center"
-            bg="gray.700"
+          <div
+            style={{
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              background: "#2a3b38",
+            }}
           >
-            <Avatar name={p.name} size="xl" />
-          </Stack>
+            <div
+              style={{
+                width: 96,
+                height: 96,
+                borderRadius: "50%",
+                background: COLORS.gold,
+                color: COLORS.bg,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontWeight: 700,
+                fontSize: 28,
+              }}
+              aria-label={p.name}
+              title={p.name}
+            >
+              {initialsFromName(p.name)}
+            </div>
+          </div>
         )}
-      </Box>
+      </div>
 
       {/* Texto */}
-      <Stack p={{ base: 4, md: 6 }} spacing={2}>
-        <Heading size="md" color="#C18A4D">
-          {p.name}
-        </Heading>
-        <Text fontWeight="semibold" color="white">
-          {p.role}
-        </Text>
-        <Text color="gray.300" lineHeight={1.8}>
-          {p.bio}
-        </Text>
-      </Stack>
-    </Stack>
+      <div style={{ padding: 20, display: "flex", flexDirection: "column", gap: 8 }}>
+        <h3 style={{ margin: 0, color: COLORS.gold, fontSize: 20, fontWeight: 700 }}>{p.name}</h3>
+        <p style={{ margin: 0, color: COLORS.white, fontWeight: 600 }}>{p.role}</p>
+        <p style={{ margin: 0, color: COLORS.textDim, lineHeight: 1.8 }}>{p.bio}</p>
+      </div>
+    </div>
   );
 }
 
 export default function QuienesSomosPage() {
+  // padding top/bottom responsive (sin hooks): uso clamp
+  const containerStyle = useMemo<React.CSSProperties>(
+    () => ({
+      maxWidth: 1280, // ~7xl
+      margin: "0 auto",
+      padding: "clamp(96px, 10vh, 112px) 16px clamp(40px, 8vh, 64px)",
+    }),
+    []
+  );
+
   return (
-    <Box bg="#15322e" minH="100vh">
-      <Container maxW="7xl" pt={{ base: 24, md: 28 }} pb={{ base: 10, md: 16 }}>
-        <Stack spacing={{ base: 8, md: 12 }}>
+    <div style={{ backgroundColor: COLORS.bg, minHeight: "100vh" }}>
+      <div style={containerStyle}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
           {/* Encabezado */}
-          <Stack spacing={3} textAlign="center">
-            <Heading
-              size={{ base: "lg", md: "xl" }}
-              textTransform="uppercase"
-              letterSpacing="wide"
-              color="white"
+          <div style={{ textAlign: "center", display: "flex", flexDirection: "column", gap: 8 }}>
+            <h1
+              style={{
+                margin: 0,
+                textTransform: "uppercase",
+                letterSpacing: "0.12em",
+                color: COLORS.white,
+                fontSize: "clamp(22px, 3.2vw, 28px)",
+              }}
             >
               Quiénes somos
-            </Heading>
-            <Text fontSize={{ base: "md", md: "lg" }} color="gray.300">
+            </h1>
+            <p
+              style={{
+                margin: 0,
+                color: COLORS.textDim,
+                fontSize: "clamp(16px, 2.4vw, 18px)",
+              }}
+            >
               Conocé al equipo detrás de La Querencia. Profesionales con foco en reproducción equina en Uruguay.
-            </Text>
-          </Stack>
+            </p>
+          </div>
 
-          {/* Tarjetas */}
-          <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} spacing={{ base: 6, md: 8 }}>
+          {/* Grilla de tarjetas */}
+          <div
+            style={{
+              display: "grid",
+              gap: 24,
+              gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+            }}
+          >
             {people.map((p) => (
               <PersonCard key={p.name} p={p} />
             ))}
-          </SimpleGrid>
+          </div>
 
-          {/* Cómo trabajamos (texto placeholder; después sumamos carrusel) */}
-          <Stack spacing={4} pt={{ base: 4, md: 8 }}>
-            <Heading size="md" color="white">Cómo trabajamos</Heading>
-            <Text color="gray.300">
-              Protocolos claros, seguimiento por ultrasonografía, coordinación con studs/haras y comunicación directa con
-              propietarios. Sumaremos un carrusel de fotos y videos de procedimientos y manejo en campo.
-            </Text>
-          </Stack>
-        </Stack>
-      </Container>
-    </Box>
+          {/* Cómo trabajamos */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 12, paddingTop: 16 }}>
+            <h2 style={{ margin: 0, color: COLORS.white, fontSize: 20, fontWeight: 700 }}>
+              Cómo trabajamos
+            </h2>
+            <p style={{ margin: 0, color: COLORS.textDim, lineHeight: 1.7 }}>
+              Protocolos claros, seguimiento por ultrasonografía, coordinación con studs/haras y
+              comunicación directa con propietarios. Sumaremos un carrusel de fotos y videos de
+              procedimientos y manejo en campo.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

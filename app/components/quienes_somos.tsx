@@ -1,84 +1,131 @@
-import {
-  Box,
-  Button,
-  Container,
-  Heading,
-  HStack,
-  Stack,
-  Text,
-  useColorModeValue,
-} from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router";
-import { ChevronRightIcon } from "@chakra-ui/icons";
+import { useEffect, useState } from "react";
+import { ChevronRight } from "lucide-react";
+
+const COLORS = {
+  bg: "#15322e",
+  border: "rgba(168,116,63,0.3)", // borde dorado translúcido
+  borderDark: "rgba(168,116,63,0.5)",
+  gold: "#A8743F",
+  white: "#FFFFFF",
+  btn: "#1B5E20",
+  btnHover: "#144a19",
+};
 
 export default function AboutPreview() {
-  const border = useColorModeValue(
-    "rgba(168,116,63,0.3)",
-    "rgba(168,116,63,0.5)"
-  );
+  const [hoverBtn, setHoverBtn] = useState(false);
 
   return (
-    <Box as="section" id="quienes-somos-preview" py={{ base: 12, md: 20 }} bg="#15322e">
-      <Container maxW="7xl">
-        <Stack
-          direction={{ base: "column", md: "row" }}
-          spacing={{ base: 8, md: 12 }}
-          align={{ base: "start", md: "center" }}
-          borderWidth="1px"
-          borderColor={border}
-          rounded="2xl"
-          p={{ base: 5, md: 8 }}
-          bg="transparent"
-          boxShadow="xl"
+    <section
+      id="quienes-somos-preview"
+      style={{
+        backgroundColor: COLORS.bg,
+        paddingTop: 48,
+        paddingBottom: 80,
+      }}
+    >
+      <div
+        style={{
+          maxWidth: 1280, // Chakra 7xl ≈ 80rem
+          margin: "0 auto",
+          padding: "0 16px",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: window.innerWidth >= 768 ? "row" : "column",
+            gap: window.innerWidth >= 768 ? 48 : 32,
+            alignItems: window.innerWidth >= 768 ? "center" : "flex-start",
+            borderWidth: 1,
+            borderColor: COLORS.border,
+            borderStyle: "solid",
+            borderRadius: 16,
+            padding: window.innerWidth >= 768 ? 32 : 20,
+            backgroundColor: "transparent",
+            boxShadow: "0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04)",
+          }}
         >
-          {/* Foto del equipo a la izquierda */}
-          <Box flexShrink={0} w={{ base: "100%", md: "44%" }}>
-            <Box
-              as="img"
+          {/* Imagen */}
+          <div
+            style={{
+              flexShrink: 0,
+              width: window.innerWidth >= 768 ? "44%" : "100%",
+            }}
+          >
+            <img
               src="/equipo.jpg"
               alt="Equipo de La Querencia en el centro de reproducción"
-              style={{ objectFit: "cover" }}
-              width="100%"
-              height="100%"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                borderRadius: 12,
+              }}
             />
-          </Box>
+          </div>
 
-          {/* Texto y botón */}
-          <Stack spacing={4} flex="1">
-            <Heading
-              size={{ base: "lg", md: "xl" }}
-              color="#A8743F"
-              textTransform="uppercase"
-              letterSpacing="wide"
+          {/* Texto */}
+          <div
+            style={{
+              flex: 1,
+              display: "flex",
+              flexDirection: "column",
+              gap: 16,
+            }}
+          >
+            <h2
+              style={{
+                fontSize: window.innerWidth >= 768 ? "2rem" : "1.5rem",
+                color: COLORS.gold,
+                textTransform: "uppercase",
+                letterSpacing: "0.1em",
+                margin: 0,
+              }}
             >
               Quiénes somos
-            </Heading>
-            <Text
-              fontSize={{ base: "md", md: "lg" }}
-              color="white"
-              lineHeight={1.7}
+            </h2>
+
+            <p
+              style={{
+                fontSize: window.innerWidth >= 768 ? "18px" : "16px",
+                color: COLORS.white,
+                lineHeight: 1.7,
+                margin: 0,
+              }}
             >
-              Somos un centro uruguayo especializado en reproducción equina con foco en inseminación,
-              manejo de yeguas donantes y biotecnologías reproductivas. Acompañamos a criadores y
-              studs con protocolos basados en evidencia, infraestructura adecuada y un equipo
-              veterinario con trayectoria en Uruguay y la región.
-            </Text>
-            <HStack>
-              <Button
-                as={RouterLink}
+              Somos un centro uruguayo especializado en reproducción equina con foco en
+              inseminación, manejo de yeguas donantes y biotecnologías reproductivas.
+              Acompañamos a criadores y studs con protocolos basados en evidencia,
+              infraestructura adecuada y un equipo veterinario con trayectoria en Uruguay
+              y la región.
+            </p>
+
+            <div>
+              <RouterLink
                 to="/quienes_somos"
-                rightIcon={<ChevronRightIcon />}
-                colorScheme="green"
-                bg="#1B5E20"
-                _hover={{ bg: "#144a19" }}
-                px={6}
+                onMouseEnter={() => setHoverBtn(true)}
+                onMouseLeave={() => setHoverBtn(false)}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  backgroundColor: hoverBtn ? COLORS.btnHover : COLORS.btn,
+                  color: COLORS.white,
+                  padding: "12px 24px",
+                  borderRadius: 6,
+                  fontWeight: 600,
+                  textDecoration: "none",
+                  transition: "background-color 0.2s ease",
+                }}
               >
                 Conocer al equipo
-              </Button>
-            </HStack>
-          </Stack>
-        </Stack>
-      </Container>
-    </Box>
+                <ChevronRight size={18} />
+              </RouterLink>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }

@@ -1,133 +1,198 @@
-import {
-  Box,
-  Container,
-  Heading,
-  Text,
-  Stack,
-  SimpleGrid,
-  Divider,
-  Button,
-  List,
-  ListItem,
-  ListIcon,
-  Image,
-  useColorModeValue,
-} from "@chakra-ui/react";
-import { CheckCircleIcon } from "@chakra-ui/icons";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, Link as RouterLink } from "react-router";
+import { CheckCircle } from "lucide-react";
 
 const HEADER_OFFSET_PX = 96; // compensa tu navbar fijo
+
+const COLORS = {
+  bg: "#15322e",
+  white: "#FFFFFF",
+  textDim: "rgba(255,255,255,0.75)", // ~gray.300
+  gold: "#C18A4D",
+  goldAlt: "#aa8f94", // usaste esto en hover del CTA final
+  card: "rgba(255,255,255,0.10)",
+};
 
 function useScrollToHashWithOffset() {
   const { hash } = useLocation();
   useEffect(() => {
-    // correr al montar o cuando cambia el hash
     const id = (hash || "").replace("#", "");
     if (!id) return;
-    // esperar al paint para que exista el nodo
     const t = setTimeout(() => {
-      if (typeof document !== "undefined" && typeof window !== "undefined") {
-        const el = document.getElementById(id);
-        if (el) {
-          const y = el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET_PX;
-          window.scrollTo({ top: y, behavior: "smooth" });
-        }
+      const el = document.getElementById(id);
+      if (el) {
+        const y = el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET_PX;
+        window.scrollTo({ top: y, behavior: "smooth" });
       }
     }, 0);
     return () => clearTimeout(t);
   }, [hash]);
 }
 
+// Botón outline dorado con hover (inline)
+function OutlineAnchor({
+  to,
+  children,
+}: {
+  to: string;
+  children: React.ReactNode;
+}) {
+  const [hover, setHover] = useState(false);
+  return (
+    <RouterLink
+      to={to}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      style={{
+        display: "inline-block",
+        padding: "8px 14px",
+        fontSize: 14,
+        borderRadius: 6,
+        border: `1px solid ${COLORS.gold}`,
+        color: hover ? COLORS.white : COLORS.white,
+        backgroundColor: hover ? COLORS.gold : "transparent",
+        textDecoration: "none",
+        transition: "background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease",
+      }}
+    >
+      {children}
+    </RouterLink>
+  );
+}
+
+function DividerLine() {
+  return (
+    <div
+      style={{
+        height: 1,
+        margin: "48px 0",
+        backgroundColor: "rgba(193,138,77,0.3)",
+      }}
+    />
+  );
+}
+
+type SectionProps = {
+  id: string;
+  title: string;
+  children: React.ReactNode;
+  bullets?: string[];
+  img?: string;
+  bg?: string;
+};
+
+function Section({ id, title, children, bullets = [], img, bg }: SectionProps) {
+  return (
+    <section
+      id={id}
+      style={{
+        padding: "clamp(24px, 4vw, 32px)",
+        backgroundColor: bg || COLORS.card,
+        borderRadius: 16,
+        marginBottom: 24,
+        color: COLORS.white,
+      }}
+    >
+      <div
+        style={{
+          display: "grid",
+          gap: 24,
+          alignItems: "center",
+          gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+        }}
+      >
+        {/* Texto */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          <h2 style={{ margin: 0, color: COLORS.white, fontSize: "clamp(22px, 3vw, 28px)" }}>
+            {title}
+          </h2>
+          <p style={{ margin: 0, color: COLORS.textDim, lineHeight: 1.6 }}>{children}</p>
+
+          {bullets.length > 0 && (
+            <ul style={{ listStyle: "none", padding: 0, margin: "8px 0 0 0", display: "grid", gap: 8 }}>
+              {bullets.map((b, i) => (
+                <li key={i} style={{ color: COLORS.textDim, display: "flex", gap: 8, alignItems: "flex-start" }}>
+                  <CheckCircle size={18} color={COLORS.gold} style={{ flex: "0 0 auto", marginTop: 2 }} />
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        {/* Imagen */}
+        <div>
+          <img
+            src={img || "/servicios1.jpg"}
+            alt={title}
+            style={{
+              width: "100%",
+              height: "clamp(220px, 40vw, 320px)",
+              objectFit: "cover",
+              borderRadius: 16,
+              boxShadow: "0 20px 25px -5px rgba(0,0,0,0.25), 0 10px 10px -5px rgba(0,0,0,0.15)",
+              display: "block",
+            }}
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function Servicios() {
   useScrollToHashWithOffset();
-  const sectionBg = "rgba(255,255,255,0.1)"; // Fondo semitransparente para el estilo de contacto
 
   return (
-    <Box bg="#15322e" minH="100vh">
-      <Container maxW="7xl" pt={{ base: 24, md: 28 }} pb={{ base: 10, md: 16 }}>
+    <div style={{ backgroundColor: COLORS.bg, minHeight: "100vh" }}>
+      <div
+        style={{
+          maxWidth: 1280, // ~7xl
+          margin: "0 auto",
+          padding: "clamp(96px, 10vh, 112px) 16px clamp(40px, 8vh, 64px)",
+        }}
+      >
         {/* Hero */}
-        <Stack spacing={6} textAlign="center" mb={10}>
-          <Heading as="h1" size="2xl" letterSpacing="wide" color="white">
+        <div style={{ textAlign: "center", marginBottom: 40, display: "flex", flexDirection: "column", gap: 16 }}>
+          <h1
+            style={{
+              margin: 0,
+              color: COLORS.white,
+              letterSpacing: "0.08em",
+              fontSize: "clamp(28px, 4.5vw, 40px)",
+            }}
+          >
             Servicios de Reproducción Equina
-          </Heading>
-          <Text fontSize="lg" color="gray.300">
+          </h1>
+          <p style={{ margin: 0, color: COLORS.textDim, fontSize: "clamp(16px, 2.2vw, 18px)" }}>
             En <b>La Querencia</b> acompañamos cada etapa del ciclo reproductivo de tu yegua o padrillo.
             Trabajamos con protocolos actualizados y enfoque de bienestar animal, ajustados a la
             operativa y calendario zafral de Uruguay.
-          </Text>
+          </p>
 
           {/* TOC interno */}
-          <Stack
-            direction={{ base: "column", md: "row" }}
-            spacing={3}
-            justify="center"
-            wrap="wrap"
-            mt={2}
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 12,
+              justifyContent: "center",
+              marginTop: 8,
+            }}
           >
-            <Button 
-              as={RouterLink} 
-              to="#seguimiento-folicular" 
-              variant="outline" 
-              size="sm"
-              color="white"
-              borderColor="#C18A4D"
-              _hover={{ bg: "#C18A4D", color: "white" }}
-            >
-              Seguimiento folicular
-            </Button>
-            <Button 
-              as={RouterLink} 
-              to="#colecta-semen" 
-              variant="outline" 
-              size="sm"
-              color="white"
-              borderColor="#C18A4D"
-              _hover={{ bg: "#C18A4D", color: "white" }}
-            >
-              Colecta de semen
-            </Button>
-            <Button 
-              as={RouterLink} 
-              to="#inseminacion-artificial" 
-              variant="outline" 
-              size="sm"
-              color="white"
-              borderColor="#C18A4D"
-              _hover={{ bg: "#C18A4D", color: "white" }}
-            >
-              Inseminación artificial
-            </Button>
-            <Button 
-              as={RouterLink} 
-              to="#transferencia-embriones" 
-              variant="outline" 
-              size="sm"
-              color="white"
-              borderColor="#C18A4D"
-              _hover={{ bg: "#C18A4D", color: "white" }}
-            >
-              Transferencia de embriones
-            </Button>
-            <Button 
-              as={RouterLink} 
-              to="#opu" 
-              variant="outline" 
-              size="sm"
-              color="white"
-              borderColor="#C18A4D"
-              _hover={{ bg: "#C18A4D", color: "white" }}
-            >
-              OPU
-            </Button>
-          </Stack>
-        </Stack>
+            <OutlineAnchor to="#seguimiento-folicular">Seguimiento folicular</OutlineAnchor>
+            <OutlineAnchor to="#colecta-semen">Colecta de semen</OutlineAnchor>
+            <OutlineAnchor to="#inseminacion-artificial">Inseminación artificial</OutlineAnchor>
+            <OutlineAnchor to="#transferencia-embriones">Transferencia de embriones</OutlineAnchor>
+            <OutlineAnchor to="#opu">OPU</OutlineAnchor>
+          </div>
+        </div>
 
-        {/* SEGUIMIENTO FOLICULAR */}
+        {/* SECCIONES */}
         <Section
           id="seguimiento-folicular"
           title="Seguimiento folicular"
-          bg={sectionBg}
+          bg={COLORS.card}
           img="/imgs/foliculos.jpg"
           bullets={[
             "Ecografías seriadas para determinar el momento óptimo de servicio o IA.",
@@ -139,9 +204,8 @@ export default function Servicios() {
           optimizando tasas de preñez y reduciendo servicios innecesarios.
         </Section>
 
-        <Divider my={12} borderColor="rgba(193,138,77,0.3)" />
+        <DividerLine />
 
-        {/* COLECTA DE SEMEN */}
         <Section
           id="colecta-semen"
           title="Colecta de semen"
@@ -156,13 +220,12 @@ export default function Servicios() {
           refrigerado según cronograma de yeguas receptoras.
         </Section>
 
-        <Divider my={12} borderColor="rgba(193,138,77,0.3)" />
+        <DividerLine />
 
-        {/* INSEMINACIÓN ARTIFICIAL */}
         <Section
           id="inseminacion-artificial"
           title="Inseminación artificial"
-          bg={sectionBg}
+          bg={COLORS.card}
           img="/imgs/ia.jpg"
           bullets={[
             "IA con semen fresco o refrigerado.",
@@ -174,9 +237,8 @@ export default function Servicios() {
           maximizar la probabilidad de concepción en cada celo.
         </Section>
 
-        <Divider my={12} borderColor="rgba(193,138,77,0.3)" />
+        <DividerLine />
 
-        {/* TRANSFERENCIA DE EMBRIONES */}
         <Section
           id="transferencia-embriones"
           title="Transferencia de embriones"
@@ -191,13 +253,12 @@ export default function Servicios() {
           disponibilidad de receptoras y logística en campo.
         </Section>
 
-        <Divider my={12} borderColor="rgba(193,138,77,0.3)" />
+        <DividerLine />
 
-        {/* OPU */}
         <Section
           id="opu"
           title="OPU (Ovum Pick-Up)"
-          bg={sectionBg}
+          bg={COLORS.card}
           img="/imgs/opu.jpg"
           bullets={[
             "Aspiración folicular guiada por ecografía.",
@@ -210,80 +271,39 @@ export default function Servicios() {
         </Section>
 
         {/* CTA final */}
-        <Stack align="center" mt={16} spacing={3}>
-          <Heading size="lg" color="white">¿Coordinamos tu plan reproductivo?</Heading>
-          <Text color="gray.300" textAlign="center" maxW="2xl">
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, marginTop: 64 }}>
+          <h3 style={{ margin: 0, color: COLORS.white, fontSize: "clamp(20px, 3vw, 24px)" }}>
+            ¿Coordinamos tu plan reproductivo?
+          </h3>
+          <p style={{ margin: 0, color: COLORS.textDim, textAlign: "center", maxWidth: 640, lineHeight: 1.6 }}>
             Escribinos y armamos un esquema a medida según disponibilidad de padrillos,
             calendario de celo y objetivos de cría.
-          </Text>
-          <Button 
-            as={RouterLink} 
-            to="/contacto" 
-            size="md" 
-            bg="#C18A4D" 
-            color="white" 
-            _hover={{ bg: "#aa8f94" }}
-          >
-            Contactar
-          </Button>
-        </Stack>
-      </Container>
-    </Box>
+          </p>
+          <CTAContact />
+        </div>
+      </div>
+    </div>
   );
 }
 
-function Section({
-  id,
-  title,
-  children,
-  bullets = [],
-  img,
-  bg,
-}: {
-  id: string;
-  title: string;
-  children: React.ReactNode;
-  bullets?: string[];
-  img?: string;
-  bg?: string;
-}) {
+function CTAContact() {
+  const [hover, setHover] = useState(false);
   return (
-    <Box 
-      id={id} 
-      py={{ base: 8, md: 12 }} 
-      px={{ base: 6, md: 8 }} 
-      bg={bg || "rgba(255,255,255,0.1)"} 
-      borderRadius="2xl"
-      mb={6}
-      color="white"
+    <RouterLink
+      to="/contacto"
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      style={{
+        backgroundColor: hover ? COLORS.goldAlt : COLORS.gold,
+        color: COLORS.white,
+        padding: "10px 18px",
+        borderRadius: 6,
+        textDecoration: "none",
+        fontWeight: 600,
+        transition: "background-color 0.2s ease",
+      }}
     >
-      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={8} alignItems="center">
-        <Stack spacing={4} pr={{ md: 6 }}>
-          <Heading as="h2" size="xl" color="white">{title}</Heading>
-          <Text color="gray.300">{children}</Text>
-          {bullets.length > 0 && (
-            <List spacing={2} pt={1}>
-              {bullets.map((b, i) => (
-                <ListItem key={i} color="gray.300">
-                  <ListIcon as={CheckCircleIcon} color="#C18A4D" />
-                  {b}
-                </ListItem>
-              ))}
-            </List>
-          )}
-        </Stack>
-        <Box>
-          <Image
-            src={img || "/servicios1.jpg"}
-            alt={title}
-            rounded="2xl"
-            objectFit="cover"
-            w="100%"
-            h={{ base: "220px", md: "320px" }}
-            boxShadow="lg"
-          />
-        </Box>
-      </SimpleGrid>
-    </Box>
+      Contactar
+    </RouterLink>
   );
 }

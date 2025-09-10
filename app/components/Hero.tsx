@@ -1,76 +1,166 @@
-import { Box, Container, Heading, Text, Stack, Button } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router";
+import { useEffect, useState } from "react";
+
+// Si ya tenés un archivo de tokens, podés reemplazar estos valores por tus tokens.
+const COLORS = {
+  gold: "#C18A4D",
+  goldDark: "#A8743F",
+  white: "#FFFFFF",
+};
+const SPACING = {
+  xs: 6,
+  sm: 12,
+  md: 16,
+  lg: 24,
+  xl: 32,
+};
+
+function useMediaQuery(query: string) {
+  const [matches, setMatches] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia(query);
+    const update = () => setMatches(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, [query]);
+  return matches;
+}
 
 export default function HeroSticky() {
+  const isDesktop = useMediaQuery("(min-width: 768px)");
+  const sectionHeight = isDesktop ? "180vh" : "140vh";
+
+  // hovers de botones (sin CSS)
+  const [ctaHover, setCtaHover] = useState(false);
+  const [secHover, setSecHover] = useState(false);
+
   return (
-    <Box as="section" position="relative" h={{ base: "140vh", md: "180vh" }}>
-      {/* Fondo: imagen o video que scrollea */}
-      <Box position="absolute" inset={0} overflow="hidden">
-        {/* USA UNA DE LAS DOS OPCIONES */}
-
-     
-     <Box
-          as="img"
+    <section
+      style={{
+        position: "relative",
+        height: sectionHeight,
+        overflow: "hidden",
+      }}
+    >
+      {/* Fondo (imagen full) */}
+      <div style={{ position: "absolute", inset: 0 }}>
+        <img
           src="/hero1.jpg"
-          alt="La Querencia"
-          w="100%"
-          h="100%"
-          objectFit="cover"
-        /> 
+          alt="Centro de reproducción equina La Querencia"
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            display: "block",
+          }}
+        />
+        {/* Capa para contraste del texto (degradé) */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background:
+              "linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0.30))",
+          }}
+        />
+      </div>
 
-     
-       
-
-        {/* Capa para contraste del texto */}
-        <Box position="absolute" inset={0} bgGradient="linear(to-b, blackAlpha.600, blackAlpha.300)" />
-      </Box>
-
-      {/* Overlay STICKY con el copy y CTAs (queda fijo) */}
-      <Container
-        position="sticky"
-        top={0}
-        h="100vh"
-        display="grid"
-        placeItems="center"
-        zIndex={1}
+      {/* Overlay STICKY con copy + CTAs */}
+      <div
+        style={{
+          position: "sticky",
+          top: 0,
+          height: "100vh",
+          display: "grid",
+          placeItems: "center",
+          zIndex: 1,
+          padding: `0 ${SPACING.lg}px`,
+        }}
       >
-        <Stack spacing={6} textAlign="left" maxW="3xl">
-          <Heading
-            color="white"
-            fontWeight={800}
-            lineHeight={1.1}
-            fontSize={{ base: "3xl", md: "5xl" }}
+        <div
+          style={{
+            maxWidth: 960, // ~"3xl"
+            display: "flex",
+            flexDirection: "column",
+            gap: SPACING.lg,
+            textAlign: "left",
+          }}
+        >
+          <h1
+            style={{
+              color: COLORS.white,
+              fontWeight: 800,
+              lineHeight: 1.1,
+              margin: 0,
+              // clamp para responsivo sin CSS
+              fontSize: "clamp(28px, 6vw, 56px)",
+            }}
           >
             Reproducción equina de excelencia en Uruguay.
-          </Heading>
+          </h1>
 
-          <Text color="whiteAlpha.900" fontSize={{ base: "md", md: "lg" }}>
+          <p
+            style={{
+              color: "rgba(255,255,255,0.92)",
+              margin: 0,
+              fontSize: "clamp(16px, 2.5vw, 20px)",
+              lineHeight: 1.5,
+              maxWidth: 720,
+            }}
+          >
             Cuidamos tu yegua, potenciamos tu genética.
-          </Text>
+          </p>
 
-          <Stack direction="row" spacing={4}>
-            <Button
-              as={RouterLink}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              gap: SPACING.md,
+              flexWrap: "wrap",
+            }}
+          >
+            {/* CTA principal */}
+            <RouterLink
               to="/contacto"
-              bg="#C18A4D"
-              color="white"
-              _hover={{ bg: "#A8743F" }}
+              onMouseEnter={() => setCtaHover(true)}
+              onMouseLeave={() => setCtaHover(false)}
+              style={{
+                backgroundColor: ctaHover ? COLORS.goldDark : COLORS.gold,
+                color: COLORS.white,
+                border: "none",
+                padding: `${SPACING.sm}px ${SPACING.xl}px`,
+                borderRadius: 6,
+                fontWeight: 600,
+                textDecoration: "none",
+                transition: "background-color 0.2s ease",
+              }}
             >
               Contáctanos
-            </Button>
-            <Button
-              as={RouterLink}
+            </RouterLink>
+
+            {/* CTA secundaria (outline) */}
+            <RouterLink
               to="/servicios"
-              variant="outline"
-              color="white"
-              borderColor="whiteAlpha.700"
-              _hover={{ bg: "whiteAlpha.200" }}
+              onMouseEnter={() => setSecHover(true)}
+              onMouseLeave={() => setSecHover(false)}
+              style={{
+                backgroundColor: secHover ? "rgba(255,255,255,0.15)" : "transparent",
+                color: COLORS.white,
+                border: "1px solid rgba(255,255,255,0.7)",
+                padding: `${SPACING.sm}px ${SPACING.xl}px`,
+                borderRadius: 6,
+                fontWeight: 600,
+                textDecoration: "none",
+                transition: "background-color 0.2s ease, border-color 0.2s ease",
+              }}
             >
               Ver servicios
-            </Button>
-          </Stack>
-        </Stack>
-      </Container>
-    </Box>
+            </RouterLink>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }

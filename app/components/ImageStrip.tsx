@@ -1,6 +1,6 @@
-import { Box, Image, useBreakpointValue, Icon } from "@chakra-ui/react";
-import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { useRef } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { colors, spacing, borderRadius } from '../styles';
 
 type Props = {
   images: string[];
@@ -20,7 +20,6 @@ export default function ImageStrip({
   hover = true,
 }: Props) {
   const trackRef = useRef<HTMLDivElement>(null);
-  const top = useBreakpointValue({ base: "50%", md: "50%" });
 
   const scrollBy = (dir: 1 | -1) => {
     const el = trackRef.current;
@@ -30,104 +29,121 @@ export default function ImageStrip({
   };
 
   return (
-    // 👇 Padre con "group" (no _group)
-    <Box position="relative" w="full" role="group">
+    <div className="imagestrip-container imagestrip-group" style={{
+      position: 'relative',
+      width: '100%',
+    }}>
       {/* Pista */}
-      <Box
+      <div
         ref={trackRef}
         role="region"
         aria-label="Tira de imágenes"
-        display="grid"
-        gridAutoFlow="column"
-        gridAutoColumns={itemWidth}
-        gap={0}
-        overflowX="auto"
-        overflowY="hidden"
-        scrollSnapType="x mandatory"
-        sx={{
-          "::-webkit-scrollbar": { display: "none" },
-          scrollbarWidth: "none",
-          overscrollBehaviorX: "contain",
-          WebkitOverflowScrolling: "touch",
+        className="imagestrip-track"
+        style={{
+          display: 'grid',
+          gridAutoFlow: 'column',
+          gridAutoColumns: '75%',
+          gap: 0,
+          overflowX: 'auto',
+          overflowY: 'hidden',
+          scrollSnapType: 'x mandatory',
+          scrollbarWidth: 'none',
+          WebkitOverflowScrolling: 'touch',
+          overscrollBehaviorX: 'contain',
         }}
       >
         {images.map((src, i) => (
-          <Box key={i} position="relative" scrollSnapAlign="start" overflow="hidden">
-            <Box position="relative" w="100%" pt={`${(1 / ratio) * 100}%`}>
-              <Image
+          <div key={i} style={{
+            position: 'relative',
+            scrollSnapAlign: 'start',
+            overflow: 'hidden',
+          }}>
+            <div style={{
+              position: 'relative',
+              width: '100%',
+              paddingTop: `${(1 / ratio) * 100}%`,
+            }}>
+              <img
                 src={src}
                 alt={alts?.[i] || `imagen ${i + 1}`}
-                position="absolute"
-                inset={0}
-                w="100%"
-                h="100%"
-                objectFit="cover"
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  userSelect: 'none',
+                  display: 'block',
+                  transition: 'transform 0.35s ease, filter 0.35s ease',
+                  transformOrigin: 'center',
+                }}
                 draggable={false}
                 loading="lazy"
-                display="block"
-                transition="transform .35s ease, filter .35s ease"
-                transformOrigin="center"
-                _hover={hover ? { transform: "scale(1.035)", filter: "brightness(1.03)" } : {}}
               />
-            </Box>
-          </Box>
+            </div>
+          </div>
         ))}
-      </Box>
+      </div>
 
       {/* Flechas overlay semitransparentes */}
       {showArrows && images.length > 1 && (
         <>
-          <Box
-            as="button"
+          <button
             aria-label="Anterior"
             onClick={() => scrollBy(-1)}
-            position="absolute"
-            left={2}
-            top={top}
-            transform="translateY(-50%)"
-            zIndex={2}
-            w="42px"
-            h="42px"
-            display="grid"
-            placeItems="center"
-            rounded="full"
-            bg="blackAlpha.400"
-            color="whiteAlpha.900"
-            opacity={{ base: 0.85, md: 0 }}      // ocultas en desktop hasta hover
-            _groupHover={{ opacity: 0.95 }}      // 👈 ahora sí funciona
-            _hover={{ bg: "blackAlpha.500" }}
-            _active={{ bg: "blackAlpha.600" }}
-            style={{ backdropFilter: "blur(2px)" }}
+            className="imagestrip-arrow imagestrip-arrow-left"
+            style={{
+              position: 'absolute',
+              left: spacing.sm,
+              top: '50%',
+              transform: 'translateY(-50%)',
+              zIndex: 20,
+              width: '40px',
+              height: '40px',
+              display: 'grid',
+              placeItems: 'center',
+              borderRadius: borderRadius.full,
+              backgroundColor: 'rgba(0, 0, 0, 0.4)',
+              color: 'rgba(255, 255, 255, 0.9)',
+              border: 'none',
+              cursor: 'pointer',
+              backdropFilter: 'blur(2px)',
+              transition: 'all 0.2s ease',
+            }}
           >
-            <Icon as={ChevronLeftIcon} boxSize={6} />
-          </Box>
+            <ChevronLeft size={24} />
+          </button>
 
-          <Box
-            as="button"
+          <button
             aria-label="Siguiente"
             onClick={() => scrollBy(1)}
-            position="absolute"
-            right={2}
-            top={top}
-            transform="translateY(-50%)"
-            zIndex={2}
-            w="42px"
-            h="42px"
-            display="grid"
-            placeItems="center"
-            rounded="full"
-            bg="blackAlpha.400"
-            color="whiteAlpha.900"
-            opacity={{ base: 0.85, md: 0 }}
-            _groupHover={{ opacity: 0.95 }}
-            _hover={{ bg: "blackAlpha.500" }}
-            _active={{ bg: "blackAlpha.600" }}
-            style={{ backdropFilter: "blur(2px)" }}
+            className="imagestrip-arrow imagestrip-arrow-right"
+            style={{
+              position: 'absolute',
+              right: spacing.sm,
+              top: '50%',
+              transform: 'translateY(-50%)',
+              zIndex: 20,
+              width: '40px',
+              height: '40px',
+              display: 'grid',
+              placeItems: 'center',
+              borderRadius: borderRadius.full,
+              backgroundColor: 'rgba(0, 0, 0, 0.4)',
+              color: 'rgba(255, 255, 255, 0.9)',
+              border: 'none',
+              cursor: 'pointer',
+              backdropFilter: 'blur(2px)',
+              transition: 'all 0.2s ease',
+            }}
           >
-            <Icon as={ChevronRightIcon} boxSize={6} />
-          </Box>
+            <ChevronRight size={24} />
+          </button>
         </>
       )}
-    </Box>
+    </div>
   );
 }
