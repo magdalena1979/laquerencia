@@ -7,12 +7,15 @@ const HEADER_OFFSET_PX = 96; // compensa tu navbar fijo
 const COLORS = {
   bg: "#15322e",
   white: "#FFFFFF",
-  textDim: "rgba(255,255,255,0.75)", // ~gray.300
+  textDim: "rgba(255,255,255,0.75)",
   gold: "#C18A4D",
-  goldAlt: "#aa8f94", // usaste esto en hover del CTA final
+  goldAlt: "#aa8f94",
   card: "rgba(255,255,255,0.10)",
 };
 
+// -----------------------------
+// Hook para scroll con offset
+// -----------------------------
 function useScrollToHashWithOffset() {
   const { hash } = useLocation();
   useEffect(() => {
@@ -29,7 +32,31 @@ function useScrollToHashWithOffset() {
   }, [hash]);
 }
 
-// Botón outline dorado con hover (inline)
+// -----------------------------
+// Componente PageTitle (H1)
+// -----------------------------
+function PageTitle({ children }: { children: React.ReactNode }) {
+  return (
+    <h1
+      style={{
+        margin: "0 0 16px",
+        marginTop: "clamp(112px, 14vh, 140px)", // espacio bajo navbar
+        color: COLORS.white,
+        fontSize: "clamp(28px, 5vw, 40px)",
+        fontWeight: 700,
+        textAlign: "center",
+        letterSpacing: "0.02em",
+        lineHeight: 1.3,
+      }}
+    >
+      {children}
+    </h1>
+  );
+}
+
+// -----------------------------
+// Botón outline
+// -----------------------------
 function OutlineAnchor({
   to,
   children,
@@ -49,10 +76,10 @@ function OutlineAnchor({
         fontSize: 14,
         borderRadius: 6,
         border: `1px solid ${COLORS.gold}`,
-        color: hover ? COLORS.white : COLORS.white,
+        color: COLORS.white,
         backgroundColor: hover ? COLORS.gold : "transparent",
         textDecoration: "none",
-        transition: "background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease",
+        transition: "background-color 0.2s ease, color 0.2s ease",
       }}
     >
       {children}
@@ -60,6 +87,9 @@ function OutlineAnchor({
   );
 }
 
+// -----------------------------
+// Divider
+// -----------------------------
 function DividerLine() {
   return (
     <div
@@ -72,6 +102,9 @@ function DividerLine() {
   );
 }
 
+// -----------------------------
+// Section con texto + img
+// -----------------------------
 type SectionProps = {
   id: string;
   title: string;
@@ -109,9 +142,25 @@ function Section({ id, title, children, bullets = [], img, bg }: SectionProps) {
           <p style={{ margin: 0, color: COLORS.textDim, lineHeight: 1.6 }}>{children}</p>
 
           {bullets.length > 0 && (
-            <ul style={{ listStyle: "none", padding: 0, margin: "8px 0 0 0", display: "grid", gap: 8 }}>
+            <ul
+              style={{
+                listStyle: "none",
+                padding: 0,
+                margin: "8px 0 0 0",
+                display: "grid",
+                gap: 8,
+              }}
+            >
               {bullets.map((b, i) => (
-                <li key={i} style={{ color: COLORS.textDim, display: "flex", gap: 8, alignItems: "flex-start" }}>
+                <li
+                  key={i}
+                  style={{
+                    color: COLORS.textDim,
+                    display: "flex",
+                    gap: 8,
+                    alignItems: "flex-start",
+                  }}
+                >
                   <CheckCircle size={18} color={COLORS.gold} style={{ flex: "0 0 auto", marginTop: 2 }} />
                   <span>{b}</span>
                 </li>
@@ -130,7 +179,8 @@ function Section({ id, title, children, bullets = [], img, bg }: SectionProps) {
               height: "clamp(220px, 40vw, 320px)",
               objectFit: "cover",
               borderRadius: 16,
-              boxShadow: "0 20px 25px -5px rgba(0,0,0,0.25), 0 10px 10px -5px rgba(0,0,0,0.15)",
+              boxShadow:
+                "0 20px 25px -5px rgba(0,0,0,0.25), 0 10px 10px -5px rgba(0,0,0,0.15)",
               display: "block",
             }}
           />
@@ -140,6 +190,34 @@ function Section({ id, title, children, bullets = [], img, bg }: SectionProps) {
   );
 }
 
+// -----------------------------
+// CTA final
+// -----------------------------
+function CTAContact() {
+  const [hover, setHover] = useState(false);
+  return (
+    <RouterLink
+      to="/contacto"
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      style={{
+        backgroundColor: hover ? COLORS.goldAlt : COLORS.gold,
+        color: COLORS.white,
+        padding: "10px 18px",
+        borderRadius: 6,
+        textDecoration: "none",
+        fontWeight: 600,
+        transition: "background-color 0.2s ease",
+      }}
+    >
+      Contactar
+    </RouterLink>
+  );
+}
+
+// -----------------------------
+// Página principal
+// -----------------------------
 export default function Servicios() {
   useScrollToHashWithOffset();
 
@@ -147,27 +225,33 @@ export default function Servicios() {
     <div style={{ backgroundColor: COLORS.bg, minHeight: "100vh" }}>
       <div
         style={{
-          maxWidth: 1280, // ~7xl
+          maxWidth: 1280,
           margin: "0 auto",
-          padding: "clamp(96px, 10vh, 112px) 16px clamp(40px, 8vh, 64px)",
+          padding: "0 16px clamp(40px, 8vh, 64px)",
         }}
       >
         {/* Hero */}
-        <div style={{ textAlign: "center", marginBottom: 40, display: "flex", flexDirection: "column", gap: 16 }}>
-          <h1
+        <div
+          style={{
+            textAlign: "center",
+            marginBottom: 40,
+            display: "flex",
+            flexDirection: "column",
+            gap: 16,
+          }}
+        >
+          <PageTitle>Servicios de Reproducción Equina</PageTitle>
+
+          <p
             style={{
               margin: 0,
-              color: COLORS.white,
-              letterSpacing: "0.08em",
-              fontSize: "clamp(28px, 4.5vw, 40px)",
+              color: COLORS.textDim,
+              fontSize: "clamp(16px, 2.2vw, 18px)",
             }}
           >
-            Servicios de Reproducción Equina
-          </h1>
-          <p style={{ margin: 0, color: COLORS.textDim, fontSize: "clamp(16px, 2.2vw, 18px)" }}>
-            En <b>La Querencia</b> acompañamos cada etapa del ciclo reproductivo de tu yegua o padrillo.
-            Trabajamos con protocolos actualizados y enfoque de bienestar animal, ajustados a la
-            operativa y calendario zafral de Uruguay.
+            En <b>La Querencia</b> acompañamos cada etapa del ciclo reproductivo de tu yegua
+            o padrillo. Trabajamos con protocolos actualizados y enfoque de bienestar animal,
+            ajustados a la operativa y calendario zafral de Uruguay.
           </p>
 
           {/* TOC interno */}
@@ -188,7 +272,7 @@ export default function Servicios() {
           </div>
         </div>
 
-        {/* SECCIONES */}
+        {/* Secciones */}
         <Section
           id="seguimiento-folicular"
           title="Seguimiento folicular"
@@ -216,8 +300,8 @@ export default function Servicios() {
             "Procesamiento para uso fresco o refrigerado corto plazo.",
           ]}
         >
-          Ofrecemos colecta y evaluación andrológica para uso inmediato o envío
-          refrigerado según cronograma de yeguas receptoras.
+          Ofrecemos colecta y evaluación andrológica para uso inmediato o envío refrigerado
+          según cronograma de yeguas receptoras.
         </Section>
 
         <DividerLine />
@@ -233,8 +317,8 @@ export default function Servicios() {
             "Registro de servicios y chequeo de preñez a los 14–16 días.",
           ]}
         >
-          Implementamos protocolos de IA alineados al seguimiento folicular para
-          maximizar la probabilidad de concepción en cada celo.
+          Implementamos protocolos de IA alineados al seguimiento folicular para maximizar la
+          probabilidad de concepción en cada celo.
         </Section>
 
         <DividerLine />
@@ -266,16 +350,32 @@ export default function Servicios() {
             "Seguimiento de gestación de las receptoras.",
           ]}
         >
-          La OPU permite recuperar ovocitos de donantes con limitaciones reproductivas o
-          en plena campaña deportiva, coordinando la FIV en laboratorio acreditado.
+          La OPU permite recuperar ovocitos de donantes con limitaciones reproductivas o en
+          plena campaña deportiva, coordinando la FIV en laboratorio acreditado.
         </Section>
 
         {/* CTA final */}
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, marginTop: 64 }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 12,
+            marginTop: 64,
+          }}
+        >
           <h3 style={{ margin: 0, color: COLORS.white, fontSize: "clamp(20px, 3vw, 24px)" }}>
             ¿Coordinamos tu plan reproductivo?
           </h3>
-          <p style={{ margin: 0, color: COLORS.textDim, textAlign: "center", maxWidth: 640, lineHeight: 1.6 }}>
+          <p
+            style={{
+              margin: 0,
+              color: COLORS.textDim,
+              textAlign: "center",
+              maxWidth: 640,
+              lineHeight: 1.6,
+            }}
+          >
             Escribinos y armamos un esquema a medida según disponibilidad de padrillos,
             calendario de celo y objetivos de cría.
           </p>
@@ -283,27 +383,5 @@ export default function Servicios() {
         </div>
       </div>
     </div>
-  );
-}
-
-function CTAContact() {
-  const [hover, setHover] = useState(false);
-  return (
-    <RouterLink
-      to="/contacto"
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      style={{
-        backgroundColor: hover ? COLORS.goldAlt : COLORS.gold,
-        color: COLORS.white,
-        padding: "10px 18px",
-        borderRadius: 6,
-        textDecoration: "none",
-        fontWeight: 600,
-        transition: "background-color 0.2s ease",
-      }}
-    >
-      Contactar
-    </RouterLink>
   );
 }

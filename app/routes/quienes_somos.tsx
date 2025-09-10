@@ -4,7 +4,7 @@ interface Person {
   name: string;
   role: string;
   bio: string;
-  photo: string; // ruta pública
+  photo: string;
 }
 
 const people: Person[] = [
@@ -37,11 +37,30 @@ const COLORS = {
   bg: "#15322e",
   gold: "#C18A4D",
   white: "#FFFFFF",
-  whiteDim: "rgba(255,255,255,0.85)",
   textDim: "rgba(255,255,255,0.75)",
   cardBg: "rgba(255,255,255,0.10)",
   shadow: "0 20px 25px -5px rgba(0,0,0,0.25), 0 10px 10px -5px rgba(0,0,0,0.15)",
 };
+
+// ---- PageTitle (igual que en Servicios) ----
+function PageTitle({ children }: { children: React.ReactNode }) {
+  return (
+    <h1
+      style={{
+        margin: "0 0 16px",
+        marginTop: "clamp(112px, 14vh, 140px)",
+        color: COLORS.white,
+        fontSize: "clamp(28px, 5vw, 40px)",
+        fontWeight: 700,
+        textAlign: "center",
+        letterSpacing: "0.02em",
+        lineHeight: 1.3,
+      }}
+    >
+      {children}
+    </h1>
+  );
+}
 
 function initialsFromName(name: string) {
   const parts = name.trim().split(/\s+/);
@@ -113,12 +132,11 @@ function PersonCard({ p }: { p: Person }) {
 }
 
 export default function QuienesSomosPage() {
-  // padding top/bottom responsive (sin hooks): uso clamp
   const containerStyle = useMemo<React.CSSProperties>(
     () => ({
-      maxWidth: 1280, // ~7xl
+      maxWidth: 1280,
       margin: "0 auto",
-      padding: "clamp(96px, 10vh, 112px) 16px clamp(40px, 8vh, 64px)",
+      padding: "0 16px clamp(40px, 8vh, 64px)",
     }),
     []
   );
@@ -129,17 +147,7 @@ export default function QuienesSomosPage() {
         <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
           {/* Encabezado */}
           <div style={{ textAlign: "center", display: "flex", flexDirection: "column", gap: 8 }}>
-            <h1
-              style={{
-                margin: 0,
-                textTransform: "uppercase",
-                letterSpacing: "0.12em",
-                color: COLORS.white,
-                fontSize: "clamp(22px, 3.2vw, 28px)",
-              }}
-            >
-              Quiénes somos
-            </h1>
+            <PageTitle>Quiénes somos</PageTitle>
             <p
               style={{
                 margin: 0,

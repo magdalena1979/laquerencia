@@ -88,7 +88,7 @@ export default function HeroSticky() {
           display: "grid",
           placeItems: "center",
           zIndex: 1,
-          padding: "0 24px",
+          padding: `${mdUp ? 112 : 96}px 24px 0 24px`, // padding top para compensar navbar
           // pequeños hints para iOS
           willChange: "transform",
           backfaceVisibility: "hidden",
