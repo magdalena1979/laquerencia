@@ -115,28 +115,23 @@ export default function PadrillosPage() {
           }
           .padrillos-link:hover{ background-color: #a8743f; }
 
-          /* --- Solo mobile --- */
-          @media (max-width: 768px){
-            /* 1) No forzar alto completo de la sección */
-            .padrillos-section{ min-height: auto !important; }
+         @media (max-width: 768px){
+  .padrillos-section{ min-height: auto !important; }
+  .padrillos-container{ padding-bottom: 16px !important; }
 
-            /* 2) Menos padding abajo en el contenedor */
-            .padrillos-container{ padding-bottom: 20px !important; }
+  /* 👇 ajuste de separación del título */
+  .padrillos-title{ margin-top: 96px !important; }
 
-            /* 3) Menos separación arriba del título */
-            .padrillos-title{ margin-top: 64px !important; }
-
-            /* Mostrar link y ocultar iframe */
-            .padrillos-iframe{ display:none; }
-            .padrillos-iframe iframe{ margin-top: 0; }
-            .padrillos-link{
-              display: inline-flex;
-              align-items: center;
-              justify-content: center;
-              width: 100%;
-              margin-top: 16px;
-            }
-          }
+  .padrillos-iframe{ display:none; }
+  .padrillos-iframe iframe{ margin-top: 0; }
+  .padrillos-link{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 16px;
+  }
+}
         `}
       </style>
     </div>
