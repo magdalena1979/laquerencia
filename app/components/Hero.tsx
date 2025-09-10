@@ -1,19 +1,34 @@
 import { Link as RouterLink } from "react-router";
 import { useEffect, useState } from "react";
 
-// Si ya tenés un archivo de tokens, podés reemplazar estos valores por tus tokens.
 const COLORS = {
   gold: "#C18A4D",
   goldDark: "#A8743F",
   white: "#FFFFFF",
 };
-const SPACING = {
-  xs: 6,
-  sm: 12,
-  md: 16,
-  lg: 24,
-  xl: 32,
-};
+
+function supportsDVH() {
+  if (typeof CSS === "undefined" || !CSS.supports) return false;
+  return CSS.supports("height", "100dvh");
+}
+
+function useViewportHeight() {
+  const [vh, setVh] = useState<number>(typeof window !== "undefined" ? window.innerHeight : 0);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const update = () => setVh(window.innerHeight);
+    update();
+    window.addEventListener("resize", update);
+    window.addEventListener("orientationchange", update);
+    document.addEventListener("visibilitychange", update);
+    return () => {
+      window.removeEventListener("resize", update);
+      window.removeEventListener("orientationchange", update);
+      document.removeEventListener("visibilitychange", update);
+    };
+  }, []);
+  return vh;
+}
 
 function useMediaQuery(query: string) {
   const [matches, setMatches] = useState(false);
@@ -29,73 +44,66 @@ function useMediaQuery(query: string) {
 }
 
 export default function HeroSticky() {
-  const isDesktop = useMediaQuery("(min-width: 768px)");
-  const sectionHeight = isDesktop ? "180vh" : "140vh";
+  const mdUp = useMediaQuery("(min-width: 768px)");
+  const dvhOK = supportsDVH();
+  const vh = useViewportHeight();
 
-  // hovers de botones (sin CSS)
-  const [ctaHover, setCtaHover] = useState(false);
-  const [secHover, setSecHover] = useState(false);
+  // mismas alturas que usabas: 140vh en mobile, 180vh en desktop
+  const sectionH = mdUp
+    ? dvhOK ? "180dvh" : `${vh * 1.8}px`
+    : dvhOK ? "140dvh" : `${vh * 1.4}px`;
+
+  const overlayH = dvhOK ? "100dvh" : `${vh}px`;
+
+  // hovers botones
+  const [hover1, setHover1] = useState(false);
+  const [hover2, setHover2] = useState(false);
 
   return (
-    <section
-      style={{
-        position: "relative",
-        height: sectionHeight,
-        overflow: "hidden",
-      }}
-    >
-      {/* Fondo (imagen full) */}
-      <div style={{ position: "absolute", inset: 0 }}>
+    <section style={{ position: "relative", height: sectionH }}>
+      {/* Fondo que scrollea */}
+      <div style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
         <img
           src="/hero1.jpg"
-          alt="Centro de reproducción equina La Querencia"
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            display: "block",
-          }}
+          alt="La Querencia"
+          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
         />
-        {/* Capa para contraste del texto (degradé) */}
+        {/* degradé para contraste */}
         <div
           style={{
             position: "absolute",
             inset: 0,
-            background:
-              "linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0.30))",
+            background: "linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.3))",
+            pointerEvents: "none",
           }}
         />
       </div>
 
-      {/* Overlay STICKY con copy + CTAs */}
+      {/* Overlay STICKY con el copy (queda fijo 100vh) */}
       <div
         style={{
           position: "sticky",
           top: 0,
-          height: "100vh",
+          height: overlayH,
           display: "grid",
           placeItems: "center",
           zIndex: 1,
-          padding: `0 ${SPACING.lg}px`,
+          padding: "0 24px",
+          // pequeños hints para iOS
+          willChange: "transform",
+          backfaceVisibility: "hidden",
+          WebkitFontSmoothing: "antialiased",
         }}
       >
-        <div
-          style={{
-            maxWidth: 960, // ~"3xl"
-            display: "flex",
-            flexDirection: "column",
-            gap: SPACING.lg,
-            textAlign: "left",
-          }}
-        >
+        <div style={{ maxWidth: 960, display: "flex", flexDirection: "column", gap: 24, textAlign: "left" }}>
           <h1
             style={{
               color: COLORS.white,
               fontWeight: 800,
               lineHeight: 1.1,
               margin: 0,
-              // clamp para responsivo sin CSS
               fontSize: "clamp(28px, 6vw, 56px)",
+              textShadow: "0 2px 8px rgba(0,0,0,0.25)",
             }}
           >
             Reproducción equina de excelencia en Uruguay.
@@ -108,29 +116,21 @@ export default function HeroSticky() {
               fontSize: "clamp(16px, 2.5vw, 20px)",
               lineHeight: 1.5,
               maxWidth: 720,
+              textShadow: "0 1px 4px rgba(0,0,0,0.2)",
             }}
           >
             Cuidamos tu yegua, potenciamos tu genética.
           </p>
 
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              gap: SPACING.md,
-              flexWrap: "wrap",
-            }}
-          >
-            {/* CTA principal */}
+          <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
             <RouterLink
               to="/contacto"
-              onMouseEnter={() => setCtaHover(true)}
-              onMouseLeave={() => setCtaHover(false)}
+              onMouseEnter={() => setHover1(true)}
+              onMouseLeave={() => setHover1(false)}
               style={{
-                backgroundColor: ctaHover ? COLORS.goldDark : COLORS.gold,
+                backgroundColor: hover1 ? COLORS.goldDark : COLORS.gold,
                 color: COLORS.white,
-                border: "none",
-                padding: `${SPACING.sm}px ${SPACING.xl}px`,
+                padding: "12px 32px",
                 borderRadius: 6,
                 fontWeight: 600,
                 textDecoration: "none",
@@ -140,16 +140,15 @@ export default function HeroSticky() {
               Contáctanos
             </RouterLink>
 
-            {/* CTA secundaria (outline) */}
             <RouterLink
               to="/servicios"
-              onMouseEnter={() => setSecHover(true)}
-              onMouseLeave={() => setSecHover(false)}
+              onMouseEnter={() => setHover2(true)}
+              onMouseLeave={() => setHover2(false)}
               style={{
-                backgroundColor: secHover ? "rgba(255,255,255,0.15)" : "transparent",
+                backgroundColor: hover2 ? "rgba(255,255,255,0.15)" : "transparent",
                 color: COLORS.white,
                 border: "1px solid rgba(255,255,255,0.7)",
-                padding: `${SPACING.sm}px ${SPACING.xl}px`,
+                padding: "12px 32px",
                 borderRadius: 6,
                 fontWeight: 600,
                 textDecoration: "none",
