@@ -106,7 +106,7 @@ export default function HeroSticky() {
               textShadow: "0 2px 8px rgba(0,0,0,0.25)",
             }}
           >
-            Reproducción equina de excelencia en Uruguay.
+            Reproducción equina con pasión y profesionalismo en Uruguay.
           </h1>
 
           <p
@@ -119,7 +119,7 @@ export default function HeroSticky() {
               textShadow: "0 1px 4px rgba(0,0,0,0.2)",
             }}
           >
-            Cuidamos tu yegua, potenciamos tu genética.
+            Nuestro objetivo es potenciar tu genética.
           </p>
 
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>

@@ -124,8 +124,7 @@ export default function Hero2() {
                 lineHeight: 1.5,
               }}
             >
-              En La Querencia trabajamos en equipo con pasión por la reproducción equina, combinando experiencia veterinaria y tecnología.
-              El compromiso, el profesionalismo y la confianza son pilares fundamentales de nuestro trabajo diario.
+              En La Querencia creemos en el trabajo en equipo. Combinamos experiencia, formación continua y una verdadera pasión por los caballos.
             </p>
             <p
               style={{
@@ -135,9 +134,7 @@ export default function Hero2() {
                 lineHeight: 1.5,
               }}
             >
-
-              Nuestro objetivo es acompañar a criadores y propietarios en el camino hacia el máximo potencial genético de sus animales.
-              Por eso, buscamos de forma constante la superación y la actualización.
+Trabajamos en colaboración con veterinarios, técnicos y personal de manejo garantizando un enfoque integral enfocado e perseguir los mejores resultados y priorizar el bienestar animal.
             </p>
     
             <h3

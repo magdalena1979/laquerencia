@@ -4,12 +4,12 @@ import { ChevronRight } from "lucide-react";
 
 const COLORS = {
   bg: "#15322e",
-  border: "rgba(168,116,63,0.3)", // borde dorado translúcido
+  border: "#c28c4e", // borde dorado translúcido
   borderDark: "rgba(168,116,63,0.5)",
   gold: "#A8743F",
   white: "#FFFFFF",
-  btn: "#1B5E20",
-  btnHover: "#144a19",
+  btn: "rgba(168,116,63,0.5)",
+  btnHover: "rgba(168,116,63,0.5)",
 };
 
 export default function AboutPreview() {
@@ -110,7 +110,7 @@ export default function AboutPreview() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 8,
-                  backgroundColor: hoverBtn ? COLORS.btnHover : COLORS.btn,
+                  backgroundColor: hoverBtn ? COLORS.border: COLORS.borderDark,
                   color: COLORS.white,
                   padding: "12px 24px",
                   borderRadius: 6,
