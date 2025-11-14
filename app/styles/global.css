@@ -1,2 +1,86 @@
-/* Forzar generación de style.css cuando cssCodeSplit=false */
-:root { /* noop */ }
+/* ===== GLOBAL.CSS / STYLES.CSS MINIMAL ===== */
+
+/* Paleta La Querencia (desde el .ai, Pantone → Hex aprox) */
+:root {
+  --querencia: #ae8a79;          /* PANTONE 4725 C */
+  --gold: #c6893f;               /* PANTONE 7510 C */
+  --gold-hover: #d79a4a;
+  --dark-green: #0e352d;         /* PANTONE 627 C */
+  --dark-green-light: #13322b;
+  --dark-green-dark: #19191a;
+
+  --crema: #f5f5dc;
+  --rosa: #f8e8e8;
+
+  --gray-100: #d9d9d6;           /* Cool Gray 1 C */
+  --gray-200: #c1c6c8;           /* 428 C */
+  --gray-300: #aca39a;           /* Warm Gray 5 C aprox */
+  --gray-400: #888b8d;           /* Cool Gray 8 C */
+  --gray-500: #7e7f74;           /* 416 C */
+  --gray-600: #373a36;           /* 447 C */
+  --gray-700: #222223;           /* Neutral Black C aprox */
+  --gray-800: #19191a;
+  --white: #ffffff;
+  --black: #000000;
+}
+
+/* Reset básico */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+  color: var(--gray-800);
+  background-color: var(--white);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+p {
+  font-size: calc(1rem - 2px);
+  line-height: 1.5;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.font-playfair {
+  font-family: "Playfair Display", serif !important;
+}
+
+.font-jakarta {
+  font-family: "Plus Jakarta Sans", "Montserrat", "Helvetica Neue", Arial, sans-serif !important;
+}
+
+/* Contenedor principal tipo mock */
+.container {
+  max-width: 1152px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Evitar zoom raro en mobile */
+@media (max-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+}

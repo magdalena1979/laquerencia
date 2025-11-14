@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { colors, spacing, borderRadius } from '../styles';
+import { colors, spacing } from '../styles';
 
 type Props = {
   images: string[];
@@ -105,7 +105,7 @@ export default function ImageStrip({
               height: '40px',
               display: 'grid',
               placeItems: 'center',
-              borderRadius: borderRadius.full,
+              borderRadius: '9999px',
               backgroundColor: 'rgba(0, 0, 0, 0.4)',
               color: 'rgba(255, 255, 255, 0.9)',
               border: 'none',
@@ -131,7 +131,7 @@ export default function ImageStrip({
               height: '40px',
               display: 'grid',
               placeItems: 'center',
-              borderRadius: borderRadius.full,
+              borderRadius: '9999px',
               backgroundColor: 'rgba(0, 0, 0, 0.4)',
               color: 'rgba(255, 255, 255, 0.9)',
               border: 'none',

@@ -20,7 +20,7 @@ export default function Footer() {
         {/* Columna 1: Logo + descripción */}
         <div>
           <img
-            src="/logo1.png"
+            src="/laquerencia1.png"
             alt="La Querencia"
             style={{ height: 60, marginBottom: 12 }}
           />
@@ -48,7 +48,7 @@ export default function Footer() {
             <li><a href="/" style={{ color: "inherit", textDecoration: "none" }}>Inicio</a></li>
             <li><a href="/servicios" style={{ color: "inherit", textDecoration: "none" }}>Servicios</a></li>
             <li><a href="/quienes_somos" style={{ color: "inherit", textDecoration: "none" }}>Quiénes somos</a></li>
-            <li><a href="/padrillos" style={{ color: "inherit", textDecoration: "none" }}>Padrillos</a></li>
+            {/* <li><a href="/padrillos" style={{ color: "inherit", textDecoration: "none" }}>Padrillos</a></li> */}
             <li><a href="/contacto" style={{ color: "inherit", textDecoration: "none" }}>Contacto</a></li>
           </ul>
         </div>

@@ -16,7 +16,6 @@ const quality = 85;
 
 // Lista de imágenes que realmente se usan
 const usedImages = [
-  '/logo1.png',
   '/vero.jpeg',
   '/pepe.jpg',
   '/walter.jpg',

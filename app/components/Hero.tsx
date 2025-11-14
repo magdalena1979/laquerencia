@@ -64,19 +64,11 @@ export default function HeroSticky() {
       {/* Fondo que scrollea */}
       <div style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
         <img
-          src="/hero1.jpg"
+          src="/FOTO%20PRINCIPAL%20INICIO%20V2.jpeg"
           alt="La Querencia"
           style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
         />
         {/* degradé para contraste */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: "linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.3))",
-            pointerEvents: "none",
-          }}
-        />
       </div>
 
       {/* Overlay STICKY con el copy (queda fijo 100vh) */}
@@ -88,76 +80,57 @@ export default function HeroSticky() {
           display: "grid",
           placeItems: "center",
           zIndex: 1,
-          padding: `${mdUp ? 112 : 96}px 24px 0 24px`, // padding top para compensar navbar
+          padding: `${mdUp ? 48 : 36}px 24px 0 24px`, // bloque aún más arriba
           // pequeños hints para iOS
           willChange: "transform",
           backfaceVisibility: "hidden",
           WebkitFontSmoothing: "antialiased",
         }}
       >
-        <div style={{ maxWidth: 960, display: "flex", flexDirection: "column", gap: 24, textAlign: "left" }}>
+        <div
+          style={{
+            maxWidth: 960,
+            display: "flex",
+            flexDirection: "column",
+            gap: 24,
+            textAlign: "center",
+            alignItems: "center",
+            color: "#111111",
+          }}
+        >
           <h1
+            className="hero-title-playfair"
             style={{
-              color: COLORS.white,
-              fontWeight: 800,
-              lineHeight: 1.1,
+              fontFamily: "'Playfair Display', serif",
+              fontWeight: 700,
+              color: "#1f1f1f",
+              lineHeight: 1.05,
               margin: 0,
-              fontSize: "clamp(28px, 6vw, 56px)",
-              textShadow: "0 2px 8px rgba(0,0,0,0.25)",
+              fontSize: mdUp ? "64px" : "36px",
+              letterSpacing: "-0.2px",
+              fontStyle: "normal",
             }}
           >
-            Reproducción equina con pasión y profesionalismo en Uruguay.
+            Reproducción equina de <br />
+            vanguardia en Uruguay.
           </h1>
 
           <p
+            className="hero-subtitle-jakarta"
             style={{
-              color: "rgba(255,255,255,0.92)",
+              fontFamily: "'Plus Jakarta Sans', sans-serif",
+              color: "#4c4c4c",
               margin: 0,
-              fontSize: "clamp(16px, 2.5vw, 20px)",
-              lineHeight: 1.5,
-              maxWidth: 720,
-              textShadow: "0 1px 4px rgba(0,0,0,0.2)",
+              fontSize: mdUp ? "26px" : "18px",
+              lineHeight: 1.55,
+              fontWeight: 500,
+              letterSpacing: "0.02em",
+              maxWidth: 760,
             }}
           >
             Nuestro objetivo es potenciar tu genética.
           </p>
 
-          <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-            <RouterLink
-              to="/contacto"
-              onMouseEnter={() => setHover1(true)}
-              onMouseLeave={() => setHover1(false)}
-              style={{
-                backgroundColor: hover1 ? COLORS.goldDark : COLORS.gold,
-                color: COLORS.white,
-                padding: "12px 32px",
-                borderRadius: 6,
-                fontWeight: 600,
-                textDecoration: "none",
-                transition: "background-color 0.2s ease",
-              }}
-            >
-              Contáctanos
-            </RouterLink>
-
-            <RouterLink
-              to="/servicios"
-              onMouseEnter={() => setHover2(true)}
-              onMouseLeave={() => setHover2(false)}
-              style={{
-                backgroundColor: hover2 ? "rgba(255,255,255,0.15)" : "transparent",
-                color: COLORS.white,
-                border: "1px solid rgba(255,255,255,0.7)",
-                padding: "12px 32px",
-                borderRadius: 6,
-                fontWeight: 600,
-                textDecoration: "none",
-                transition: "background-color 0.2s ease, border-color 0.2s ease",
-              }}
-            >
-              Ver servicios
-            </RouterLink>
-          </div>
         </div>
       </div>
     </section>

@@ -1,4 +1,4 @@
-import { Link as RouterLink, useLocation } from "react-router";
+import { Link as RouterLink } from "react-router";
 import { useEffect, useMemo, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { colors, spacing, textStyles, layoutStyles, combineStyles } from "../styles";
@@ -7,9 +7,12 @@ const navItems = [
   { href: "/", label: "Inicio" },
   { href: "/servicios", label: "Servicios" },
   { href: "/quienes_somos", label: "Quiénes somos" },
-  { href: "/padrillos", label: "Padrillos" }, 
+  { href: "/uruguay", label: "Uruguay" },
   { href: "/contacto", label: "Contacto" },
 ];
+
+const mainNavItems = navItems.slice(0, navItems.length - 1);
+const contactItem = navItems[navItems.length - 1];
 
 // hook para detectar ancho
 function useMediaQuery(query: string) {
@@ -25,25 +28,64 @@ function useMediaQuery(query: string) {
   return matches;
 }
 
+// Hook para location “segura”
+function useSafeLocation() {
+  const [pathname, setPathname] = useState(
+    typeof window !== "undefined" ? window.location.pathname : "/"
+  );
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const updatePath = () => setPathname(window.location.pathname);
+
+    window.addEventListener("popstate", updatePath);
+
+    const originalPushState = history.pushState;
+    const originalReplaceState = history.replaceState;
+
+    history.pushState = function (...args) {
+      // @ts-ignore
+      originalPushState.apply(history, args);
+      setTimeout(updatePath, 0);
+    };
+
+    history.replaceState = function (...args) {
+      // @ts-ignore
+      originalReplaceState.apply(history, args);
+      setTimeout(updatePath, 0);
+    };
+
+    return () => {
+      window.removeEventListener("popstate", updatePath);
+      history.pushState = originalPushState;
+      history.replaceState = originalReplaceState;
+    };
+  }, []);
+
+  return { pathname };
+}
+
 function NavLink({
   to,
   children,
   onClick,
+  style: styleOverride,
 }: {
   to: string;
   children: React.ReactNode;
   onClick?: () => void;
+  style?: React.CSSProperties;
 }) {
-  const location = useLocation();
+  const location = useSafeLocation();
   const isActive = location.pathname === to;
-  const isHomePage = location.pathname === "/";
   const [hovered, setHovered] = useState(false);
 
   const base: React.CSSProperties = {
-    fontSize: textStyles.caption.fontSize,
+    fontSize: `calc(${textStyles.caption.fontSize} * 1.2)`,
     fontWeight: 600,
     textTransform: "uppercase",
-    letterSpacing: "0.05em",
+    letterSpacing: "0.18em",
     paddingBottom: spacing.xs,
     textDecoration: "none",
     borderBottom: "2px solid",
@@ -51,12 +93,11 @@ function NavLink({
     cursor: "pointer",
   };
 
-  const hoverColor = isHomePage ? colors.darkGreen : colors.white;
-
   const style: React.CSSProperties = {
     ...base,
-    color: isActive ? colors.gold : hovered ? hoverColor : colors.gold,
+    color: isActive ? colors.gold : hovered ? colors.darkGreen : colors.gray700,
     borderBottomColor: isActive ? colors.gold : "transparent",
+    ...styleOverride,
   };
 
   return (
@@ -73,9 +114,8 @@ function NavLink({
 }
 
 export default function Navbar() {
-  const location = useLocation();
+  const location = useSafeLocation();
   const isDesktop = useMediaQuery("(min-width: 768px)");
-  const isHomePage = location.pathname === "/";
 
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -95,38 +135,45 @@ export default function Navbar() {
 
   const headerStyle: React.CSSProperties = {
     ...headerBase,
-    position: "fixed",
-    top: 0,
-    insetInline: 0,
-    zIndex: 50,
-    borderBottom: "1px solid transparent",
-    backgroundColor: scrolled ? "rgba(0,0,0,0.3)" : "transparent",
-    backdropFilter: scrolled ? "saturate(120%) blur(12px)" : "none",
-    boxShadow: scrolled ? "0 1px 3px rgba(0,0,0,0.1)" : "none",
+    backgroundColor: colors.white,
+    borderBottom: "1px solid rgba(0,0,0,0.05)",
+    boxShadow: scrolled ? "0 2px 8px rgba(0,0,0,0.08)" : "none",
   };
 
+  // Contenedor a ancho completo para pegar logo/contacto a los bordes
   const containerStyle: React.CSSProperties = {
-    maxWidth: 1152,
-    margin: "0 auto",
-    padding: `${spacing.md} ${spacing.lg}`,
+    width: "100%",
+    margin: 0,
+    padding: `${spacing.md} ${spacing.md}`,
   };
 
-  // ⬇️ Tamaño del logo responsivo
-  const logoHeight = isDesktop ? 96 : 72;
+  const logoHeight = isDesktop ? 58 : 45;
 
+  // Fila principal: flex + posición relativa para poder centrar el menú absoluto
   const rowStyle: React.CSSProperties = {
-    // antes: height: 80,
-    minHeight: logoHeight, // deja crecer la fila con el logo
-    alignItems: "center",
+    position: "relative",
     display: "flex",
-    justifyContent: "space-between",
-    gap: spacing.lg,
+    alignItems: "center",
+    width: "100%",
+    minHeight: 80,
   };
 
-  const desktopNavStyle: React.CSSProperties = {
+  // Menú central ABSOLUTAMENTE centrado en el contenedor
+  const desktopCenterNavStyle: React.CSSProperties = {
+    position: "absolute",
+    left: "50%",
+    top: "50%",
+    transform: "translate(-50%, -50%)",
     display: isDesktop ? "flex" : "none",
+    gap: 48,
+  };
+
+  // Zona derecha (CONTACTO o botón mobile)
+  const rightZoneStyle: React.CSSProperties = {
+    marginLeft: "auto",
+    display: "flex",
     alignItems: "center",
-    gap: spacing.lg,
+    paddingRight: spacing.lg,
   };
 
   const mobileBtnStyle: React.CSSProperties = {
@@ -141,7 +188,6 @@ export default function Navbar() {
   };
 
   const [mobileBtnHover, setMobileBtnHover] = useState(false);
-  const mobileBtnHoverColor = isHomePage ? colors.darkGreen : colors.white;
 
   const mobileMenuWrapperStyle: React.CSSProperties = {
     paddingBottom: spacing.md,
@@ -163,46 +209,60 @@ export default function Navbar() {
     <header style={headerStyle}>
       <div style={containerStyle}>
         <div style={rowStyle}>
-          {/* Logo */}
-          <RouterLink to="/" aria-label="Ir al inicio" style={{ display: "block", lineHeight: 0 }}>
+          {/* LOGO: alineado a la izquierda del contenedor */}
+          <RouterLink
+            to="/"
+            aria-label="Ir al inicio"
+            style={{ display: "block", lineHeight: 0 }}
+          >
             <img
-              src="/logo1.png"
+              src="/laquerencia1.png"
               alt="La Querencia"
               style={{
-                height: logoHeight,  // ✅ crece según breakpoint
-                // ❌ quitamos maxHeight que lo limitaba
+                height: logoHeight,
                 objectFit: "contain",
                 display: "block",
               }}
             />
           </RouterLink>
 
-          {/* Menú desktop */}
-          <nav style={desktopNavStyle}>
-            {navItems.map((i) => (
+          {/* MENÚ CENTRAL: absolutamente centrado */}
+          <nav style={desktopCenterNavStyle}>
+            {mainNavItems.map((i) => (
               <NavLink key={i.href} to={i.href}>
                 {i.label}
               </NavLink>
             ))}
           </nav>
 
-          {/* Botón mobile */}
-          <button
-            aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
-            onClick={() => setIsOpen((s) => !s)}
-            onMouseEnter={() => setMobileBtnHover(true)}
-            onMouseLeave={() => setMobileBtnHover(false)}
-            style={{
-              ...mobileBtnStyle,
-              color: mobileBtnHover ? mobileBtnHoverColor : colors.gold,
-            }}
-          >
-            {isOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
+          {/* ZONA DERECHA: CONTACTO (desktop) o botón menú (mobile) */}
+          <div style={rightZoneStyle}>
+            {isDesktop ? (
+            <NavLink
+              to={contactItem.href}
+              style={{ paddingRight: `calc(${spacing.xs} * 2)` }}
+            >
+              {contactItem.label}
+            </NavLink>
+            ) : (
+              <button
+                aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
+                onClick={() => setIsOpen((s) => !s)}
+                onMouseEnter={() => setMobileBtnHover(true)}
+                onMouseLeave={() => setMobileBtnHover(false)}
+                style={{
+                  ...mobileBtnStyle,
+                  color: mobileBtnHover ? colors.darkGreen : colors.gold,
+                }}
+              >
+                {isOpen ? <X size={28} /> : <Menu size={28} />}
+              </button>
+            )}
+          </div>
         </div>
       </div>
 
-      {/* Menú mobile */}
+      {/* MENÚ MOBILE DESPLEGABLE */}
       <div style={mobileMenuWrapperStyle}>
         <div style={{ maxWidth: 1152, margin: "0 auto", padding: `0 ${spacing.lg}` }}>
           <nav style={mobileStackStyle}>

@@ -1,6 +1,10 @@
 import HeroQuerencia from "../components/Hero";
-import Hero2 from "../components/Hero2";
-import AboutPreview from "../components/quienes_somos";
+import Hero2 from "../components/Hero3";
+import Hero4 from "../components/Hero4";
+import Hero5 from "../components/Hero5";
+import Hero6 from "../components/Hero6";
+import HeroVideoBanner from "../components/HeroVideoBanner";
+// import AboutPreview from "../components/quienes_somos";
 import ImageStrip from "../components/ImageStrip";
 // import TestTailwind from "../components/TestTailwind"; // Removido temporalmente
 
@@ -21,8 +25,12 @@ export default function Home() {
     <>
       {/* <TestTailwind /> */}
       <HeroQuerencia />
+      <HeroVideoBanner />
       <Hero2 />
-      <AboutPreview />
+      <Hero4 />
+      <Hero5 />
+      <Hero6 />
+      {/* <AboutPreview /> */}
       <div className="mx-[calc(50%-50vw)] w-screen">
         {/* opcional full-bleed */}
         <ImageStrip

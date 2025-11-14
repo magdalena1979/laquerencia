@@ -18,10 +18,17 @@ export default function Root() {
     <html lang="es">
       <head>
         <Meta />
-        {/* Roboto */}
+        {/* Montserrat + Playfair / Plus Jakarta */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap"
+          rel="stylesheet"
+        />
         <Links />
         <style dangerouslySetInnerHTML={{
           __html: `
@@ -207,12 +214,7 @@ export default function Root() {
               width: 100% !important;
               margin: 0 !important;
               padding: 0 !important;
-              font-family: 'Roboto', system-ui, -apple-system, sans-serif !important;
-            }
-            
-            /* Asegurar que todos los elementos usen Roboto */
-            * {
-              font-family: 'Roboto', system-ui, -apple-system, sans-serif !important;
+              font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif !important;
             }
             
             /* Hover effects para botones del hero */
@@ -221,6 +223,22 @@ export default function Root() {
             }
             .hero-button-outline:hover {
               background-color: rgba(255, 255, 255, 0.2) !important;
+            }
+
+            .hero-title-playfair {
+              font-family: 'Playfair Display', serif !important;
+            }
+
+            .hero-subtitle-jakarta {
+              font-family: 'Plus Jakarta Sans', sans-serif !important;
+            }
+
+            .hero3-title {
+              font-family: 'Playfair Display', serif !important;
+            }
+
+            .hero3-body {
+              font-family: 'Plus Jakarta Sans', sans-serif !important;
             }
           `
         }} />
