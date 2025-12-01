@@ -1,0 +1,81 @@
+Informe del paquete
+
+-----------------------------------------------------------------------------
+Documento:
+Nombre: WEB LA QUERENCIA URUGUAY.ai
+Modo de color: Color RGB
+Perfil de color: ninguno
+Unidades de regla: píxeles
+Dimensiones de la mesa de trabajo: 1920 px x 1080 px
+Mostrar imágenes en modo contorno: Desactivado
+Resaltar fuentes sustituidas: Desactivado
+Resaltar glifos sustituidos: Desactivado
+Conservar capacidad de edición de texto
+Simular papel de color: Desactivado
+
+-----------------------------------------------------------------------------
+Objetos de tintas planas:
+PANTONE 2715 C (Lab)
+PANTONE 2735 C (Lab)
+PANTONE 416 C (Lab)
+PANTONE 428 C (Lab)
+PANTONE 447 C (Lab)
+PANTONE 4725 C (Lab)
+PANTONE 627 C (Lab)
+PANTONE 627 C 2 (Lab)
+PANTONE 7510 C (Lab)
+PANTONE Cool Gray 1 C (Lab)
+PANTONE Cool Gray 8 C (Lab)
+PANTONE Neutral Black C (Lab)
+PANTONE Warm Gray 5 C (Lab)
+
+-----------------------------------------------------------------------------
+Fuentes no disponibles:
+MontserratRoman Light* (no instalada)
+MontserratRoman Regular* (no instalada)
+PlayfairDisplay Bold* (no instalada)
+MontserratRoman SemiBold* (no instalada)
+
+-----------------------------------------------------------------------------
+Fuentes protegidas no empaquetadas:
+Montserrat Bold (Adobe Fonts)
+
+-----------------------------------------------------------------------------
+Fuentes:
+Montserrat SemiBold (OTF)
+Montserrat Regular (OTF)
+Montserrat Medium (OTF)
+Plus Jakarta Sans Medium (TrueType)
+Playfair Display Regular (TrueType)
+Playfair Display Black (TrueType)
+Playfair Display SemiBold (TrueType)
+
+-----------------------------------------------------------------------------
+Fuentes incrustadas:
+Ninguno
+
+-----------------------------------------------------------------------------
+Enlaces no disponibles:
+
+E:\DOCUMENTOS\CLARISSA PORTABLE\MELBEN\WEB\PLANTILLA WEB HORIZONTAL 02.jpg
+Tipo: Otro
+
+-----------------------------------------------------------------------------
+Imágenes enlazadas:
+
+C:\Users\Clarissa\Desktop\PROYECTOS\LA QUERENCIA\WEB 2025\WEB LA QUERENCIA URUGUAY_Carpeta\WEB LA QUERENCIA URUGUAY_Carpeta\Links\FOTO PRINCIPAL 03.jpg
+Tipo: RGB
+Bits por píxel: 24
+Canales: 3
+Tamaño: 36617K, 3872 por 3228 píxeles
+Dimensiones: 1194,538 por 995,86 puntos 
+Resolución: 233,382 por 233,382 píxeles por pulgada
+
+
+C:\Users\Clarissa\Desktop\PROYECTOS\LA QUERENCIA\WEB 2025\WEB LA QUERENCIA URUGUAY_Carpeta\WEB LA QUERENCIA URUGUAY_Carpeta\Links\FOTO PRINCIPAL 03.jpg
+Tipo: RGB
+Bits por píxel: 24
+Canales: 3
+Tamaño: 36617K, 3872 por 3228 píxeles
+Dimensiones: 1922 por 1602,329 puntos 
+Resolución: 145,049 por 145,049 píxeles por pulgada

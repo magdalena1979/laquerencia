@@ -171,7 +171,7 @@ export default function Footer() {
             style={{
               display: "flex",
               alignItems: "flex-start",
-              gap: 32,
+              gap: 24,
               flexWrap: "wrap",
             }}
           >
@@ -216,7 +216,7 @@ export default function Footer() {
                 display: "flex",
                 flexDirection: "column",
                 gap: 16,
-                marginLeft: "auto",
+                marginLeft: 16,
               }}
             >
               <div style={circleStyle}>

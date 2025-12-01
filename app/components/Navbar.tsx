@@ -135,7 +135,7 @@ export default function Navbar() {
 
   const headerStyle: React.CSSProperties = {
     ...headerBase,
-    backgroundColor: colors.white,
+    backgroundColor: "#F6F6F6",
     borderBottom: "1px solid rgba(0,0,0,0.05)",
     boxShadow: scrolled ? "0 2px 8px rgba(0,0,0,0.08)" : "none",
   };
