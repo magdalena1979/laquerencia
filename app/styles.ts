@@ -12,7 +12,7 @@ export const colors = {
   darkGreenDark: "#19191A",
 
   white: "#FFFFFF",
-  black: "#000000",
+  black: "#333333",
 
   gray100: "#D9D9D6",          // Cool Gray 1 C
   gray200: "#C1C6C8",          // 428 C
@@ -22,7 +22,7 @@ export const colors = {
   gray600: "#373A36",          // 447 C
   gray700: "#222223",
   gray800: "#19191A",
-  gray900: "#000000",
+  gray900: "#333333",
 };
 
 export const spacing = {

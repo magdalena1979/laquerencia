@@ -91,8 +91,8 @@ export default function Hero3() {
               }}
             >
               <p style={{ margin: 0 }}>
-                <span style={{ fontWeight: 600, fontStyle: "italic" }}>
-                  Detrás de La Querencia hay personas apasionadas por su
+                
+                  Detrás de La Querencia hay personas <span style={{ fontWeight: 600, fontStyle: "italic" }}>apasionadas por su
                   profesión, por los caballos y por la forma de producir con
                   excelencia.
                 </span>
@@ -112,7 +112,7 @@ export default function Hero3() {
 
               <p style={{ margin: 0 }}>
                 Valoramos la tierra porque sabemos que{" "}
-                <span style={{ fontWeight: 600 }}>
+                <span style={{ fontWeight: 600, fontStyle: "italic" }}>
                   “un caballo bueno come lo mismo que el que no lo es”
                 </span>{" "}
                 —y por eso apostamos a criar y producir mejor, con

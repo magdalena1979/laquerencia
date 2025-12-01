@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 
 const COLORS = {
   bg: "#C2C8C6",
-  textSoft: "#444444",
-  textStrong: "#2a2a2a",
+  textSoft: "#555555",
+  textStrong: "#2A2A2A",
 };
 
 const LAYOUT = {
-  maxWidth: 1152,
-  sectionPyMobile: 48,
-  sectionPyDesktop: 72,
+  maxWidth: 960,
+  sectionPyMobile: 44,
+  sectionPyDesktop: 64,
 };
 
 // media query hook
@@ -40,7 +40,9 @@ export default function Hero4() {
         style={{
           maxWidth: LAYOUT.maxWidth,
           margin: "0 auto",
-          padding: `${mdUp ? LAYOUT.sectionPyDesktop : LAYOUT.sectionPyMobile}px 24px`,
+          padding: `${
+            mdUp ? LAYOUT.sectionPyDesktop : LAYOUT.sectionPyMobile
+          }px 24px`,
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -57,23 +59,25 @@ export default function Hero4() {
               margin: 0,
               fontFamily:
                 "'Plus Jakarta Sans', 'Montserrat', 'Helvetica Neue', Arial, sans-serif",
-              fontSize: mdUp ? 36 : 24,
-              letterSpacing: "0.18em",
+              fontSize: mdUp ? 28 : 14,
+              letterSpacing: "0.25em",
               textTransform: "uppercase",
               color: COLORS.textSoft,
+              fontWeight: 500,
             }}
           >
             NUESTRO OBJETIVO ES
           </p>
           <p
             style={{
-              margin: mdUp ? "0px 0 0px 0" : "0px 0 0px 0",
+              margin: mdUp ? "0px 0 0" : "0px 0 0",
               fontFamily:
                 "'Plus Jakarta Sans', 'Montserrat', 'Helvetica Neue', Arial, sans-serif",
-              fontSize: mdUp ? 36 : 24,
-              letterSpacing: "0.18em",
+              fontSize: mdUp ? 28 : 14,
+              letterSpacing: "0.25em",
               textTransform: "uppercase",
               color: COLORS.textSoft,
+              fontWeight: 500,
             }}
           >
             AYUDAR A NUESTROS CLIENTES A
@@ -82,11 +86,11 @@ export default function Hero4() {
           {/* Línea inferior fuerte */}
           <p
             style={{
-              margin: mdUp ? "0px 0 0 0" : "0px 0 0 0",
+              margin: mdUp ? "0px 0 0" : "0px 0 0",
               fontFamily: "'Playfair Display', serif",
-              fontSize: mdUp ? 54 : 36,
+              fontSize: mdUp ? 48 : 32,
               fontWeight: 600,
-              letterSpacing: "0.08em",
+              letterSpacing: "0.06em",
               textTransform: "uppercase",
               color: COLORS.textStrong,
             }}

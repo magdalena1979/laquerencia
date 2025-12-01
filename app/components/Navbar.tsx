@@ -33,36 +33,36 @@ function useSafeLocation() {
   const [pathname, setPathname] = useState(
     typeof window !== "undefined" ? window.location.pathname : "/"
   );
-
+  
   useEffect(() => {
     if (typeof window === "undefined") return;
-
+    
     const updatePath = () => setPathname(window.location.pathname);
-
+    
     window.addEventListener("popstate", updatePath);
-
+    
     const originalPushState = history.pushState;
     const originalReplaceState = history.replaceState;
-
+    
     history.pushState = function (...args) {
       // @ts-ignore
       originalPushState.apply(history, args);
       setTimeout(updatePath, 0);
     };
-
+    
     history.replaceState = function (...args) {
       // @ts-ignore
       originalReplaceState.apply(history, args);
       setTimeout(updatePath, 0);
     };
-
+    
     return () => {
       window.removeEventListener("popstate", updatePath);
       history.pushState = originalPushState;
       history.replaceState = originalReplaceState;
     };
   }, []);
-
+  
   return { pathname };
 }
 
@@ -82,7 +82,7 @@ function NavLink({
   const [hovered, setHovered] = useState(false);
 
   const base: React.CSSProperties = {
-    fontSize: `calc(${textStyles.caption.fontSize} * 1.2)`,
+    fontSize: `calc(${textStyles.caption.fontSize} * 0.90)`,
     fontWeight: 600,
     textTransform: "uppercase",
     letterSpacing: "0.18em",
@@ -149,31 +149,28 @@ export default function Navbar() {
 
   const logoHeight = isDesktop ? 58 : 45;
 
-  // Fila principal: flex + posición relativa para poder centrar el menú absoluto
+  // Fila principal: flex puro
   const rowStyle: React.CSSProperties = {
-    position: "relative",
     display: "flex",
     alignItems: "center",
     width: "100%",
     minHeight: 80,
   };
 
-  // Menú central ABSOLUTAMENTE centrado en el contenedor
+  // Menú central centrado con márgenes automáticos
   const desktopCenterNavStyle: React.CSSProperties = {
-    position: "absolute",
-    left: "50%",
-    top: "50%",
-    transform: "translate(-50%, -50%)",
     display: isDesktop ? "flex" : "none",
     gap: 48,
+    marginLeft: "auto",
+    marginRight: "auto",
   };
 
   // Zona derecha (CONTACTO o botón mobile)
   const rightZoneStyle: React.CSSProperties = {
-    marginLeft: "auto",
     display: "flex",
     alignItems: "center",
     paddingRight: spacing.lg,
+    marginLeft: "auto",
   };
 
   const mobileBtnStyle: React.CSSProperties = {
@@ -245,18 +242,18 @@ export default function Navbar() {
               {contactItem.label}
             </NavLink>
             ) : (
-              <button
-                aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
-                onClick={() => setIsOpen((s) => !s)}
-                onMouseEnter={() => setMobileBtnHover(true)}
-                onMouseLeave={() => setMobileBtnHover(false)}
-                style={{
-                  ...mobileBtnStyle,
+          <button
+            aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
+            onClick={() => setIsOpen((s) => !s)}
+            onMouseEnter={() => setMobileBtnHover(true)}
+            onMouseLeave={() => setMobileBtnHover(false)}
+            style={{
+              ...mobileBtnStyle,
                   color: mobileBtnHover ? colors.darkGreen : colors.gold,
-                }}
-              >
-                {isOpen ? <X size={28} /> : <Menu size={28} />}
-              </button>
+            }}
+          >
+            {isOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
             )}
           </div>
         </div>

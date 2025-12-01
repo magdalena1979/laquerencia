@@ -13,7 +13,9 @@ function supportsDVH() {
 }
 
 function useViewportHeight() {
-  const [vh, setVh] = useState<number>(typeof window !== "undefined" ? window.innerHeight : 0);
+  const [vh, setVh] = useState<number>(
+    typeof window !== "undefined" ? window.innerHeight : 0
+  );
   useEffect(() => {
     if (typeof window === "undefined") return;
     const update = () => setVh(window.innerHeight);
@@ -48,16 +50,16 @@ export default function HeroSticky() {
   const dvhOK = supportsDVH();
   const vh = useViewportHeight();
 
-  // mismas alturas que usabas: 140vh en mobile, 180vh en desktop
+  // mismas alturas que usabas
   const sectionH = mdUp
-    ? dvhOK ? "180dvh" : `${vh * 1.8}px`
-    : dvhOK ? "140dvh" : `${vh * 1.4}px`;
+    ? dvhOK
+      ? "180dvh"
+      : `${vh * 1.8}px`
+    : dvhOK
+    ? "140dvh"
+    : `${vh * 1.4}px`;
 
   const overlayH = dvhOK ? "100dvh" : `${vh}px`;
-
-  // hovers botones
-  const [hover1, setHover1] = useState(false);
-  const [hover2, setHover2] = useState(false);
 
   return (
     <section style={{ position: "relative", height: sectionH }}>
@@ -66,22 +68,26 @@ export default function HeroSticky() {
         <img
           src="/FOTO%20PRINCIPAL%20INICIO%20V2.jpeg"
           alt="La Querencia"
-          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            display: "block",
+          }}
         />
-        {/* degradé para contraste */}
       </div>
 
-      {/* Overlay STICKY con el copy (queda fijo 100vh) */}
+      {/* Overlay STICKY con el copy */}
       <div
         style={{
           position: "sticky",
           top: 0,
           height: overlayH,
-          display: "grid",
-          placeItems: "center",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: mdUp ? "flex-start" : "center", // SUBE el bloque en desktop
+          padding: mdUp ? "250px 24px 0" : "72px 20px 0", // más margen arriba
           zIndex: 1,
-          padding: `${mdUp ? 48 : 36}px 24px 0 24px`, // bloque aún más arriba
-          // pequeños hints para iOS
           willChange: "transform",
           backfaceVisibility: "hidden",
           WebkitFontSmoothing: "antialiased",
@@ -92,10 +98,10 @@ export default function HeroSticky() {
             maxWidth: 960,
             display: "flex",
             flexDirection: "column",
-            gap: 24,
+            gap: 20,
             textAlign: "center",
             alignItems: "center",
-            color: "#111111",
+            color: "#333333",
           }}
         >
           <h1
@@ -103,15 +109,17 @@ export default function HeroSticky() {
             style={{
               fontFamily: "'Playfair Display', serif",
               fontWeight: 700,
-              color: "#1f1f1f",
-              lineHeight: 1.05,
+              color: "#333333",
+              lineHeight: 1.08,
               margin: 0,
-              fontSize: mdUp ? "64px" : "36px",
-              letterSpacing: "-0.2px",
+              fontSize: mdUp ? "56px" : "34px", // un poco más refinado
+              letterSpacing: "0.01em",
               fontStyle: "normal",
+              maxWidth: 820,
             }}
           >
-            Reproducción equina de <br />
+            Reproducción equina de
+            <br />
             vanguardia en Uruguay.
           </h1>
 
@@ -121,16 +129,15 @@ export default function HeroSticky() {
               fontFamily: "'Plus Jakarta Sans', sans-serif",
               color: "#4c4c4c",
               margin: 0,
-              fontSize: mdUp ? "26px" : "18px",
-              lineHeight: 1.55,
-              fontWeight: 500,
+              fontSize: mdUp ? "22px" : "18px",
+              lineHeight: 1.6,
+              fontWeight: 400,
               letterSpacing: "0.02em",
-              maxWidth: 760,
+              maxWidth: 640,
             }}
           >
             Nuestro objetivo es potenciar tu genética.
           </p>
-
         </div>
       </div>
     </section>

@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 
 const COLORS = {
-  title: "#1f1f1f",
+  title: "#333333",
   body: "#444444",
   line: "#d4d4d4",
   bg: "#ffffff",
