@@ -40,94 +40,57 @@ export default function Hero3() {
   }, [textRef.current, mdUp]);
 
   return (
-    <section style={{ backgroundColor: COLORS.bg }}>
-      <div
-        style={{
-          maxWidth: LAYOUT.maxWidth,
-          margin: "0 auto",
-          padding: `${mdUp ? LAYOUT.sectionPyDesktop : LAYOUT.sectionPyMobile}px 16px`,
-        }}
-      >
+    <section className="hero3-section">
+      <div className="hero3-container" style={{ padding: `${mdUp ? LAYOUT.sectionPyDesktop : LAYOUT.sectionPyMobile}px 16px` }}>
         {/* Layout principal */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: mdUp ? "row" : "column",
-            gap: mdUp ? LAYOUT.gapDesktop : LAYOUT.gapMobile,
-            alignItems: "stretch",
-          }}
-        >
+        <div className="hero3-layout" style={{ gap: mdUp ? LAYOUT.gapDesktop : LAYOUT.gapMobile }}>
           {/* TEXTO */}
           <div
             ref={textRef}
-            style={{
-              flex: "1 1 0",
-              maxWidth: mdUp ? "50%" : "100%",
-            }}
+            className="hero3-text"
           >
-            <h2
-              className="hero3-title font-playfair"
-              style={{
-                margin: 0,
-                marginBottom: mdUp ? 24 : 16,
-                fontSize: mdUp ? 50 : 36,
-                lineHeight: 1.05,
-                fontWeight: 600,
-                color: COLORS.textMain,
-              }}
-            >
-              Nuestra <span style={{ color: COLORS.gold }}>historia</span>
+            <h2 className="hero3-title font-playfair">
+              Nuestra <span className="hero3-gold-text">historia</span>
             </h2>
 
-            <div
-              className="hero3-body font-jakarta"
-              style={{
-                fontSize: mdUp ? 17 : 15,
-                lineHeight: 1.6,
-                color: COLORS.textBody,
-                display: "flex",
-                flexDirection: "column",
-                gap: 16,
-              }}
-            >
-              <p style={{ margin: 0 }}>
-                
-                  Detrás de La Querencia hay personas <span style={{ fontWeight: 600, fontStyle: "italic" }}>apasionadas por su
-                  profesión, por los caballos y por la forma de producir con
-                  excelencia.
+            <div className="hero3-body font-jakarta">
+              <p>
+                Detrás de La Querencia hay personas <span className="hero3-bold-italic">apasionadas por su
+                profesión, por los caballos y por la forma de producir con
+                excelencia.
                 </span>
               </p>
 
-              <p style={{ margin: 0 }}>
+              <p>
                 Nuestro nombre nace del amor por la tierra y del deseo de
                 generar valor en ella, cuidando lo que nos identifica: el
                 trabajo bien hecho y la conexión con nuestro entorno.
               </p>
 
-              <p style={{ margin: 0 }}>
+              <p>
                 Creemos en la fuerza de la genética uruguaya, un patrimonio que
                 debemos conservar y potenciar, mejorando su eficiencia y
                 proyección.
               </p>
 
-              <p style={{ margin: 0 }}>
+              <p>
                 Valoramos la tierra porque sabemos que{" "}
-                <span style={{ fontWeight: 600, fontStyle: "italic" }}>
-                  “un caballo bueno come lo mismo que el que no lo es”
+                <span className="hero3-bold-italic">
+                  "un caballo bueno come lo mismo que el que no lo es"
                 </span>{" "}
                 —y por eso apostamos a criar y producir mejor, con
                 responsabilidad y visión de futuro.
               </p>
 
-              <p style={{ margin: 0 }}>
+              <p>
                 Esa convicción nos llevó a especializarnos en tecnologías
                 reproductivas equinas, aprovechando todo el potencial que
                 ofrecen para mejorar la calidad genética y productiva.
               </p>
 
-              <p style={{ margin: 0 }}>
+              <p>
                 En La Querencia, buscamos ser{" "}
-                <span style={{ fontWeight: 600 }}>
+                <span className="hero3-bold">
                   cuna de buena genética, y por lo tanto, de grandes caballos.
                 </span>
               </p>
@@ -136,26 +99,15 @@ export default function Hero3() {
 
           {/* IMAGEN — misma altura que el texto, imagen completa */}
           <div
+            className="hero3-image-wrapper"
             style={{
-              flex: "1 1 0",
-              maxWidth: mdUp ? "50%" : "100%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: mdUp ? textHeight : "auto", // 👈 MATCH HEIGHT
+              height: mdUp ? textHeight : "auto",
             }}
           >
             <img
               src="/FOTO.jpg"
               alt="Yeguas y potrillos"
-              style={{
-                maxHeight: "100%",
-                maxWidth: "100%",
-                width: "auto",
-                height: "auto",
-                objectFit: "contain", // 👈 SE VE ENTERA
-                display: "block",
-              }}
+              className="hero3-image"
             />
           </div>
         </div>

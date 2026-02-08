@@ -30,109 +30,46 @@ function useMediaQuery(query: string) {
 }
 
 export default function Hero5() {
-  const mdUp = useMediaQuery("(min-width: 768px)");
-
   return (
-    <section style={{ backgroundColor: COLORS.bg }}>
-      <div
-        style={{
-          maxWidth: LAYOUT.maxWidth,
-          margin: "0 auto",
-          padding: `${
-            mdUp ? LAYOUT.paddingYDesktop : LAYOUT.paddingYMobile
-          }px ${LAYOUT.paddingX}px`,
-          display: "flex",
-          flexDirection: mdUp ? "row" : "column",
-          gap: mdUp ? LAYOUT.gapDesktop : LAYOUT.gapMobile,
-          alignItems: mdUp ? "stretch" : "flex-start", // ⭐ Importante para igualar alturas
-        }}
-      >
+    <section className="hero5-section">
+      <div className="hero5-container">
         {/* IMAGEN — ahora 50% y altura igual a la del texto */}
-        <div
-          style={{
-            flex: mdUp ? "1 1 0" : "1 1 100%", // ⭐ 50%
-            maxWidth: mdUp ? "50%" : "100%",
-            display: "flex",
-          }}
-        >
-          <div
-            style={{
-              width: "100%",
-              height: "100%", // ⭐ Igualar altura exacta del texto
-              position: "relative",
-              overflow: "hidden",
-              boxShadow: "0 20px 45px rgba(0,0,0,0.08)",
-            }}
-          >
+        <div className="hero5-image-wrapper">
+          <div className="hero5-image-container">
             <img
               src="/hero5.jpg"
               alt="Potrillo descansando en el campo"
-              style={{
-                position: "absolute",
-                inset: 0,
-                width: "100%",
-                height: "100%", // ⭐ Se estira para igualar la altura
-                objectFit: "cover",
-                display: "block",
-              }}
+              className="hero5-image"
             />
           </div>
         </div>
 
         {/* TEXTO — también 50% */}
-        <div
-          style={{
-            flex: mdUp ? "1 1 0" : "1 1 100%", // ⭐ 50%
-            maxWidth: mdUp ? "50%" : "100%",
-            textAlign: "left",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <h2
-            style={{
-              margin: 0,
-              marginBottom: 20,
-              fontFamily: "'Playfair Display', serif",
-              fontSize: mdUp ? 50 : 36,
-              lineHeight: 1.1,
-              fontWeight: 600,
-              color: COLORS.titleMain,
-            }}
-          >
+        <div className="hero5-text">
+          <h2 className="hero5-title">
             Nuestro{" "}
-            <span style={{ color: COLORS.titleAccent }}>
+            <span className="hero5-accent">
               centro
             </span>
           </h2>
 
-          <div
-            style={{
-              fontFamily: "'Plus Jakarta Sans', sans-serif",
-              fontSize: mdUp ? 17 : 15,
-              lineHeight: 1.6,
-              color: COLORS.body,
-              display: "flex",
-              flexDirection: "column",
-              gap: 16,
-            }}
-          >
-            <p style={{ margin: 0 }}>
+          <div className="hero5-body">
+            <p>
               La idea de crear La Querencia Reproducción Equina nació de una
               búsqueda constante por trabajar de forma más eficiente y, al mismo
               tiempo, ofrecer simplicidad y comodidad a nuestros clientes.
             </p>
-            <p style={{ margin: 0 }}>
+            <p>
               Con la apertura del centro logramos que los propietarios puedan
               dejar sus yeguas y padrillos en un lugar de confianza, sin
               preocuparse por los traslados o las complejidades del proceso
               reproductivo.
             </p>
-            <p style={{ margin: 0 }}>
+            <p>
               Esto nos permite dedicar más tiempo y atención a cada animal,
               optimizando los resultados y cuidando cada detalle del manejo.
             </p>
-            <p style={{ margin: 0 }}>
+            <p>
               En La Querencia, prestamos especial atención al bienestar animal y
               a construir relaciones de confianza con quienes nos eligen, porque
               entendemos que detrás de cada caballo hay una historia, una

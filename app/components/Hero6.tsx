@@ -29,71 +29,38 @@ function useMediaQuery(query: string) {
 }
 
 export default function Hero6() {
-  const mdUp = useMediaQuery("(min-width: 768px)");
-
   return (
-    <section style={{ backgroundColor: COLORS.bg }}>
-      <div
-        style={{
-          maxWidth: LAYOUT.maxWidth,
-          margin: "0 auto",
-          padding: `${
-            mdUp ? LAYOUT.paddingYDesktop : LAYOUT.paddingYMobile
-          }px ${LAYOUT.paddingX}px`,
-        }}
-      >
+    <section className="hero6-section">
+      <div className="hero6-container">
         {/* Título */}
-        <h2
-          style={{
-            margin: 0,
-            marginBottom: mdUp ? 24 : 16,
-            fontFamily: "'Playfair Display', serif",
-            fontSize: mdUp ? 50 : 36,
-            lineHeight: 1.1,
-            fontWeight: 600,
-            color: COLORS.title,
-          }}
-        >
+        <h2 className="hero6-title">
           Misión:
         </h2>
 
         {/* Texto */}
-        <div
-          style={{
-            fontFamily: "'Plus Jakarta Sans', 'Montserrat', sans-serif",
-            fontSize: mdUp ? 17 : 15,
-            lineHeight: 1.6,
-            color: COLORS.body,
-            maxWidth: 640, // similar al bloque del PDF
-          }}
-        >
-          <p style={{ margin: 0, marginBottom: 16 }}>
+        <div className="hero6-body">
+          <p>
             Nuestra misión es{" "}
-            <span style={{ fontStyle: "italic", fontWeight: 600 }}>
+            <span className="hero6-italic-bold">
               ser líderes en tecnologías reproductivas equinas
             </span>
             , potenciando la genética y promoviendo una producción más eficiente.
           </p>
 
-          <p style={{ margin: 0 }}>
+          <p>
             Buscamos ser una{" "}
-            <span style={{ fontWeight: 600 }}>
+            <span className="hero6-bold">
               empresa de vanguardia en Uruguay
             </span>
             , que colabore activamente con los criadores para{" "}
-            <span style={{ fontWeight: 600 }}>
+            <span className="hero6-bold">
               mejorar la calidad y el rendimiento de sus producciones.
             </span>
           </p>
         </div>
 
         {/* Línea separadora como en el PDF */}
-        <div
-          style={{
-            marginTop: mdUp ? 56 : 40,
-            borderTop: `1px solid ${COLORS.line}`,
-          }}
-        />
+        <div className="hero6-divider" />
       </div>
     </section>
   );

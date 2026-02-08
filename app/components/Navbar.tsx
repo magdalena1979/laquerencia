@@ -1,7 +1,6 @@
 import { Link as RouterLink } from "react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-import { colors, spacing, textStyles, layoutStyles, combineStyles } from "../styles";
 
 const navItems = [
   { href: "/", label: "Inicio" },
@@ -70,40 +69,21 @@ function NavLink({
   to,
   children,
   onClick,
-  style: styleOverride,
+  className,
 }: {
   to: string;
   children: React.ReactNode;
   onClick?: () => void;
-  style?: React.CSSProperties;
+  className?: string;
 }) {
   const location = useSafeLocation();
   const isActive = location.pathname === to;
   const [hovered, setHovered] = useState(false);
 
-  const base: React.CSSProperties = {
-    fontSize: `calc(${textStyles.caption.fontSize} * 0.90)`,
-    fontWeight: 600,
-    textTransform: "uppercase",
-    letterSpacing: "0.18em",
-    paddingBottom: spacing.xs,
-    textDecoration: "none",
-    borderBottom: "2px solid",
-    transition: "all 0.2s ease",
-    cursor: "pointer",
-  };
-
-  const style: React.CSSProperties = {
-    ...base,
-    color: isActive ? colors.gold : hovered ? colors.darkGreen : colors.gray700,
-    borderBottomColor: isActive ? colors.gold : "transparent",
-    ...styleOverride,
-  };
-
   return (
     <RouterLink
       to={to}
-      style={style}
+      className={`nav-link ${isActive ? 'nav-link-active' : hovered ? 'nav-link-hover' : 'nav-link-inactive'} ${className || ''}`}
       onClick={onClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -119,112 +99,60 @@ export default function Navbar() {
 
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [mobileBtnHover, setMobileBtnHover] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const onScroll = () => {
+      const currentScrollY = window.scrollY;
+      setScrolled(currentScrollY > 12);
+      
+      // Sticky solo en scroll up
+      if (currentScrollY < 10) {
+        // En la parte superior, siempre visible
+        setIsVisible(true);
+      } else if (currentScrollY > lastScrollY) {
+        // Scrolling down - ocultar
+        setIsVisible(false);
+      } else if (currentScrollY < lastScrollY) {
+        // Scrolling up - mostrar
+        setIsVisible(true);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+    
     onScroll();
-    window.addEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [lastScrollY]);
 
   useEffect(() => {
     setIsOpen(false);
   }, [location.pathname]);
 
-  const headerBase = useMemo(() => combineStyles(layoutStyles.header, {}), []);
-
-  const headerStyle: React.CSSProperties = {
-    ...headerBase,
-    backgroundColor: "#F6F6F6",
-    borderBottom: "1px solid rgba(0,0,0,0.05)",
-    boxShadow: scrolled ? "0 2px 8px rgba(0,0,0,0.08)" : "none",
-  };
-
-  // Contenedor a ancho completo para pegar logo/contacto a los bordes
-  const containerStyle: React.CSSProperties = {
-    width: "100%",
-    margin: 0,
-    padding: `${spacing.md} ${spacing.md}`,
-  };
-
-  const logoHeight = isDesktop ? 58 : 45;
-
-  // Fila principal: flex puro
-  const rowStyle: React.CSSProperties = {
-    display: "flex",
-    alignItems: "center",
-    width: "100%",
-    minHeight: 80,
-  };
-
-  // Menú central centrado con márgenes automáticos
-  const desktopCenterNavStyle: React.CSSProperties = {
-    display: isDesktop ? "flex" : "none",
-    gap: 48,
-    marginLeft: "auto",
-    marginRight: "auto",
-  };
-
-  // Zona derecha (CONTACTO o botón mobile)
-  const rightZoneStyle: React.CSSProperties = {
-    display: "flex",
-    alignItems: "center",
-    paddingRight: spacing.lg,
-    marginLeft: "auto",
-  };
-
-  const mobileBtnStyle: React.CSSProperties = {
-    display: isDesktop ? "none" : "inline-flex",
-    alignItems: "center",
-    background: "none",
-    border: "none",
-    cursor: "pointer",
-    color: colors.gold,
-    transition: "color 0.2s ease",
-    padding: 6,
-  };
-
-  const [mobileBtnHover, setMobileBtnHover] = useState(false);
-
-  const mobileMenuWrapperStyle: React.CSSProperties = {
-    paddingBottom: spacing.md,
-    borderTop: "1px solid transparent",
-    backgroundColor: "rgba(0,0,0,0.3)",
-    backdropFilter: "saturate(120%) blur(12px)",
-    display: isOpen && !isDesktop ? "block" : "none",
-  };
-
-  const mobileStackStyle: React.CSSProperties = {
-    display: "flex",
-    flexDirection: "column",
-    gap: 12,
-    paddingTop: 12,
-    paddingBottom: 12,
-  };
-
   return (
-    <header style={headerStyle}>
-      <div style={containerStyle}>
-        <div style={rowStyle}>
+    <header 
+      className={`navbar ${scrolled ? 'navbar-scrolled' : ''} ${!isVisible ? 'navbar-hidden' : ''}`}
+    >
+      <div className="navbar-container">
+        <div className="navbar-row">
           {/* LOGO: alineado a la izquierda del contenedor */}
           <RouterLink
             to="/"
             aria-label="Ir al inicio"
-            style={{ display: "block", lineHeight: 0 }}
+            className="navbar-logo-link"
           >
             <img
               src="/laquerencia1.png"
               alt="La Querencia"
-              style={{
-                height: logoHeight,
-                objectFit: "contain",
-                display: "block",
-              }}
+              className="navbar-logo"
             />
           </RouterLink>
 
           {/* MENÚ CENTRAL: absolutamente centrado */}
-          <nav style={desktopCenterNavStyle}>
+          <nav className="navbar-desktop-nav">
             {mainNavItems.map((i) => (
               <NavLink key={i.href} to={i.href}>
                 {i.label}
@@ -233,36 +161,33 @@ export default function Navbar() {
           </nav>
 
           {/* ZONA DERECHA: CONTACTO (desktop) o botón menú (mobile) */}
-          <div style={rightZoneStyle}>
+          <div className="navbar-right-zone">
             {isDesktop ? (
-            <NavLink
-              to={contactItem.href}
-              style={{ paddingRight: `calc(${spacing.xs} * 2)` }}
-            >
-              {contactItem.label}
-            </NavLink>
+              <NavLink
+                to={contactItem.href}
+                className="navbar-contact-link"
+              >
+                {contactItem.label}
+              </NavLink>
             ) : (
-          <button
-            aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
-            onClick={() => setIsOpen((s) => !s)}
-            onMouseEnter={() => setMobileBtnHover(true)}
-            onMouseLeave={() => setMobileBtnHover(false)}
-            style={{
-              ...mobileBtnStyle,
-                  color: mobileBtnHover ? colors.darkGreen : colors.gold,
-            }}
-          >
-            {isOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
+              <button
+                aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
+                onClick={() => setIsOpen((s) => !s)}
+                onMouseEnter={() => setMobileBtnHover(true)}
+                onMouseLeave={() => setMobileBtnHover(false)}
+                className={`navbar-mobile-btn ${mobileBtnHover ? 'navbar-mobile-btn-hover' : ''}`}
+              >
+                {isOpen ? <X size={28} /> : <Menu size={28} />}
+              </button>
             )}
           </div>
         </div>
       </div>
 
       {/* MENÚ MOBILE DESPLEGABLE */}
-      <div style={mobileMenuWrapperStyle}>
-        <div style={{ maxWidth: 1152, margin: "0 auto", padding: `0 ${spacing.lg}` }}>
-          <nav style={mobileStackStyle}>
+      <div className={`navbar-mobile-menu ${isOpen && !isDesktop ? 'navbar-mobile-menu-open' : ''}`}>
+        <div className="navbar-mobile-container">
+          <nav className="navbar-mobile-stack">
             {navItems.map((i) => (
               <NavLink key={i.href} to={i.href} onClick={() => setIsOpen(false)}>
                 {i.label}

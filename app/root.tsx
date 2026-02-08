@@ -4,7 +4,11 @@ import { Meta, Links, Scripts, ScrollRestoration, Outlet } from "react-router";
 // import "./styles.css"; // Comentado temporalmente
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import "./styles/global.css"; // <- añadido
+// import "./styles/global.css"; // <- añadido
+import globalCssUrl from "./styles/global.css?url";
+export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: globalCssUrl },
+];
 
 export const meta: MetaFunction = () => ([
   { charSet: "utf-8" },
@@ -53,12 +57,11 @@ export default function Root() {
             /* Estilos responsive para el hero */
             @media (min-width: 769px) {
               .hero-section {
-                height: 180vh !important;
+                height: 100vh;
               }
               .hero-title {
                 font-size: 3rem !important; /* 5xl = 3rem */
-                line-height: 1.1 !important;
-                font-weight: 800 !important;
+                line-height: 1.1 !important;                
               }
               .hero-subtitle {
                 font-size: 1.125rem !important; /* lg = 1.125rem */
@@ -91,7 +94,7 @@ export default function Root() {
               .hero-title {
                 font-size: 1.875rem !important; /* 3xl = 1.875rem */
                 line-height: 1.1 !important;
-                font-weight: 800 !important;
+                
               }
               .hero-subtitle {
                 font-size: 1rem !important; /* md = 1rem */
@@ -191,22 +194,6 @@ export default function Root() {
             }
             .nav-link-dark:hover {
               color: #A8743F !important;
-            }
-            
-            /* Tamaño del logo responsive con más padding */
-            @media (min-width: 769px) {
-              .navbar-logo {
-                height: 96px !important;
-                margin-top: 8px !important;
-                margin-bottom: 8px !important;
-              }
-            }
-            @media (max-width: 768px) {
-              .navbar-logo {
-                height: 72px !important;
-                margin-top: 6px !important;
-                margin-bottom: 6px !important;
-              }
             }
             
             /* Ancho completo de la página y tipografía */

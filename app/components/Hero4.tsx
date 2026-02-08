@@ -28,73 +28,20 @@ function useMediaQuery(query: string) {
 }
 
 export default function Hero4() {
-  const mdUp = useMediaQuery("(min-width: 768px)");
-
   return (
-    <section
-      style={{
-        backgroundColor: COLORS.bg,
-      }}
-    >
-      <div
-        style={{
-          maxWidth: LAYOUT.maxWidth,
-          margin: "0 auto",
-          padding: `${
-            mdUp ? LAYOUT.sectionPyDesktop : LAYOUT.sectionPyMobile
-          }px 24px`,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <div
-          style={{
-            textAlign: "center",
-          }}
-        >
+    <section className="hero4-section">
+      <div className="hero4-container">
+        <div className="hero4-content">
           {/* Líneas superiores */}
-          <p
-            style={{
-              margin: 0,
-              fontFamily:
-                "'Plus Jakarta Sans', 'Montserrat', 'Helvetica Neue', Arial, sans-serif",
-              fontSize: mdUp ? 28 : 14,
-              letterSpacing: "0.25em",
-              textTransform: "uppercase",
-              color: COLORS.textSoft,
-              fontWeight: 500,
-            }}
-          >
+          <p className="hero4-line">
             NUESTRO OBJETIVO ES
           </p>
-          <p
-            style={{
-              margin: mdUp ? "0px 0 0" : "0px 0 0",
-              fontFamily:
-                "'Plus Jakarta Sans', 'Montserrat', 'Helvetica Neue', Arial, sans-serif",
-              fontSize: mdUp ? 28 : 14,
-              letterSpacing: "0.25em",
-              textTransform: "uppercase",
-              color: COLORS.textSoft,
-              fontWeight: 500,
-            }}
-          >
+          <p className="hero4-line">
             AYUDAR A NUESTROS CLIENTES A
           </p>
 
           {/* Línea inferior fuerte */}
-          <p
-            style={{
-              margin: mdUp ? "0px 0 0" : "0px 0 0",
-              fontFamily: "'Playfair Display', serif",
-              fontSize: mdUp ? 48 : 32,
-              fontWeight: 600,
-              letterSpacing: "0.06em",
-              textTransform: "uppercase",
-              color: COLORS.textStrong,
-            }}
-          >
+          <p className="hero4-strong">
             PRODUCIR MEJOR
           </p>
         </div>

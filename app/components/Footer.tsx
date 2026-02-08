@@ -5,228 +5,97 @@ import { FaFacebook, FaWhatsapp } from "react-icons/fa";
 export default function Footer() {
   const year = new Date().getFullYear();
 
-  const linkStyle = {
-    color: "inherit",
-    textDecoration: "none",
-  };
-
-  const headingStyle: React.CSSProperties = {
-    marginBottom: 12,
-    color: "#FFFFFF",
-    opacity: 0.9,
-    fontSize: 14,
-    fontWeight: 700,
-    textTransform: "uppercase",
-    letterSpacing: "0.12em",
-  };
-
-  const iconStyle = {
-    width: 22,
-    height: 22,
-    color: "rgba(255,255,255,0.8)",
-  };
-
-  const circleStyle: React.CSSProperties = {
-    width: 42,
-    height: 42,
-    borderRadius: "50%",
-    border: "1px solid rgba(255,255,255,0.7)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  };
-
   return (
-    <footer
-      style={{
-        position: "relative",
-        backgroundColor: "#697D78",
-        color: "rgba(255,255,255,0.75)",
-        padding: "48px 16px 32px",
-        overflow: "hidden",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: 1280,
-          margin: "0 auto",
-          display: "grid",
-          gap: 40,
-          gridTemplateColumns: "minmax(0, 2fr) minmax(0, 2fr) minmax(0, 2fr)",
-          position: "relative",
-          zIndex: 2,
-        }}
-      >
+    <footer className="footer">
+      <div className="footer-grid">
         {/* Columna 1 */}
         <div>
           <img
             src="/logofooter.png"
             alt="La Querencia"
-            style={{
-              height: 80,
-              width: "auto",
-              display: "block",
-              
-            }}
+            className="footer-logo"
           />
 
-<div
-  style={{
-    fontFamily: "'Playfair Display', serif",
-    fontSize: 16,
-    fontWeight: 400,
-    lineHeight: 1.65,
-    letterSpacing: "0.01em",
-    color: "rgba(255,255,255,0.78)",
-    maxWidth: 340,           // ANCHO IDEAL COMO EL AI
-    marginBottom: 20,
-  }}
->
-  <p style={{ margin: 0, marginBottom: 10 }}>
-    Centro especializado en reproducción equina en Uruguay.
-  </p>
-  <p style={{ margin: 0 }}>
-    Vanguardia, innovación y bienestar en cada servicio.
-  </p>
-</div>
+          <div className="footer-description">
+            <p>
+              Centro especializado en reproducción equina en Uruguay.
+            </p>
+            <p>
+              Vanguardia, innovación y bienestar en cada servicio.
+            </p>
+          </div>
 
+          <div className="footer-divider" />
 
-          <div
-            style={{
-              width: "100%",
-              height: 1,
-              backgroundColor: "rgba(255,255,255,0.3)",
-              marginBottom: 16,
-            }}
-          />
-
-          <p
-            style={{
-              margin: 0,
-              fontSize: 12,
-              color: "rgba(255,255,255,0.6)",
-              fontFamily: "'Montserrat', 'Helvetica Neue', Arial, sans-serif",
-            }}
-          >
+          <p className="footer-copyright">
             © {year} La Querencia – Todos los derechos reservados
           </p>
         </div>
 
         {/* Columna 2 */}
         <div>
-          <h3 style={headingStyle}>Contacto</h3>
+          <h3 className="footer-heading">Contacto</h3>
 
           <a
             href="mailto:info@laquerencia.com"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              border: "1px solid rgba(255,255,255,0.6)",
-              borderRadius: 4,
-              padding: "10px 14px",
-              marginBottom: 16,
-              color: "inherit",
-              textDecoration: "none",
-              fontSize: 14,
-            }}
+            className="footer-email-link"
           >
             <span>info@laquerencia.com</span>
-            <span
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: 28,
-                height: 28,
-                borderRadius: "999px",
-                border: "1px solid rgba(255,255,255,0.7)",
-                fontSize: 16,
-              }}
-            >
+            <span className="footer-email-arrow">
               →
             </span>
           </a>
 
-          <p style={{ margin: "0 0 4px" }}>José Koci: +598 97 588 812</p>
-          <p style={{ margin: "0 0 4px" }}>Verónica Cavestany: +598 99 231 848</p>
+          <p className="footer-contact-item">José Koci: +598 97 588 812</p>
+          <p className="footer-contact-item">Verónica Cavestany: +598 99 231 848</p>
 
-          <div
-            style={{
-              width: 48,
-              height: 1,
-              backgroundColor: "rgba(255,255,255,0.6)",
-              margin: "12px 0",
-            }}
-          />
+          <div className="footer-contact-divider" />
 
           <p style={{ margin: 0 }}>Paso de Atahona, Trinidad, Uruguay</p>
         </div>
 
         {/* Columna 3 */}
         <div>
-          <h3 style={headingStyle}>Navegación</h3>
+          <h3 className="footer-heading">Navegación</h3>
 
-          <div
-            style={{
-              display: "flex",
-              alignItems: "flex-start",
-              gap: 24,
-              flexWrap: "wrap",
-            }}
-          >
-            <ul
-              style={{
-                listStyle: "none",
-                padding: 0,
-                margin: 0,
-                lineHeight: 2,
-                fontSize: 14,
-              }}
-            >
+          <div className="footer-navigation-wrapper">
+            <ul className="footer-navigation-list">
               <li>
-                <RouterLink to="/" style={linkStyle}>
+                <RouterLink to="/" className="footer-link">
                   Inicio
                 </RouterLink>
               </li>
               <li>
-                <RouterLink to="/servicios" style={linkStyle}>
+                <RouterLink to="/servicios" className="footer-link">
                   Servicios
                 </RouterLink>
               </li>
               <li>
-                <RouterLink to="/quienes_somos" style={linkStyle}>
+                <RouterLink to="/quienes_somos" className="footer-link">
                   Quiénes somos
                 </RouterLink>
               </li>
               <li>
-                <RouterLink to="/uruguay" style={linkStyle}>
+                <RouterLink to="/uruguay" className="footer-link">
                   Uruguay
                 </RouterLink>
               </li>
               <li>
-                <RouterLink to="/contacto" style={linkStyle}>
+                <RouterLink to="/contacto" className="footer-link">
                   Contacto
                 </RouterLink>
               </li>
             </ul>
 
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 16,
-                marginLeft: 16,
-              }}
-            >
-              <div style={circleStyle}>
-                <FiInstagram style={iconStyle} />
+            <div className="footer-social-icons">
+              <div className="footer-social-icon-circle">
+                <FiInstagram className="footer-social-icon" />
               </div>
-              <div style={circleStyle}>
-                <FaFacebook style={iconStyle} />
+              <div className="footer-social-icon-circle">
+                <FaFacebook className="footer-social-icon" />
               </div>
-              <div style={circleStyle}>
-                <FaWhatsapp style={iconStyle} />
+              <div className="footer-social-icon-circle">
+                <FaWhatsapp className="footer-social-icon" />
               </div>
             </div>
           </div>
@@ -237,16 +106,8 @@ export default function Footer() {
       <img
         src="/RecursoFooter.png"
         alt=""
-        style={{
-          position: "absolute",
-          right: 0,
-          bottom: 0,
-          height: 260,
-          opacity: 0.8,
-          zIndex: 1,
-        }}
+        className="footer-decoration-image"
       />
-
     </footer>
   );
 }
