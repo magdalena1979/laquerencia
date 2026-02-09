@@ -2,27 +2,24 @@ export default function ServiciosPage() {
   return (
     <main className="servicios-main">
       {/* HERO / ENCABEZADO */}
-      <section className="servicios-hero">
+      <section className="hero-section">
         {/* Video de fondo */}
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="servicios-hero-video"
+          className=""
         >
           <source src="/VIDEO_SERVICIOS.mp4" type="video/mp4" />
         </video>
 
         {/* Contenido */}
-        <div className="servicios-hero-content">
-          <h1 className="servicios-hero-title">
-            Servicios de
-            <br />
-            reproducción equina
+        <div className="hero-content">
+          <h1 className="hero-title">
+            Servicios de<br /> reproducción equina
           </h1>
-
-          <p className="servicios-hero-description">
+          <p className="hero-subtitle">
             Acompañamos cada etapa del ciclo reproductivo con
             protocolos actualizados y foco en bienestar animal.
           </p>
@@ -66,18 +63,14 @@ export default function ServiciosPage() {
               <ul className="servicios-card-list">
                 <li className="servicios-card-item">
                   <span className="servicios-card-bullet">○</span>
-                  Conocer edad gestacional para saber
-                </li>
-                <li className="servicios-card-item">
-                  <span className="servicios-card-bullet">○</span>
-                  fecha de parto
+                  Conocer edad gestacional para saber fecha de parto
                 </li>
                 <li className="servicios-card-item">
                   <span className="servicios-card-bullet">○</span>
                   Identificación de patologías
                 </li>
                 <li className="servicios-card-item">
-                  <span className="servicios-card-bullet">&gt;</span>
+                  <span className="servicios-card-bullet">○</span>
                   Evitar pérdidas
                 </li>
               </ul>
@@ -143,15 +136,15 @@ export default function ServiciosPage() {
                 </li>
                 <li className="servicios-card-item">
                   <span className="servicios-card-bullet">○</span>
-                  Poder utilizar padrillos extranjeros.
+                  Utilización de padrillos extranjeros.
                 </li>
                 <li className="servicios-card-item">
                   <span className="servicios-card-bullet">○</span>
-                  Seguir produciendo con padrillos que ya no existen.
+                  Seguir produciendo con padrillos que ya no viven.
                 </li>
                 <li className="servicios-card-item">
                   <span className="servicios-card-bullet">○</span>
-                  Poder utilizar diferentes padrillos sin tener que mover las yeguas a diferentes lugares.
+                  Poder utilizar diferentes padrillos sin tener que mover las yeguas.
                 </li>
               </ul>
             </div>
@@ -174,7 +167,7 @@ export default function ServiciosPage() {
                 </li>
                 <li className="servicios-card-item">
                   <span className="servicios-card-bullet">○</span>
-                  Posibilidad de hijos con distintos padrillos
+                  Posibilidad de hijos con distintos padrillos en la misma temporada
                 </li>
                 <li className="servicios-card-item">
                   <span className="servicios-card-bullet">○</span>
@@ -184,16 +177,22 @@ export default function ServiciosPage() {
                   <span className="servicios-card-bullet">○</span>
                   Poder continuar con la vida deportiva de la yegua y reproducirla
                 </li>
-                <li className="servicios-card-item">
-                  <span className="servicios-card-bullet">○</span>
-                  OPU (Aspiración de ovocitos)
-                </li>
+              </ul>
+            </div>
+            {/* 7. OPU */}
+            <div className="servicios-card">
+              <h3 className="servicios-card-title">
+                OPU (Aspiración de ovocitos)
+              </h3>
+              <ul className="servicios-card-list">
                 <li className="servicios-card-item">
                   <span className="servicios-card-bullet">○</span>
                   <strong>CAPACITANDONOS</strong> - Técnica que se utiliza para posterior utilización de ICSI
                 </li>
               </ul>
             </div>
+
+
           </div>
         </div>
       </section>

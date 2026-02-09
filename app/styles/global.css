@@ -2,23 +2,33 @@
 
 /* Paleta La Querencia (desde el .ai, Pantone → Hex aprox) */
 :root {
-  --querencia: #ae8a79;          /* PANTONE 4725 C */
-  --gold: #c6893f;               /* PANTONE 7510 C */
+  --querencia: #ae8a79;
+  /* PANTONE 4725 C */
+  --gold: #c6893f;
+  /* PANTONE 7510 C */
   --gold-hover: #d79a4a;
-  --dark-green: #0e352d;         /* PANTONE 627 C */
+  --dark-green: #0e352d;
+  /* PANTONE 627 C */
   --dark-green-light: #13322b;
   --dark-green-dark: #19191a;
 
   --crema: #f5f5dc;
   --rosa: #f8e8e8;
 
-  --gray-100: #d9d9d6;           /* Cool Gray 1 C */
-  --gray-200: #c1c6c8;           /* 428 C */
-  --gray-300: #aca39a;           /* Warm Gray 5 C aprox */
-  --gray-400: #888b8d;           /* Cool Gray 8 C */
-  --gray-500: #7e7f74;           /* 416 C */
-  --gray-600: #373a36;           /* 447 C */
-  --gray-700: #222223;           /* Neutral Black C aprox */
+  --gray-100: #d9d9d6;
+  /* Cool Gray 1 C */
+  --gray-200: #c1c6c8;
+  /* 428 C */
+  --gray-300: #aca39a;
+  /* Warm Gray 5 C aprox */
+  --gray-400: #888b8d;
+  /* Cool Gray 8 C */
+  --gray-500: #7e7f74;
+  /* 416 C */
+  --gray-600: #373a36;
+  /* 447 C */
+  --gray-700: #222223;
+  /* Neutral Black C aprox */
   --gray-800: #19191a;
   --white: #ffffff;
   --black: #333333;
@@ -41,6 +51,9 @@ body {
   line-height: 1.5;
   color: var(--gray-800);
   background-color: var(--white);
+
+  text-wrap: balance;
+  /* text-wrap: pretty; */
 }
 
 #root {
@@ -91,7 +104,7 @@ a {
   max-width: 1280px;
   margin: 0 auto;
   display: grid;
-  gap: 40px;
+  gap: 30px;
   grid-template-columns: minmax(0, 2fr) minmax(0, 2fr) minmax(0, 2fr);
   position: relative;
   z-index: 2;
@@ -111,7 +124,7 @@ a {
   letter-spacing: 0.01em;
   color: rgba(255, 255, 255, 0.78);
   max-width: 340px;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
 }
 
 .footer-description p {
@@ -130,10 +143,12 @@ a {
 }
 
 .footer-copyright {
-  margin: 0;
   font-size: 12px;
   color: rgba(255, 255, 255, 0.6);
-  font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+  /* */
+  grid-column: 1/-1;
+  /* border-top: 1px solid  rgba(255, 255, 255, 0.6); */
+  padding-top: 15px;
 }
 
 .footer-heading {
@@ -286,7 +301,7 @@ a {
 .navbar-right-zone {
   display: flex;
   align-items: center;
-  padding-right: 1.5rem;
+  
   margin-left: auto;
 }
 
@@ -365,33 +380,28 @@ a {
 /* Hero */
 .hero-section {
   position: relative;
+  height: 100vh;
 }
 
-.hero-background {
+.hero-section:before {
+  content: '';
   position: absolute;
   inset: 0;
-  overflow: hidden;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0));
+  z-index: 1;
 }
 
-.hero-background img {
+
+.hero-section img,
+.hero-section video {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
 
-.hero-overlay {
-  position: sticky;
-  top: 0;
-  display: flex;
-  justify-content: center;
-  z-index: 1;
-  will-change: transform;
-  backface-visibility: hidden;
-  -webkit-font-smoothing: antialiased;
-}
-
 .hero-content {
+  padding: 1rem;
   max-width: 960px;
   display: flex;
   flex-direction: column;
@@ -399,6 +409,18 @@ a {
   text-align: center;
   align-items: center;
   color: #333333;
+
+  position: absolute;
+  top: 150px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+@media (max-width:768px) {
+  .hero-content {
+    top: 100px;
+  }
 }
 
 .hero-title {
@@ -419,7 +441,8 @@ a {
   line-height: 1.6;
   font-weight: 400;
   letter-spacing: 0.02em;
-  max-width: 640px;
+  /* max-width: 640px; */
+  font-size: 1.125rem
 }
 
 /* Hero3 */
@@ -924,24 +947,15 @@ a {
 
 /* HeroVideoBanner */
 .hero-video-section {
-  width: 100%;
-  margin-inline: auto;
-  padding: 0;
-  background-color: #fff;
-}
-
-.hero-video-container {
-  width: 100%;
-  max-width: 1920px;
-  margin: 0 auto;
-  overflow: hidden;
+  background-color: #16322b;
 }
 
 .hero-video {
   width: 100%;
   height: auto;
   display: block;
-  object-fit: cover;
+  object-fit: contain;
+  max-height: 240px;
 }
 
 /* Evitar zoom raro en mobile */
@@ -976,7 +990,7 @@ a {
   }
 
   .hero-subtitle {
-    font-size: 18px;
+    font-size: 14px;
   }
 
   .hero3-layout {
@@ -1090,9 +1104,6 @@ a {
     font-size: 44px;
   }
 
-  .hero-subtitle {
-    font-size: 22px;
-  }
 
   .hero3-layout {
     flex-direction: row;
@@ -1254,7 +1265,7 @@ a {
 }
 
 .servicios-grid-container {
-  max-width: 1152px;
+  max-width: 1440px;
   margin: 0 auto;
 }
 
@@ -1415,7 +1426,7 @@ a {
   }
 
   .servicios-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 40px;
   }
 

@@ -10,6 +10,8 @@ export const links: LinksFunction = () => [
   { rel: "stylesheet", href: globalCssUrl },
 ];
 
+
+
 export const meta: MetaFunction = () => ([
   { charSet: "utf-8" },
   { title: "La Querencia" },
@@ -33,6 +35,8 @@ export default function Root() {
           href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
+        <link rel="icon" href="/favicon.png" type="image/svg+xml" />
+        {/* <link rel="shortcut icon" href="/favicon.ico" /> */}
         <Links />
         <style dangerouslySetInnerHTML={{
           __html: `
@@ -57,7 +61,7 @@ export default function Root() {
             /* Estilos responsive para el hero */
             @media (min-width: 769px) {
               .hero-section {
-                height: 100vh;
+                
               }
               .hero-title {
                 font-size: 3rem !important; /* 5xl = 3rem */
@@ -89,15 +93,12 @@ export default function Root() {
             }
             @media (max-width: 768px) {
               .hero-section {
-                height: 140vh !important;
+                
               }
               .hero-title {
                 font-size: 1.875rem !important; /* 3xl = 1.875rem */
                 line-height: 1.1 !important;
                 
-              }
-              .hero-subtitle {
-                font-size: 1rem !important; /* md = 1rem */
               }
               .hero2-container {
                 flex-direction: column !important;
@@ -196,7 +197,7 @@ export default function Root() {
               color: #A8743F !important;
             }
             
-            /* Ancho completo de la página y tipografía */
+s            /* Ancho completo de la página y tipografía */
             html, body {
               width: 100% !important;
               margin: 0 !important;

@@ -67,83 +67,21 @@ export default function UruguayPage() {
   return (
     <main style={{ backgroundColor: COLORS.bgMain }}>
       {/* HERO CON IMAGEN DE FONDO */}
-      <section
-        style={{
-          position: "relative",
-          height: heroHeight,
-          overflow: "hidden",
-        }}
-      >
-        {/* Imagen de fondo */}
+      <section className="hero-section">      
         <img
           src="/uru1.jpg"
           alt="Paisaje uruguayo con caballos"
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            objectPosition: "center top",
-            zIndex: 0,
-          }}
-        />
+        /> 
 
-        {/* Overlay con gradiente para legibilidad del texto */}
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "40%",
-            background: "linear-gradient(to bottom, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 50%, transparent 100%)",
-            zIndex: 1,
-          }}
-        />
+        <div className="hero-content">
+          <h1 className="hero-title">Uruguay</h1>
 
-        {/* Contenido de texto */}
-        <div
-          style={{
-            position: "relative",
-            zIndex: 2,
-            maxWidth: LAYOUT.maxWidth,
-            margin: "0 auto",
-            padding: `${mdUp ? 160 : 120}px 24px 40px`,
-            textAlign: "center",
-          }}
-        >
-          <h1
-            style={{
-              margin: 0,
-              marginBottom: 24,
-              fontFamily: "'Playfair Display', serif",
-              fontSize: mdUp ? 44 : 32,
-              lineHeight: 1.15,
-              color: COLORS.textMain,
-              letterSpacing: "0.01em",
-              fontWeight: 700,
-            }}
-          >
-            Uruguay
-          </h1>
-
-          <p
-            style={{
-              margin: 0,
-              maxWidth: 800,
-              marginInline: "auto",
-              fontFamily: "'Plus Jakarta Sans', sans-serif",
-              fontSize: mdUp ? 18 : 16,
-              lineHeight: 1.8,
-              color: COLORS.textMain,
-            }}
-          >
-            Los equinos fueron introducidos en Uruguay junto con la ganadería y desde entonces se han constituido en un elemento común del paisaje, herramientas para la producción agropecuaria y protagonistas para diferentes formas de esparcimiento y disciplinas deportivas (alta competencia).
+          <p className="hero-subtitle ">
+          Los equinos fueron introducidos en Uruguay junto con la ganadería y desde entonces se han constituido en un elemento común del paisaje, herramientas para la producción agropecuaria y protagonistas para diferentes formas de esparcimiento y disciplinas deportivas (alta competencia).
           </p>
         </div>
-      </section>
+    </section>
+
 
       {/* BLOQUE DE TEXTO CON FONDO BLANCO */}
       <section

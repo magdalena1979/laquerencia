@@ -17,37 +17,24 @@ export default function Footer() {
           />
 
           <div className="footer-description">
-            <p>
-              Centro especializado en reproducción equina en Uruguay.
-            </p>
-            <p>
-              Vanguardia, innovación y bienestar en cada servicio.
-            </p>
+            <p>Centro especializado en reproducción equina en Uruguay.</p>
+            <p>Vanguardia, innovación y bienestar en cada servicio.</p>
           </div>
-
-          <div className="footer-divider" />
-
-          <p className="footer-copyright">
-            © {year} La Querencia – Todos los derechos reservados
-          </p>
         </div>
 
         {/* Columna 2 */}
         <div>
           <h3 className="footer-heading">Contacto</h3>
 
-          <a
-            href="mailto:info@laquerencia.com"
-            className="footer-email-link"
-          >
-            <span>info@laquerencia.com</span>
-            <span className="footer-email-arrow">
-              →
-            </span>
+          <a href="mailto:laquerenciareproequino@gmail.com" className="footer-email-link">
+            <span>laquerenciareproequino@gmail.com</span>
+            <span className="footer-email-arrow">→</span>
           </a>
 
           <p className="footer-contact-item">José Koci: +598 97 588 812</p>
-          <p className="footer-contact-item">Verónica Cavestany: +598 99 231 848</p>
+          <p className="footer-contact-item">
+            Verónica Cavestany: +598 99 231 848
+          </p>
 
           <div className="footer-contact-divider" />
 
@@ -100,6 +87,10 @@ export default function Footer() {
             </div>
           </div>
         </div>
+
+        <p className="footer-copyright">
+          © {year} La Querencia – Todos los derechos reservados
+        </p>
       </div>
 
       {/* Recurso INFERIOR DERECHA */}
