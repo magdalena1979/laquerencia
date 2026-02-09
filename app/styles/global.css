@@ -380,9 +380,13 @@ a {
 /* Hero */
 .hero-section {
   position: relative;
-  height: 100vh;
+  height: 100vw;
 }
-
+@media (min-width: 769px){
+  .hero-section {
+    height: 60vw;
+  }
+}
 .hero-section:before {
   content: '';
   position: absolute;
