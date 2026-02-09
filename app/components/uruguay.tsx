@@ -119,7 +119,7 @@ export default function UruguayPage() {
               margin: 0,
               marginBottom: 24,
               fontFamily: "'Playfair Display', serif",
-              fontSize: mdUp ? 44 : 32,
+              fontSize: mdUp ? 56 : 36,
               lineHeight: 1.15,
               color: COLORS.textMain,
               letterSpacing: "0.01em",

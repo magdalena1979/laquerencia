@@ -112,7 +112,7 @@ export default function HeroSticky() {
               color: "#333333",
               lineHeight: 1.08,
               margin: 0,
-              fontSize: mdUp ? 44 : 32,
+              fontSize: mdUp ? "56px" : "34px", // un poco más refinado
               letterSpacing: "0.01em",
               fontStyle: "normal",
               maxWidth: 820,
