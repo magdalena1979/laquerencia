@@ -64,7 +64,7 @@ export default function Root() {
                 
               }
               .hero-title {
-                // font-size: 3rem !important; /* 5xl = 3rem */
+                
                 line-height: 1.1 !important;                
               }
               .hero-subtitle {
@@ -96,7 +96,7 @@ export default function Root() {
                 
               }
               .hero-title {
-                // font-size: 1.875rem !important; /* 3xl = 1.875rem */
+                
                 line-height: 1.1 !important;
                 
               }
