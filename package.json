@@ -3,6 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "copy-slicer": "node scripts/copy-slicer-to-app.js",
+    "predev": "npm run copy-slicer",
+    "prebuild": "npm run copy-slicer",
     "build": "react-router build",
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",

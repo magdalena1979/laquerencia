@@ -1,23 +1,30 @@
 import { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { colors, spacing } from '../styles';
+import { spacing } from "../styles";
+
+const VIDEO_EXT = [".mp4", ".webm", ".mov", ".ogg"];
+
+function isVideo(src: string): boolean {
+  const lower = src.toLowerCase();
+  return VIDEO_EXT.some((ext) => lower.endsWith(ext));
+}
 
 type Props = {
+  /** Rutas de imágenes y/o videos (ej. /slicer.1.jpeg, /slicer.4.mp4) */
   images: string[];
   alts?: string[];
-  itemWidth?: any;              // p.ej. { base: "75%", sm: "55%", md: "40%", lg: "30%" }
-  ratio?: number;               // más chico = más alto (ej. 3/2, 4/3, 1.2)
+  ratio?: number; // 1 = 1:1 (cuadrado)
   showArrows?: boolean;
-  hover?: boolean;
+  /** Texto para lectores de pantalla (ej. "Tira de 30 fotos y videos") */
+  ariaLabel?: string;
 };
 
 export default function ImageStrip({
   images,
   alts,
-  ratio = 3 / 2,                // más alto que 16/9
-  itemWidth = { base: "75%", sm: "55%", md: "40%", lg: "30%" },
+  ratio = 1,
   showArrows = true,
-  hover = true,
+  ariaLabel = "Tira de imágenes y videos",
 }: Props) {
   const trackRef = useRef<HTMLDivElement>(null);
 
@@ -29,60 +36,86 @@ export default function ImageStrip({
   };
 
   return (
-    <div className="imagestrip-container imagestrip-group" style={{
-      position: 'relative',
-      width: '100%',
-    }}>
-      {/* Pista */}
+    <div
+      className="imagestrip-container imagestrip-group"
+      style={{ position: "relative", width: "100%" }}
+    >
       <div
         ref={trackRef}
         role="region"
-        aria-label="Tira de imágenes"
+        aria-label={ariaLabel}
         className="imagestrip-track"
         style={{
-          display: 'grid',
-          gridAutoFlow: 'column',
-          gridAutoColumns: '75%',
+          display: "grid",
+          gridAutoFlow: "column",
+          gridAutoColumns: "75%",
           gap: 0,
-          overflowX: 'auto',
-          overflowY: 'hidden',
-          scrollSnapType: 'x mandatory',
-          scrollbarWidth: 'none',
-          WebkitOverflowScrolling: 'touch',
-          overscrollBehaviorX: 'contain',
+          overflowX: "auto",
+          overflowY: "hidden",
+          scrollSnapType: "x mandatory",
+          scrollbarWidth: "none",
+          WebkitOverflowScrolling: "touch",
+          overscrollBehaviorX: "contain",
         }}
       >
         {images.map((src, i) => (
-          <div key={i} style={{
-            position: 'relative',
-            scrollSnapAlign: 'start',
-            overflow: 'hidden',
-          }}>
-            <div style={{
-              position: 'relative',
-              width: '100%',
-              paddingTop: `${(1 / ratio) * 100}%`,
-            }}>
-              <img
-                src={src}
-                alt={alts?.[i] || `imagen ${i + 1}`}
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  userSelect: 'none',
-                  display: 'block',
-                  transition: 'transform 0.35s ease, filter 0.35s ease',
-                  transformOrigin: 'center',
-                }}
-                draggable={false}
-                loading="lazy"
-              />
+          <div
+            key={i}
+            style={{
+              position: "relative",
+              scrollSnapAlign: "start",
+              overflow: "hidden",
+            }}
+          >
+            <div
+              style={{
+                position: "relative",
+                width: "100%",
+                paddingTop: `${(1 / ratio) * 100}%`,
+              }}
+            >
+              {isVideo(src) ? (
+                <video
+                  src={src}
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    display: "block",
+                  }}
+                  playsInline
+                  muted
+                  loop
+                  autoPlay
+                  aria-label={alts?.[i] || `video ${i + 1}`}
+                />
+              ) : (
+                <img
+                  src={src}
+                  alt={alts?.[i] || `imagen ${i + 1}`}
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    userSelect: "none",
+                    display: "block",
+                    transition: "transform 0.35s ease, filter 0.35s ease",
+                    transformOrigin: "center",
+                  }}
+                  draggable={false}
+                  loading="lazy"
+                />
+              )}
             </div>
           </div>
         ))}

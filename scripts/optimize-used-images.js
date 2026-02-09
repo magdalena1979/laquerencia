@@ -14,7 +14,8 @@ const maxHeight = 3000;
 const maxSizeKB = 300;
 const quality = 85;
 
-// Lista de imágenes que realmente se usan
+// Lista de imágenes que realmente se usan (en public)
+// El slicer usa app/assets/slicer/* (copiados por copy-slicer), no esta lista
 const usedImages = [
   '/vero.jpeg',
   '/pepe.jpg',
@@ -24,15 +25,7 @@ const usedImages = [
   '/hero1.jpg',
   '/servicios1.jpg',
   '/servicios2.jpg',
-  '/slicer1.jpg',
-  '/slicer2.jpg',
-  '/slicer3.jpg',
-  '/slicer4.jpg',
-  '/slicer5.jpg',
-  '/slicer6.png',
-  '/slicer7.jpg',
-  '/slicer8.jpg',
-  '/slicer9.jpg'
+  // slicer: ahora son slicer.1.jpeg, slicer.2.jpeg, ... en app/assets/slicer (vía Slicer.tsx)
 ];
 
 // Función para obtener tamaño en KB
