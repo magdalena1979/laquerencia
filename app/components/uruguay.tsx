@@ -69,7 +69,7 @@ export default function UruguayPage() {
       {/* HERO CON IMAGEN DE FONDO */}
       <section className="hero-section">      
         <img
-          src="/uru1.jpg"
+          src="/hero-uruguay.webp"
           alt="Paisaje uruguayo con caballos"
         /> 
 

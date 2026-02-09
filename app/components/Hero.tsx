@@ -2,7 +2,7 @@ export default function HeroSticky() {
   return (
     <section className="hero-section">      
         <img
-          src="/FOTO%20PRINCIPAL%20INICIO%20V2.jpeg"
+          src="/hero-inicio.webp"
           alt="La Querencia"
         /> 
 
