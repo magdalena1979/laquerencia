@@ -16,7 +16,7 @@ function PageTitle({ children }: { children: React.ReactNode }) {
     <h1
       style={{
         margin: "0 0 16px",
-        marginTop: "clamp(112px, 14vh, 140px)",
+        marginTop: "0",
         color: COLORS.white,
         fontSize: "clamp(28px, 5vw, 40px)",
         fontWeight: 700,
@@ -80,7 +80,7 @@ export default function ContactoPage() {
   const [hoverLink, setHoverLink] = useState<string | null>(null);
 
   return (
-    <div style={{ backgroundColor: COLORS.bg, minHeight: "100vh" }}>
+    <div style={{ backgroundColor: COLORS.bg, minHeight: "100vh", paddingTop: "140px" }}>
       <div style={containerStyle}>
         {/* Título */}
         <div style={{ textAlign: "center", marginBottom: 16 }}>

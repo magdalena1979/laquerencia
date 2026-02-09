@@ -82,7 +82,9 @@ export default function Footer() {
                 <FaFacebook className="footer-social-icon" />
               </div>
               <div className="footer-social-icon-circle">
+                <a href="https://wa.me/59899231848?text=%C2%A1Hola!%20Tengo%20una%20consulta%20para%20hacerles%20sobre%20TULEGAJO.COM" target="_blank" rel="noopener noreferrer">
                 <FaWhatsapp className="footer-social-icon" />
+                </a>
               </div>
             </div>
           </div>
