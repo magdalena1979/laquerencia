@@ -76,13 +76,19 @@ export default function Footer() {
 
             <div className="footer-social-icons">
               <div className="footer-social-icon-circle">
-                <FiInstagram className="footer-social-icon" />
+                <a href="https://www.instagram.com/laquerenciacentroequino" target="_blank" rel="noopener noreferrer ">
+                  <FiInstagram className="footer-social-icon" />
+                </a>
               </div>
+              {/*  
               <div className="footer-social-icon-circle">
-                <FaFacebook className="footer-social-icon" />
+                <a href="https://www.facebook.com/laquerenciareproequino" target="_blank" rel="noopener noreferrer">
+                  <FaFacebook className="footer-social-icon" />
+                </a>
               </div>
+              */}
               <div className="footer-social-icon-circle">
-                <a href="https://wa.me/59899231848?text=%C2%A1Hola!%20Tengo%20una%20consulta%20para%20hacerles%20sobre%20TULEGAJO.COM" target="_blank" rel="noopener noreferrer">
+                <a href="https://wa.me/59899231848?text=%C2%A1Hola!%20Tengo%20una%20consulta%20para%20hacerles" target="_blank" rel="noopener noreferrer">
                 <FaWhatsapp className="footer-social-icon" />
                 </a>
               </div>

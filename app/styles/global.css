@@ -219,7 +219,7 @@ a {
 .footer-social-icons {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
   margin-left: 16px;
 }
 
@@ -232,7 +232,9 @@ a {
   align-items: center;
   justify-content: center;
 }
-
+.footer-social-icon-circle a{
+  display: flex;
+}
 .footer-social-icon {
   width: 22px;
   height: 22px;

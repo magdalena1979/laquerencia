@@ -406,10 +406,10 @@ img {
 }
 
 .footer-social-icons {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   gap: 16px;
-  margin-left: 16px;
+  margin-left: 16px; */
 }
 
 .footer-social-icon-circle {
