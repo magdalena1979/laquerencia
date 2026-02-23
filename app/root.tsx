@@ -35,7 +35,7 @@ export default function Root() {
           href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
-        <link rel="icon" href="/favicon.png" type="image/svg+xml" />
+        <link rel="icon" href="/favicon.png" type="image/png" />
         {/* <link rel="shortcut icon" href="/favicon.ico" /> */}
         <Links />
         <style dangerouslySetInnerHTML={{
