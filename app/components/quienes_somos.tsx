@@ -34,6 +34,7 @@ export default function QuienesSomosPage() {
   return (
     <main style={{ backgroundColor: COLORS.bgMain }}>
       {/* HERO */}
+     
       <section
         style={{
           backgroundColor: "#F3F3F3",
@@ -94,11 +95,11 @@ export default function QuienesSomosPage() {
           }}
         >
           <img
-            src="/quienesosmos3.jpg"
+            src="/hero-quienes-somos.webp"
             alt="Caballos en el centro de reproducción"
             style={{
               width: "100%",
-              height: mdUp ? 360 : 220,
+              height: mdUp ? 'auto' : 220,
               objectFit: "cover",
               display: "block",
             }}
@@ -144,7 +145,7 @@ export default function QuienesSomosPage() {
                   style={{
                     width: "100%",
                     height: 360,
-                    objectFit: "contain",
+                    objectFit: "cover",
                     display: "block",
                   }}
                 />
@@ -203,7 +204,16 @@ export default function QuienesSomosPage() {
                   justifyContent: "center",
                 }}
               >
-                {/* Sin imagen */}
+                <img
+                  src="/jose-koci.jpeg"
+                  alt="José Koci"
+                  style={{
+                    width: "100%",
+                    height: 360,
+                    objectFit: "cover",
+                    display: "block",
+                  }}
+                />
               </div>
               <h3
                 style={{

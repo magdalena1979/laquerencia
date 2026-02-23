@@ -67,7 +67,7 @@ export default function UruguayPage() {
   return (
     <main style={{ backgroundColor: COLORS.bgMain }}>
       {/* HERO CON IMAGEN DE FONDO */}
-      <section className="hero-section">      
+      <section className="hero-section" id="hero-uruguay">      
         <img
           src="/hero-uruguay.webp"
           alt="Paisaje uruguayo con caballos"

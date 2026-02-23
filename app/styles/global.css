@@ -384,7 +384,7 @@ a {
 }
 @media (min-width: 769px){
   .hero-section {
-    height: 60vw;
+    /* height: 60vw; */
   }
 }
 .hero-section:before {
@@ -402,6 +402,12 @@ a {
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+@media (max-width: 768px) {
+  #hero-uruguay.hero-section img {
+    object-position: left;
+  }
 }
 
 .hero-content {

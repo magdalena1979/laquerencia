@@ -1,6 +1,5 @@
 import { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { colors, spacing } from '../styles';
 
 type Props = {
   images: string[];
@@ -45,13 +44,25 @@ export default function ImageStrip({
                 paddingTop: `${(1 / ratio) * 100}%`,
               }}
             >
-              <img
-                src={src}
-                alt={alts?.[i] || `imagen ${i + 1}`}
-                className="imagestrip-image"
-                draggable={false}
-                loading="lazy"
-              />
+
+              {src.endsWith('.mp4') ? (
+                <video
+                  src={src}
+                  className="imagestrip-image"
+                  draggable={false}
+                  autoPlay
+                  muted
+                  loop
+                />
+              ) : (
+                <img
+                  src={src}
+                  alt={alts?.[i] || `imagen ${i + 1}`}
+                  className="imagestrip-image"
+                  draggable={false}
+                  loading="lazy"
+                />
+            )}
             </div>
           </div>
         ))}
