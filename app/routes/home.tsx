@@ -25,7 +25,14 @@ const stripVideos = Array.from({ length: NUM_SLIDER_VIDEOS }, (_, i) =>
 );
 
 
-const stripMedia = [...stripImages, ...stripVideos].sort(() => Math.random() - 0.5);
+//const stripMedia = [...stripImages, ...stripVideos].sort(() => Math.random() - 0.5);
+
+const stripMedia = [...stripImages, ...stripVideos];
+
+for (let i = stripMedia.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [stripMedia[i], stripMedia[j]] = [stripMedia[j], stripMedia[i]];
+}
 
 
 export default function Home() {
