@@ -11,7 +11,7 @@ import ImageStrip from "../components/ImageStrip";
 
 
 // slider
-const NUM_SLIDER_IMAGES = 30; // Update this to reflect the current number of images in /public/slider
+const NUM_SLIDER_IMAGES = 38; // Update this to reflect the current number of images in /public/slider
 const SLIDER_IMAGE_EXT = "webp"; 
 
 const stripImages = Array.from({ length: NUM_SLIDER_IMAGES }, (_, i) =>
