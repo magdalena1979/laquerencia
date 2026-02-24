@@ -309,7 +309,7 @@ export default function QuienesSomosPage() {
                 }}
               >
                 Asistencia en manejo de campo, logística y apoyo a
-                procedimientos reproductivos. Perfil en construcción.
+                procedimientos reproductivos.
               </p>
             </article>
           </div>

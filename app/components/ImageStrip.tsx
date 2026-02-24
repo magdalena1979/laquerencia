@@ -53,6 +53,7 @@ export default function ImageStrip({
                   autoPlay
                   muted
                   loop
+                  playsInline
                 />
               ) : (
                 <img

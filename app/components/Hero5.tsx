@@ -1,33 +1,3 @@
-import { useEffect, useState } from "react";
-
-const COLORS = {
-  titleMain: "#2b2d2b",
-  titleAccent: "#697f73",
-  body: "#505050",
-  bg: "#f5f4f0",
-};
-
-const LAYOUT = {
-  maxWidth: 1152,
-  gapDesktop: 56,
-  gapMobile: 32,
-  paddingX: 24,
-  paddingYDesktop: 80,
-  paddingYMobile: 48,
-};
-
-function useMediaQuery(query: string) {
-  const [matches, setMatches] = useState(false);
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const mq = window.matchMedia(query);
-    const update = () => setMatches(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, [query]);
-  return matches;
-}
 
 export default function Hero5() {
   return (

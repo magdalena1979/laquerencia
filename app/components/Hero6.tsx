@@ -1,33 +1,3 @@
-// Hero6.tsx
-import { useEffect, useState } from "react";
-
-const COLORS = {
-  title: "#333333",
-  body: "#444444",
-  line: "#d4d4d4",
-  bg: "#ffffff",
-};
-
-const LAYOUT = {
-  maxWidth: 1152,
-  paddingX: 24,
-  paddingYDesktop: 80,
-  paddingYMobile: 48,
-};
-
-function useMediaQuery(query: string) {
-  const [matches, setMatches] = useState(false);
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const mq = window.matchMedia(query);
-    const update = () => setMatches(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, [query]);
-  return matches;
-}
-
 export default function Hero6() {
   return (
     <section className="hero6-section">
@@ -40,11 +10,11 @@ export default function Hero6() {
         {/* Texto */}
         <div className="hero6-body">
           <p>
-            Nuestra misión es{" "}
+            Nuestra misión es
             <span className="hero6-italic-bold">
-              ser líderes en tecnologías reproductivas equinas
+              ser líderes en tecnologías reproductivas equinas, 
             </span>
-            , potenciando la genética y promoviendo una producción más eficiente.
+            potenciando la genética y promoviendo una producción más eficiente.
           </p>
 
           <p>
