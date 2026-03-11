@@ -26,8 +26,8 @@ export default function Footer() {
         <div>
           <h3 className="footer-heading">Contacto</h3>
 
-          <a href="mailto:laquerenciareproequino@gmail.com" className="footer-email-link">
-            <span>laquerenciareproequino@gmail.com</span>
+          <a href="mailto:laquerenciareproequina@gmail.com" className="footer-email-link">
+            <span>laquerenciareproequina@gmail.com</span>
             <span className="footer-email-arrow">→</span>
           </a>
 

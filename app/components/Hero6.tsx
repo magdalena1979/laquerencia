@@ -10,11 +10,9 @@ export default function Hero6() {
         {/* Texto */}
         <div className="hero6-body">
           <p>
-            Nuestra misión es
-            <span className="hero6-italic-bold">
+            Nuestra misión es <span className="hero6-italic-bold">
               ser líderes en tecnologías reproductivas equinas, 
-            </span>
-            potenciando la genética y promoviendo una producción más eficiente.
+            </span> potenciando la genética y promoviendo una producción más eficiente.
           </p>
 
           <p>
