@@ -103,7 +103,7 @@ export default function ContactoPage() {
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
             <IconPin style={{ color: COLORS.gold }} />
             <p style={{ margin: 0, color: COLORS.textDim, textAlign: "center" }}>
-              Paso de Tahona, 85000 Trinidad <br />
+              Paso de La Tahona, 85000 Trinidad <br />
               Departamento de Flores, Uruguay
             </p>
           </div>
