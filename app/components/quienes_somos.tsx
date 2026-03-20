@@ -74,8 +74,8 @@ export default function QuienesSomosPage() {
               color: COLORS.textSoft,
             }}
           >
-            Acompañamos cada etapa del ciclo reproductivo con protocolos
-            actualizados, priorizando siempre el bienestar animal.
+            Detrás de La Querencia hay personas apasionadas por su profesión,
+            por los caballos y por producir en búsqueda de la excelencia.
           </p>
         </div>
       </section>

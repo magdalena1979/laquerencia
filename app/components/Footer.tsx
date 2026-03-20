@@ -38,7 +38,7 @@ export default function Footer() {
 
           <div className="footer-contact-divider" />
 
-          <p style={{ margin: 0 }}>Paso de Atahona, Trinidad, Uruguay</p>
+          <p style={{ margin: 0 }}>Paso de Tahona, Trinidad, Uruguay</p>
         </div>
 
         {/* Columna 3 */}

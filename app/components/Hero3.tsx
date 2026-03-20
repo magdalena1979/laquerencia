@@ -76,9 +76,10 @@ export default function Hero3() {
               <p>
                 Valoramos la tierra porque sabemos que{" "}
                 <span className="hero3-bold-italic">
-                  "un caballo bueno come lo mismo que el que no lo es"
+                  “Criar caballos implica el mismo esfuerzo y recursos
+                  independientemente de su genética”
                 </span>{" "}
-                —y por eso apostamos a criar y producir mejor, con
+                - por eso apostamos a criar y producir mejor, con
                 responsabilidad y visión de futuro.
               </p>
 
